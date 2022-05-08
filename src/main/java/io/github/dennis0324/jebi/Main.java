@@ -20,8 +20,8 @@
 
 package io.github.dennis0324.jebi;
 
+import io.github.dennis0324.jebi.UI.StageStarter;
 import io.github.dennis0324.jebi.UI.Login.LoginForm;
-import io.github.dennis0324.jebi.UI.Login.LoginPage;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -33,11 +33,11 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		LoginPage loginPage = new LoginPage();
-		loginPage.setMinSize(1000, 700);
-		Stage loginStage = loginPage.create();
+		StageStarter stage = new StageStarter(primaryStage);
+		stage.setMinSize(1000, 700);
+		stage.start();
 		
-		loginStage.show();
+
 
 	}
 	

@@ -21,6 +21,7 @@
 package io.github.dennis0324.jebi.UI.Login;
 
 import javafx.beans.value.ChangeListener;
+import javafx.concurrent.ScheduledService;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -31,61 +32,28 @@ import javafx.stage.Stage;
  * @author dennis ko
  */
 public class LoginPage {
-    private Stage stage;
+    private Stage primaryStage;
+    private Scene scene;
 
     /**
      * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
      * 
      * 
      */
-    public LoginPage(){
-        this.stage = new Stage();
+    public LoginPage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+        scene = new Scene(LoginForm.create());
     }
 
     /**
-     * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
+     * 로그인 페이지를 열어주는 메소드이다.
      * 
      * @param scence scence를 추가해준다.
      */
-    public void setStage(Scene scene){
-
+    public void open(){
+        this.primaryStage.setScene(this.scene);
     }    
 
-    /**
-    * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
-    * 
-    * @param width 로그인 화면의 최소사이즈를 정해준다.
-    * @param height 로그인 화면의 최소사이즈를 정해준다.
-    */
-    public void setMinSize(double width, double height){
-        this.stage.minWidthProperty().setValue(width);
-        this.stage.minHeightProperty().setValue(height);
-    }
-
     
-    /**
-     * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
-     * 
-     * @param width 프로그램의 명령 인수가 저장된 배열.
-     * @param height 프로그램의 명령 인수가 저장된 배열.
-     */
-    public void setMaxSize(double width, double height){
-        this.stage.maxWidthProperty().setValue(width);
-        this.stage.maxHeightProperty().setValue(height);
-    }
 
-    /**
-     * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
-     * 
-     * 
-     */
-    public Stage create(){
-
-        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
-		System.out.println("Height: " + stage.getHeight() + " Width: " + stage.getWidth());
-		
-		this.stage.widthProperty().addListener(stageSizeListener);
-		this.stage.heightProperty().addListener(stageSizeListener);
-        return this.stage;
-    }
 }
