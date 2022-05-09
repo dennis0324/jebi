@@ -18,34 +18,8 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.model;
 
-import io.github.dennis0324.jebi.util.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
-
-/**
- * 프로그램의 메인 클래스.
- * 
- * @author jdeokkim
- */
-public class Main extends Application {
-	/**
-	 * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
-	 * 
-	 * @param args 프로그램의 명령 인수가 저장된 배열.
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
-		
-		primaryStage.setWidth(Constants.SCREEN_WIDTH);
-		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
-		
-		primaryStage.show();
-	}
+public class Book {
+	/* TODO: ... */
 }

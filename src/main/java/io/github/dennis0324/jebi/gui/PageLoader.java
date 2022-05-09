@@ -18,8 +18,19 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.gui;
 
-public class Book {
+import java.util.HashMap;
+
+import javafx.scene.Scene;
+
+/**
+ * 페이지를 관리하는 클래스.
+ * 
+ * @author jdeokkim
+ */
+public final class PageLoader {
+	private HashMap<String, Scene> pages;
+	
 	/* TODO: ... */
 }
