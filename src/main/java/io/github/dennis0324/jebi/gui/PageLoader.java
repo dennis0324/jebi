@@ -20,17 +20,76 @@
 
 package io.github.dennis0324.jebi.gui;
 
+import java.io.IOException;
 import java.util.HashMap;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
- * 페이지를 관리하는 클래스.
+ * 프로그램 창의 페이지를 관리하는 클래스.
  * 
  * @author jdeokkim
  */
 public final class PageLoader {
-	private HashMap<String, Scene> pages;
+	// 각 페이지의 경로와 페이지에 대응하는 장면이 저장된 해시맵.
+	private final HashMap<String, Scene> scenes;
 	
-	/* TODO: ... */
+	// 프로그램의 창을 나타내는 변수.
+	private final Stage stage;
+	
+	/**
+	 * `PageLoader` 클래스의 생성자.
+	 * 
+	 * @param stage 프로그램의 창.
+	 */
+	public PageLoader(Stage stage) {
+		this.scenes = new HashMap<>();
+		this.stage = stage;
+	}
+	
+	/**
+	 * 주어진 경로에 해당하는 페이지로 이동한다.
+	 * 
+	 * @param path 페이지의 FXML 문서 경로.
+	 */
+	public void to(String path) {
+		stage.setScene(this.getScene(path));
+	}
+	
+	/**
+	 * 주어진 경로에 해당하는 페이지를 반환한다.
+	 * @param path 페이지의 FXML 문서 경로.
+	 * @return 주어진 경로에 해당하는 페이지.
+	 */
+	public Scene getScene(String path) {
+		// JDK 8: 메소드 레퍼런스 (method references)를 이용한 해시맵 조작
+		return scenes.computeIfAbsent(path, this::load);
+	}
+	
+	/**
+	 * 프로그램의 창을 반환한다.
+	 * 
+	 * @return 프로그램의 창.
+	 */
+	public Stage getStage() {
+		return stage;
+	}
+	
+	/**
+	 * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
+	 * 
+	 * @param path 페이지의 FXML 문서 경로.
+	 * @return 주어진 경로에 해당하는 페이지.
+	 */
+	private Scene load(String path) {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+		
+		try {
+			return new Scene(loader.load());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
