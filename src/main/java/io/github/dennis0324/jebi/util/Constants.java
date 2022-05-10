@@ -26,6 +26,12 @@ package io.github.dennis0324.jebi.util;
  * @author jdeokkim
  */
 public final class Constants {
+	// Firebase의 설정 파일이 저장된 경로.
+	public static final String CONFIG_PATH = "/firebase-config.json";
+	
+	// 프로그램 테스트에 사용될 Firebase 데이터베이스 URL.
+	public static final String DATABASE_URL = "https://jebi-test.firebaseapp.com";
+	
 	// 프로그램의 메인 창의 가로 길이.
 	public static final int SCREEN_WIDTH = 1440;
 	

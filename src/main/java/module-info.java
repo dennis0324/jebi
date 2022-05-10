@@ -19,9 +19,14 @@
  */
 
 module io.github.jdeokkim.jebi {
-    requires javafx.controls;
+    requires transitive javafx.controls;
 	requires javafx.graphics;
 	requires javafx.fxml;
 	requires MaterialFX;
+	requires com.google.auth;
+	requires com.google.auth.oauth2;
+	requires google.cloud.core;
+	requires google.cloud.firestore;
+	requires firebase.admin;
     exports io.github.dennis0324.jebi;
 }
