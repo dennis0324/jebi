@@ -20,6 +20,79 @@
 
 package io.github.dennis0324.jebi.model;
 
+/**
+ * 사용자를 나타내는 클래스.
+ * 
+ * @author jdeokkim
+ */
 public class User {
-	/* TODO: ... */
+	// 사용자의 고유 번호.
+	private String uid;
+	
+	// 사용자의 이메일 주소.
+	private String email;
+	
+	// 사용자의 이름.
+	private String name;
+	
+	// 사용자의 전화번호.
+	private String phoneNumber;
+	
+	// 사용자의 관리자 여부.
+	private boolean _isAdmin;
+	
+	/**
+	 * `User` 클래스의 생성자.
+	 * 
+	 * @param uid 사용자의 고유 번호.
+	 */
+	public User(String uid) {
+		// TODO: ...
+		this.uid = uid;
+	}
+	
+	/**
+	 * 사용자의 고유 번호를 반환한다.
+	 * 
+	 * @return 사용자의 고유 번호.
+	 */
+	public String getUid() {
+		return uid;
+	}
+	
+	/**
+	 * 사용자의 이메일 주소를 반환한다.
+	 * 
+	 * @return 사용자의 이메일 주소.
+	 */
+	public String getEmail() {
+		return email;
+	}
+	
+	/**
+	 * 사용자의 이름을 반환한다.
+	 * 
+	 * @return 사용자의 이름.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * 사용자의 전화번호를 반환한다.
+	 * 
+	 * @return 사용자의 전화번호.
+	 */
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	
+	/**
+	 * 사용자의 이름을 반환한다.
+	 * 
+	 * @return 사용자의 이름.
+	 */
+	public boolean isAdmin() {
+		return _isAdmin;
+	}
 }
