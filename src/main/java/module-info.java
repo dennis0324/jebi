@@ -22,5 +22,6 @@ module io.github.jdeokkim.jebi {
     requires javafx.controls;
 	requires javafx.graphics;
 	requires javafx.fxml;
+	requires MaterialFX;
     exports io.github.dennis0324.jebi;
 }
