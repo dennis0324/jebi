@@ -20,6 +20,7 @@
 
 package io.github.dennis0324.jebi;
 
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.util.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -41,10 +42,14 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		PageLoader pageLoader = new PageLoader(primaryStage);
+		
 		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
 		
 		primaryStage.setWidth(Constants.SCREEN_WIDTH);
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
+		
+		pageLoader.to("/pages/LoginFirst.fxml");
 		
 		primaryStage.show();
 	}
