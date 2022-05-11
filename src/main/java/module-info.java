@@ -28,5 +28,7 @@ module io.github.jdeokkim.jebi {
 	requires google.cloud.core;
 	requires google.cloud.firestore;
 	requires firebase.admin;
+
+    opens io.github.dennis0324.jebi.gui.controller;
     exports io.github.dennis0324.jebi;
 }

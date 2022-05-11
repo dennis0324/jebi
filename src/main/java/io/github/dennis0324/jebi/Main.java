@@ -20,8 +20,17 @@
 
 package io.github.dennis0324.jebi;
 
+
+import java.util.HashMap;
+
+import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.gui.controller.loginPageController;
 import io.github.dennis0324.jebi.util.*;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -41,11 +50,23 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		PageLoader pageLoader = new PageLoader(primaryStage);
 		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
 		
 		primaryStage.setWidth(Constants.SCREEN_WIDTH);
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
+		// pageLoader.getScene("/fxml/login_first.fxml");
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/login_first.fxml"));
+		// loginPageController controller = loader.getController();
+		// System.out.print(controller);
+		loginPageController testing = new loginPageController();
+		loader.setController(testing);
 		
+		// pageLoader.getScene("/fxml/login_second.fxml");
+		// pageLoader.to("/fxml/login_first.fxml");
+
+	
+		primaryStage.setScene(new Scene(loader.load()));
 		primaryStage.show();
 	}
 }

@@ -21,8 +21,11 @@
 package io.github.dennis0324.jebi.gui;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 
+import io.github.dennis0324.jebi.gui.controller.loginPageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -67,6 +70,7 @@ public final class PageLoader {
 		// JDK 8: 메소드 레퍼런스 (method references)를 이용한 해시맵 조작
 		return scenes.computeIfAbsent(path, this::load);
 	}
+
 	
 	/**
 	 * 프로그램의 창을 반환한다.
@@ -84,12 +88,23 @@ public final class PageLoader {
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
 	private Scene load(String path) {
+		System.out.println(path);
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+		// controller.valueInit(this);
+		
 		
 		try {
 			return new Scene(loader.load());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public Scene getScene(String path,Object object){
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+		loader.setController(object);
+
+		
 	}
 }
