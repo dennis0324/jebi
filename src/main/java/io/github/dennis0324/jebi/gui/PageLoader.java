@@ -25,8 +25,9 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
-import io.github.dennis0324.jebi.gui.controller.loginPageController;
+import io.github.palexdev.materialfx.utils.others.loader.MFXLoader;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -66,9 +67,14 @@ public final class PageLoader {
 	 * @param path 페이지의 FXML 문서 경로.
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
+	public Scene getScene(String path,Object object) {
+		// JDK 8: 메소드 레퍼런스 (method references)를 이용한 해시맵 조작
+		return scenes.computeIfAbsent(path, c -> load(c,object));
+	}
+
 	public Scene getScene(String path) {
 		// JDK 8: 메소드 레퍼런스 (method references)를 이용한 해시맵 조작
-		return scenes.computeIfAbsent(path, this::load);
+		return scenes.computeIfAbsent(path,c -> load(c,null));
 	}
 
 	
@@ -85,26 +91,26 @@ public final class PageLoader {
 	 * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
 	 * 
 	 * @param path 페이지의 FXML 문서 경로.
+	 * @param object 페이지의 이벤트 헨들러(Controller)
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
-	private Scene load(String path) {
-		System.out.println(path);
-		
+	private Scene load(String path,Object object) {
+		Parent parent;
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-		// controller.valueInit(this);
 		
-		
+		if(object != null)
+			loader.setController(object);
+
 		try {
-			return new Scene(loader.load());
-		} catch (IOException e) {
+			parent = loader.load();
+		} 
+		catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+
+		return new Scene(parent);
+
 	}
 
-	public Scene getScene(String path,Object object){
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-		loader.setController(object);
-
-		
-	}
+	
 }
