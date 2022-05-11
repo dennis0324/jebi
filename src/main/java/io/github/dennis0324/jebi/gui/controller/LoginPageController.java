@@ -18,43 +18,45 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.*;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324
  */
-public class LoginPageController implements Initializable {
+public class LoginPageController implements Controller {
+	@FXML
+	private MFXTextField emailField;
+	
     @FXML
-    private MFXButton login;
+    private MFXButton forgotEmail;
+    
+    @FXML
+    private MFXButton loginNext;
 
     @FXML
-    private MFXButton makeID;
+    private MFXButton createAccount;
 
     @FXML
-    private MFXButton forgotID;
-
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        login.setOnMouseClicked(event -> {
+    public void initialize() {
+    	emailField.setOnMouseClicked(event -> {
             System.out.println(".");
         });
 
-        makeID.setOnMouseClicked(event -> {
+    	forgotEmail.setOnMouseClicked(event -> {
             System.out.println("..");
         });
 
-        forgotID.setOnMouseClicked(event -> {
+    	loginNext.setOnMouseClicked(event -> {
             System.out.println("...");
+        });
+    	
+    	createAccount.setOnMouseClicked(event -> {
+            System.out.println("....");
         });
     }
 }

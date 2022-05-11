@@ -18,16 +18,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-module io.github.jdeokkim.jebi {
-    requires transitive javafx.controls;
-	requires javafx.graphics;
-	requires javafx.fxml;
-	requires MaterialFX;
-	requires com.google.auth;
-	requires com.google.auth.oauth2;
-	requires google.cloud.core;
-	requires google.cloud.firestore;
-	requires firebase.admin;
-	opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
-    exports io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.gui.controller;
+
+/**
+ * 이벤트 컨트롤러를 나타내는 인터페이스.
+ * 
+ * @author jdeokkim
+ */
+public interface Controller {
+	/* TODO: ... */
 }
