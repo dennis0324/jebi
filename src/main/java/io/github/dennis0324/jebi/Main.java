@@ -49,6 +49,8 @@ public class Main extends Application {
 		primaryStage.setWidth(Constants.SCREEN_WIDTH);
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
+		primaryStage.setResizable(false);
+		
 		pageLoader.to("/pages/LoginFirst.fxml");
 		
 		primaryStage.show();

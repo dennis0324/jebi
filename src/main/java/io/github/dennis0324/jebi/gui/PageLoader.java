@@ -41,6 +41,9 @@ public final class PageLoader {
 	// 프로그램의 창을 나타내는 변수.
 	private final Stage stage;
 	
+	// 다음 페이지에 넘겨줄 객체.
+	private Object arg;
+	
 	/**
 	 * 클래스 생성자가 호출되기 전에 호출된다.
 	 */
@@ -67,6 +70,27 @@ public final class PageLoader {
 		
 		if (scene != null || scene != stage.getScene()) 
 			stage.setScene(scene);
+	}
+	
+	/**
+	 * 주어진 경로에 해당하는 페이지로 이동한다.
+	 * 
+	 * @param path 페이지의 FXML 문서 경로.
+	 * @param arg 다음 페이지에 넘겨줄 객체.
+	 */
+	public void to(String path, Object arg) {
+		this.arg = arg;
+		
+		to(path);
+	}
+	
+	/**
+	 * 다음 페이지에 넘겨줄 객체를 반환한다.
+	 * 
+	 * @return 다음 페이지에 넘겨줄 객체.
+	 */
+	public Object getArgument() {
+		return arg;
 	}
 	
 	/**
