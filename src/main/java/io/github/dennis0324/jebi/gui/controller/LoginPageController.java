@@ -28,35 +28,35 @@ import javafx.fxml.FXML;
  * 
  * @author dennis0324
  */
-public class LoginPageController implements Controller {
+public class LoginPageController extends Controller {
 	@FXML
-	private MFXTextField emailField;
+	private MFXTextField emailTextField;
 	
     @FXML
-    private MFXButton forgotEmail;
+    private MFXButton forgotEmailBtn;
     
     @FXML
-    private MFXButton loginNext;
-
+    private MFXButton createNewBtn;
+    
     @FXML
-    private MFXButton createAccount;
+    private MFXButton loginBtn;
 
     @FXML
     public void initialize() {
-    	emailField.setOnMouseClicked(event -> {
+    	emailTextField.setOnMouseClicked(event -> {
             System.out.println(".");
         });
 
-    	forgotEmail.setOnMouseClicked(event -> {
+    	forgotEmailBtn.setOnMouseClicked(event -> {
             System.out.println("..");
         });
-
-    	loginNext.setOnMouseClicked(event -> {
-            System.out.println("...");
-        });
     	
-    	createAccount.setOnMouseClicked(event -> {
+    	createNewBtn.setOnMouseClicked(event -> {
             System.out.println("....");
+        });
+
+    	loginBtn.setOnMouseClicked(event -> {
+            getPageLoader().to("/pages/LoginSecond.fxml");
         });
     }
 }

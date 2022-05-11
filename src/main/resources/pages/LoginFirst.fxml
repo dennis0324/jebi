@@ -16,7 +16,7 @@
          <center>
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXTextField fx:id="emailField" floatingText="이메일" layoutY="113.0" prefHeight="49.0" prefWidth="348.0">
+                  <MFXTextField fx:id="emailTextField" floatingText="이메일" layoutY="113.0" prefHeight="49.0" prefWidth="348.0">
                      <font>
                         <Font name="Malgun Gothic" size="14.0" />
                      </font>
@@ -24,10 +24,11 @@
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </MFXTextField>
-                  <MFXButton fx:id="forgotEmail" layoutY="172.0" prefHeight="20.0" text="이메일을 잊으셨나요?" textFill="#a4a4a4">
+                  <MFXButton fx:id="forgotEmailBtn" layoutY="172.0" prefHeight="20.0" text="이메일을 잊으셨나요?" textFill="#a4a4a4">
                      <font>
                         <Font name="Malgun Gothic" size="13.0" />
-                     </font></MFXButton>
+                     </font>
+                  </MFXButton>
                </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
@@ -37,20 +38,22 @@
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="loginNext" buttonType="RAISED" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
+                  <MFXButton fx:id="createNewBtn" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" text="계정 생성" textFill="#6a8bff">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <font>
                         <Font name="Malgun Gothic" size="13.0" />
-                     </font></MFXButton>
-                  <MFXButton fx:id="createAccount" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" text="계정 생성" textFill="#6a8bff">
+                     </font>
+                  </MFXButton>
+                  <MFXButton fx:id="loginBtn" buttonType="RAISED" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                      <font>
                         <Font name="Malgun Gothic" size="13.0" />
-                     </font></MFXButton>
+                     </font>
+                  </MFXButton>
                </children>
             </AnchorPane>
          </bottom>

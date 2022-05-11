@@ -23,7 +23,9 @@ package io.github.dennis0324.jebi.gui;
 import java.io.IOException;
 import java.util.HashMap;
 
+import io.github.dennis0324.jebi.gui.controller.Controller;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -69,6 +71,7 @@ public final class PageLoader {
 	
 	/**
 	 * 주어진 경로에 해당하는 페이지를 반환한다.
+	 * 
 	 * @param path 페이지의 FXML 문서 경로.
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
@@ -96,7 +99,14 @@ public final class PageLoader {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 		
 		try {
-			return new Scene(loader.load());
+			Parent parent = loader.load();
+			
+			Controller controller = loader.getController();
+			
+			if (controller != null)
+				controller.setPageLoader(this);
+			
+			return new Scene(parent);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
