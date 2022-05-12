@@ -24,13 +24,10 @@ package io.github.dennis0324.jebi;
 import java.util.HashMap;
 
 import io.github.dennis0324.jebi.gui.PageLoader;
-import io.github.dennis0324.jebi.gui.controller.LoginPageController;
+import io.github.dennis0324.jebi.gui.controller.BookController;
+import io.github.dennis0324.jebi.gui.controller.FirstLoginPageController;
 import io.github.dennis0324.jebi.util.*;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
@@ -55,9 +52,16 @@ public class Main extends Application {
 		
 		primaryStage.setWidth(Constants.SCREEN_WIDTH);
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
+		primaryStage.setResizable(false);
 
-		pageLoader.getScene("/fxml/login_first.fxml",new LoginPageController(pageLoader));
-		pageLoader.to("/fxml/login_first.fxml");
+
+		
+		pageLoader.to("/fxml/register.fxml");
+		
+		// pageLoader.getScene("/fxml/login_first.fxml",new FirstLoginPageController(pageLoader));
+		// pageLoader.getScene("/fxml/login_second.fxml");
+		// pageLoader.to("/fxml/login_first.fxml");
+		
 
 	
 		// primaryStage.setScene(new Scene(loader.load()));

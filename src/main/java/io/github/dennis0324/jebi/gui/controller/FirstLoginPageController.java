@@ -4,21 +4,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-import com.google.firebase.database.core.view.Event;
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler;
 
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
-public class LoginPageController implements Initializable {
+public class FirstLoginPageController implements Initializable {
 
     private PageLoader pageLoader;
 
 
-    public LoginPageController(PageLoader pageLoader){
+    public FirstLoginPageController(PageLoader pageLoader){
         this.pageLoader = pageLoader;
     }
 
@@ -35,8 +35,11 @@ public class LoginPageController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         
+
         login.setOnMouseClicked(event -> {
             System.out.print("loginBTN click");
+            // System.out.println(pageLoader.getScene("/fxml/login_second.fxml").getUserData());
+            
         });
 
         makeID.setOnMouseClicked(event -> {
@@ -46,10 +49,6 @@ public class LoginPageController implements Initializable {
         forgotID.setOnMouseClicked(event -> {
             System.out.println("forgot ID");
         });
-
-        // forgotID.setOnMouseClicked(event -> {
-        //     System.out.println("forget ID Btn click");
-        // });
 
     }
 
