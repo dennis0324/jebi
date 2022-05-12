@@ -18,41 +18,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.gui.controller;
 
 import io.github.dennis0324.jebi.gui.PageLoader;
-import io.github.dennis0324.jebi.util.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 /**
- * 프로그램의 메인 클래스.
+ * 이벤트 컨트롤러를 나타내는 추상 클래스.
  * 
  * @author jdeokkim
  */
-public class Main extends Application {
+public abstract class Controller {
+	private PageLoader pageLoader;
+	
 	/**
-	 * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
+	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
 	 * 
-	 * @param args 프로그램의 명령 인수가 저장된 배열.
+	 * @return `PageLoader` 인스턴스.
 	 */
-	public static void main(String[] args) {
-		launch(args);
+	public PageLoader getPageLoader() {
+		return pageLoader;
 	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		PageLoader pageLoader = new PageLoader(primaryStage);
-		
-		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
-		
-		primaryStage.setWidth(Constants.SCREEN_WIDTH);
-		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
-		
-		primaryStage.setResizable(false);
-		
-		pageLoader.to("/pages/LoginFirst.fxml");
-		
-		primaryStage.show();
+	
+	/**
+	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
+	 * 
+	 * @param pageLoader `PageLoader` 인스턴스.
+	 */
+	public void setPageLoader(PageLoader pageLoader) {
+		this.pageLoader = pageLoader;
 	}
 }

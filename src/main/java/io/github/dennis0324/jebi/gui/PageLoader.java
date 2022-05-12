@@ -23,7 +23,9 @@ package io.github.dennis0324.jebi.gui;
 import java.io.IOException;
 import java.util.HashMap;
 
+import io.github.dennis0324.jebi.gui.controller.Controller;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -34,10 +36,20 @@ import javafx.stage.Stage;
  */
 public final class PageLoader {
 	// 각 페이지의 경로와 페이지에 대응하는 장면이 저장된 해시맵.
-	private final HashMap<String, Scene> scenes;
+	private static final HashMap<String, Scene> scenes;
 	
 	// 프로그램의 창을 나타내는 변수.
 	private final Stage stage;
+	
+	// 다음 페이지에 넘겨줄 객체.
+	private Object arg;
+	
+	/**
+	 * 클래스 생성자가 호출되기 전에 호출된다.
+	 */
+	static {
+		scenes = new HashMap<>();
+	}
 	
 	/**
 	 * `PageLoader` 클래스의 생성자.
@@ -45,7 +57,6 @@ public final class PageLoader {
 	 * @param stage 프로그램의 창.
 	 */
 	public PageLoader(Stage stage) {
-		this.scenes = new HashMap<>();
 		this.stage = stage;
 	}
 	
@@ -60,6 +71,7 @@ public final class PageLoader {
 	
 	/**
 	 * 주어진 경로에 해당하는 페이지를 반환한다.
+	 * 
 	 * @param path 페이지의 FXML 문서 경로.
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
