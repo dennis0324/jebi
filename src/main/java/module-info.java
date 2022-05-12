@@ -28,6 +28,7 @@ module io.github.jdeokkim.jebi {
 	requires google.cloud.core;
 	requires google.cloud.firestore;
 	requires firebase.admin;
+	requires org.slf4j;
 	opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }

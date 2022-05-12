@@ -24,6 +24,9 @@ package io.github.dennis0324.jebi.core;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
@@ -39,14 +42,17 @@ import io.github.dennis0324.jebi.util.Constants;
  * @author jdeokkim
  */
 public class DataProvider {
+	// `DataProvider` 클래스의 로거.
+	private static final Logger LOG = LoggerFactory.getLogger(DataProvider.class);
+	
+	// Firebase 애플리케이션의 초기화 여부.
+	private static boolean initialized = false;
+		
 	// Firebase의 Firebase 인증 인스턴스.
 	private FirebaseAuth auth;
 	
 	// Firebase의 Firestore 데이터베이스 인스턴스.
 	private Firestore db;
-	
-	// Firebase 애플리케이션의 초기화 여부.
-	private static boolean initialized = false;
 	
 	/**
 	 * `DataProvider` 클래스의 생성자.
@@ -55,6 +61,8 @@ public class DataProvider {
 		if (!initialized) {
 			try {
 				InputStream stream = getClass().getResourceAsStream(Constants.CONFIG_PATH);
+				
+				LOG.info("Firebase 설정 파일을 불러왔습니다.");
 				
 				FirebaseOptions options = FirebaseOptions.builder()
 				    .setCredentials(GoogleCredentials.fromStream(stream))
@@ -65,6 +73,8 @@ public class DataProvider {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+			
+			LOG.info("Firebase SDK 초기화가 완료되었습니다.");
 			
 			initialized = true;
 		}
