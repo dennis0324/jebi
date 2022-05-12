@@ -26,7 +26,7 @@ package io.github.dennis0324.jebi.model;
  * @author jdeokkim
  */
 public class User {
-	// 사용자의 고유 번호.
+	// 사용자의 고유 ID.
 	private String uid;
 	
 	// 사용자의 이메일 주소.
@@ -44,7 +44,7 @@ public class User {
 	/**
 	 * `User` 클래스의 생성자.
 	 * 
-	 * @param uid 사용자의 고유 번호.
+	 * @param uid 사용자의 고유 ID.
 	 */
 	public User(String uid) {
 		// TODO: ...
@@ -52,9 +52,22 @@ public class User {
 	}
 	
 	/**
-	 * 사용자의 고유 번호를 반환한다.
+	 * `User` 클래스의 생성자.
 	 * 
-	 * @return 사용자의 고유 번호.
+	 * @param email 사용자의 이메일 주소.
+	 * @param name 사용자의 이름.
+	 * @param phoneNumber 사용자의 전화번호.
+	 */
+	public User(String email, String name, String phoneNumber) {
+		this.email = email;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+	}
+	
+	/**
+	 * 사용자의 고유 ID를 반환한다.
+	 * 
+	 * @return 사용자의 고유 ID.
 	 */
 	public String getUid() {
 		return uid;
@@ -94,5 +107,41 @@ public class User {
 	 */
 	public boolean isAdmin() {
 		return _isAdmin;
+	}
+	
+	/**
+	 * 사용자의 고유 ID를 설정한다.
+	 * 
+	 * @param uid 사용자의 고유 ID.
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+	
+	/**
+	 * 사용자의 이메일 주소를 설정한다.
+	 * 
+	 * @param email 사용자의 이메일 주소.
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	/**
+	 * 사용자의 이름을 설정한다.
+	 * 
+	 * @param name 사용자의 이름.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * 사용자의 전화번호를 설정한다.
+	 * 
+	 * @param phoneNumber 사용자의 전화번호.
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

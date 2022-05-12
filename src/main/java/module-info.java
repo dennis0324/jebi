@@ -18,7 +18,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-module io.github.jdeokkim.jebi {
+module io.github.dennis0324.jebi {
     requires transitive javafx.controls;
 	requires javafx.graphics;
 	requires javafx.fxml;
@@ -29,6 +29,7 @@ module io.github.jdeokkim.jebi {
 	requires google.cloud.firestore;
 	requires firebase.admin;
 	requires org.slf4j;
+	requires com.google.api.apicommon;
 	opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }
