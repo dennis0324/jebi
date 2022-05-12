@@ -18,8 +18,33 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.gui.controller;
 
-public class Book {
-	/* TODO: ... */
+import io.github.dennis0324.jebi.gui.PageLoader;
+
+/**
+ * 이벤트 컨트롤러를 나타내는 추상 클래스.
+ * 
+ * @author jdeokkim
+ */
+public abstract class Controller {
+	private PageLoader pageLoader;
+	
+	/**
+	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
+	 * 
+	 * @return `PageLoader` 인스턴스.
+	 */
+	public PageLoader getPageLoader() {
+		return pageLoader;
+	}
+	
+	/**
+	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
+	 * 
+	 * @param pageLoader `PageLoader` 인스턴스.
+	 */
+	public void setPageLoader(PageLoader pageLoader) {
+		this.pageLoader = pageLoader;
+	}
 }

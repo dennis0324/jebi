@@ -20,8 +20,8 @@
 
 package io.github.dennis0324.jebi;
 
-import io.github.dennis0324.jebi.UI.StageStarter;
-import io.github.dennis0324.jebi.UI.Login.LoginForm;
+import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.util.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -31,16 +31,6 @@ import javafx.stage.Stage;
  * @author jdeokkim
  */
 public class Main extends Application {
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		StageStarter stage = new StageStarter(primaryStage);
-		stage.setMinSize(1000, 700);
-		stage.start();
-		
-
-
-	}
-	
 	/**
 	 * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
 	 * 
@@ -48,5 +38,21 @@ public class Main extends Application {
 	 */
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		PageLoader pageLoader = new PageLoader(primaryStage);
+		
+		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
+		
+		primaryStage.setWidth(Constants.SCREEN_WIDTH);
+		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
+		
+		primaryStage.setResizable(false);
+		
+		pageLoader.to("/pages/LoginFirst.fxml");
+		
+		primaryStage.show();
 	}
 }

@@ -18,8 +18,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package io.github.dennis0324.jebi;
+package io.github.dennis0324.jebi.util;
 
-public class User {
-	/* TODO: ... */
+/**
+ * 프로그램에 사용되는 모든 문자열이 저장된 클래스.
+ * 
+ * @author jdeokkim
+ */
+public final class Messages {
+	/* TODO: `java.util.ResourceBundle` 클래스를 통한 국제화 (i18n) 지원 */
+	
+	// 프로그램의 메인 창의 이름.
+	public static final String PRIMARY_STAGE_TITLE = "jebi - JavaFX로 만든 도서 관리 소프트웨어";
 }
