@@ -23,17 +23,22 @@ package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.cloud.FirestoreClient;
 
+import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Constants;
 
 /**
@@ -42,22 +47,22 @@ import io.github.dennis0324.jebi.util.Constants;
  * @author jdeokkim
  */
 public class DataProvider {
-	// `DataProvider` 클래스의 로거.
+	// `DataProvider`의 로거.
 	private static final Logger LOG = LoggerFactory.getLogger(DataProvider.class);
+	
+	// `DataProvider`의 인스턴스.
+	private static DataProvider instance = null;
 	
 	// Firebase 애플리케이션의 초기화 여부.
 	private static boolean initialized = false;
-		
-	// Firebase의 Firebase 인증 인스턴스.
-	private FirebaseAuth auth;
 	
-	// Firebase의 Firestore 데이터베이스 인스턴스.
+	// Firebase의 Cloud Firestore 인스턴스.
 	private Firestore db;
 	
 	/**
 	 * `DataProvider` 클래스의 생성자.
 	 */
-	public DataProvider() {
+	private DataProvider() {
 		if (!initialized) {
 			try {
 				InputStream stream = getClass().getResourceAsStream(Constants.CONFIG_PATH);
@@ -79,9 +84,52 @@ public class DataProvider {
 			initialized = true;
 		}
 		
-		this.auth = FirebaseAuth.getInstance();
 		this.db = FirestoreClient.getFirestore();
 	}
 	
-	/* TODO: ... */
+	/**
+	 * `DataProvider`의 인스턴스를 반환한다.
+	 * 
+	 * @return `DataProvider`의 인스턴스.
+	 */
+	public static DataProvider getInstance() {
+		if (instance == null) 
+			instance = new DataProvider();
+		
+		return instance;
+	}
+	
+	/**
+	 * 주어진 사용자 정보를 통해 사용자 계정을 생성한다.
+	 * 
+	 * @param user 사용자 계정의 정보.
+	 * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+	 */
+	public ApiFuture<WriteResult> createUser(User user) {
+		if (user.getUid() == null)
+			user.setUid(UUID.randomUUID().toString());
+		
+		DocumentReference ref = db.collection("users").document(user.getUid());
+		
+		HashMap<String, Object> data = new HashMap<>();
+		
+		data.put("uid", user.getUid());
+		data.put("email", user.getEmail());
+		data.put("name", user.getName());
+		data.put("phoneNumber", user.getPhoneNumber());
+		
+		return ref.set(data);
+	}
+	
+	/**
+	 * 주어진 고유 ID에 대응하는 사용자 계정을 삭제한다.
+	 * 
+	 * @param uid 사용자의 고유 ID.
+	 * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+	 */
+	public ApiFuture<WriteResult> deleteUser(String uid) {
+		DocumentReference ref = db.collection("users").document(uid);
+		
+		return ref.delete();
+	}
 }

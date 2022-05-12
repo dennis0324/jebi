@@ -86,7 +86,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>io.github.jdeokkim.jebi.Main</mainClass>
+                            <mainClass>io.github.dennis0324.jebi.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

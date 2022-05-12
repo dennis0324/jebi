@@ -18,23 +18,23 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-module io.github.jdeokkim.jebi {
+module io.github.dennis0324.jebi {
     requires transitive javafx.controls;
-	requires javafx.graphics;
-	requires javafx.fxml;
-	requires MaterialFX;
-	requires com.google.auth;
-	requires com.google.auth.oauth2;
-	requires google.cloud.core;
-	requires google.cloud.firestore;
-	requires firebase.admin;
-	requires org.slf4j;
-    requires de.jensd.fx.glyphs.commons;
+    requires javafx.graphics;
+    requires javafx.fxml;
+    requires MaterialFX;
+    requires org.slf4j;
+    requires com.google.api.apicommon;
+    requires com.google.auth;
+    requires com.google.auth.oauth2;
+    requires google.cloud.core;
+    requires google.cloud.firestore;
+    requires firebase.admin;
+	requires commons.validator;
+	requires de.jensd.fx.glyphs.commons;
     requires de.jensd.fx.glyphs.materialdesignicons;
     requires de.jensd.fx.glyphs.fontawesome;
     requires de.jensd.fx.glyphs.materialicons;
-
-	opens io.github.dennis0324.jebi.gui.controller;
-
+    opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }
