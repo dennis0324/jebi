@@ -1,6 +1,7 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,6 +33,9 @@ public class RegisterController implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        
+        // Image image = new Image(getClass().getResource("/fxml/register.fxml").toString());
+        // logo.setImage(image);
         // logo.setImage(image);
         
     }
