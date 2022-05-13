@@ -28,14 +28,16 @@ import java.security.NoSuchAlgorithmException;
  * 
  * @author jdeokkim
  */
-public class Hashing {
+public final class PasswordUtils {
+	private static final int MIN_LENGTH = 8;
+	
 	/**
 	 * SHA-256 해싱 알고리즘을 사용하여, 주어진 문자열을 암호화한다.
 	 * 
 	 * @param str SHA-256 해싱 알고리즘으로 암호화할 문자열.
 	 * @return SHA-256 해싱 알고리즘으로 암호화된 문자열.
 	 */
-	public static String sha256(String str) {
+	public static String encrypt(String str) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
 			
@@ -52,5 +54,15 @@ public class Hashing {
 		} catch (NoSuchAlgorithmException e) {
 			return null;
 		}
+	}
+	
+	/**
+	 * 주어진 문자열이 올바른 비밀번호인지 확인한다.
+	 * 
+	 * @param str 올바른 비밀번호인지 확인할 문자열.
+	 * @return 문자열이 올바른 비밀번호인지 여부.
+	 */
+	public static boolean isValid(String str) {
+		return !str.isBlank() && str.length() > MIN_LENGTH;
 	}
 }
