@@ -25,13 +25,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.api.core.ApiFuture;
+import com.google.api.core.ApiFutures;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
@@ -56,6 +61,9 @@ public class DataProvider {
 	// Firebase 애플리케이션의 초기화 여부.
 	private static boolean initialized = false;
 	
+	// 비동기 작업 처리를 위한 스레드 풀.
+	private ExecutorService pool;
+	
 	// Firebase의 Cloud Firestore 인스턴스.
 	private Firestore db;
 	
@@ -67,7 +75,7 @@ public class DataProvider {
 			try {
 				InputStream stream = getClass().getResourceAsStream(Constants.CONFIG_PATH);
 				
-				LOG.info("Firebase 설정 파일을 불러왔습니다.");
+				LOG.info("Firebase SDK를 초기화합니다...");
 				
 				FirebaseOptions options = FirebaseOptions.builder()
 				    .setCredentials(GoogleCredentials.fromStream(stream))
@@ -79,11 +87,10 @@ public class DataProvider {
 				throw new RuntimeException(e);
 			}
 			
-			LOG.info("Firebase SDK 초기화가 완료되었습니다.");
-			
 			initialized = true;
 		}
 		
+		this.pool = Executors.newCachedThreadPool();
 		this.db = FirestoreClient.getFirestore();
 	}
 	
@@ -114,9 +121,12 @@ public class DataProvider {
 		HashMap<String, Object> data = new HashMap<>();
 		
 		data.put("uid", user.getUid());
-		data.put("email", user.getEmail());
 		data.put("name", user.getName());
+		data.put("email", user.getEmail());
+		data.put("pwdHash", user.getPwdHash());
 		data.put("phoneNumber", user.getPhoneNumber());
+		
+		LOG.info("사용자 계정을 생성합니다...");
 		
 		return ref.set(data);
 	}
@@ -130,6 +140,32 @@ public class DataProvider {
 	public ApiFuture<WriteResult> deleteUser(String uid) {
 		DocumentReference ref = db.collection("users").document(uid);
 		
+		LOG.info("사용자 계정을 삭제합니다...");
+		
 		return ref.delete();
+	}
+	
+	/**
+	 * 주어진 고유 ID를 가진 사용자 계정이 존재하는지 확인한다.
+	 * 
+	 * @param uid 사용자의 고유 ID.
+	 * @return 사용자 계정의 존재 여부.
+	 */
+	public ApiFuture<Boolean> userExists(String uid) {
+		DocumentReference ref = db.collection("users").document(uid);
+		
+		ApiFuture<DocumentSnapshot> future = ref.get();
+		
+		return ApiFutures.transform(
+			future,
+			(snapshot) -> {
+				try {
+					return future.get().exists();
+				} catch (InterruptedException | ExecutionException e) {
+					return false;
+				}
+			},
+			pool
+		);
 	}
 }

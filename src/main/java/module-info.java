@@ -23,13 +23,13 @@ module io.github.dennis0324.jebi {
 	requires javafx.graphics;
 	requires javafx.fxml;
 	requires MaterialFX;
+	requires org.slf4j;
+	requires com.google.api.apicommon;
 	requires com.google.auth;
 	requires com.google.auth.oauth2;
 	requires google.cloud.core;
 	requires google.cloud.firestore;
 	requires firebase.admin;
-	requires org.slf4j;
-	requires com.google.api.apicommon;
 	opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }
