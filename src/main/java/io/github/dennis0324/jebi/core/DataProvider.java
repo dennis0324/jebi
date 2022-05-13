@@ -38,6 +38,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -151,16 +152,41 @@ public class DataProvider {
 	 * @param uid 사용자의 고유 ID.
 	 * @return 사용자 계정의 존재 여부.
 	 */
-	public ApiFuture<Boolean> userExists(String uid) {
-		DocumentReference ref = db.collection("users").document(uid);
-		
-		ApiFuture<DocumentSnapshot> future = ref.get();
+	public ApiFuture<Boolean> uidExists(String uid) {
+		ApiFuture<DocumentSnapshot> future = db.collection("users")
+			.document(uid)
+			.get();
 		
 		return ApiFutures.transform(
 			future,
 			(snapshot) -> {
 				try {
 					return future.get().exists();
+				} catch (InterruptedException | ExecutionException e) {
+					return false;
+				}
+			},
+			pool
+		);
+	}
+	
+	/**
+	 * 주어진 이메일 주소를 가진 사용자 계정이 존재하는지 확인한다.
+	 * 
+	 * @param uid 사용자의 이메일 주소.
+	 * @return 사용자 계정의 존재 여부.
+	 */
+	public ApiFuture<Boolean> emailExists(String email) {
+		ApiFuture<QuerySnapshot> future = db.collection("users")
+			.whereEqualTo("email", email)
+			.limit(1)
+			.get();
+		
+		return ApiFutures.transform(
+			future,
+			(snapshot) -> {
+				try {
+					return future.get().isEmpty();
 				} catch (InterruptedException | ExecutionException e) {
 					return false;
 				}
