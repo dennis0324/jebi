@@ -31,6 +31,10 @@ module io.github.dennis0324.jebi {
     requires google.cloud.firestore;
     requires firebase.admin;
 	requires commons.validator;
+	requires de.jensd.fx.glyphs.commons;
+    requires de.jensd.fx.glyphs.materialdesignicons;
+    requires de.jensd.fx.glyphs.fontawesome;
+    requires de.jensd.fx.glyphs.materialicons;
     opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }
