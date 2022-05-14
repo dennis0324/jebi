@@ -14,14 +14,22 @@ import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 
+<<<<<<< HEAD
 public class TableBookCompoController extends Controller implements Initializable {
+=======
+public class TableBookCompoController extends Controller {
+>>>>>>> 5d97164... 컨트롤러 추가
 
     @FXML
     private MFXTableView<Book> table;
     
     
+<<<<<<< HEAD
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+=======
+    public void initialize() {
+>>>>>>> 5d97164... 컨트롤러 추가
         setupTable();
         table.autosizeColumnsOnInitialization();
 

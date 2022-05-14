@@ -69,7 +69,11 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
 }
 
 
+<<<<<<< HEAD
 public class TableController extends Controller implements Initializable {
+=======
+public class TableController extends Controller {
+>>>>>>> 5d97164... 컨트롤러 추가
 
 
     @FXML
@@ -109,8 +113,12 @@ public class TableController extends Controller implements Initializable {
     }
 
 
+<<<<<<< HEAD
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+=======
+    public void initialize() {
+>>>>>>> 5d97164... 컨트롤러 추가
         
 
         searchBar.focusedProperty().addListener(new InvalidationListener() {               
@@ -133,10 +141,17 @@ public class TableController extends Controller implements Initializable {
 
         MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "22"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
         
+<<<<<<< HEAD
         MFXIconWrapper filterIcon = new MFXIconWrapper(icon, 32).defaultRippleGeneratorBehavior(); // this will create the ripple effect, 32 is the ripple size
         
         Msetting.makeRegionCircular(filterIcon); // this will make the ripple circular
         Msetting.make
+=======
+        // MFXIconWrapper filterIcon = new MFXIconWrapper(icon, 32).defaultRippleGeneratorBehavior(); // this will create the ripple effect, 32 is the ripple size
+        
+        // Msetting.makeRegionCircular(filterIcon); // this will make the ripple circular
+        // Msetting.make
+>>>>>>> 5d97164... 컨트롤러 추가
         
         //
         //각 메뉴 사용자와 책에 클릭 이벤트 부여
