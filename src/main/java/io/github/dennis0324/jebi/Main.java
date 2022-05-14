@@ -50,8 +50,8 @@ public class Main extends Application {
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
 		primaryStage.setResizable(false);
-
-		pageLoader.to("/pages/LoginFirst.fxml");
+    
+		pageLoader.to("/pages/Books.fxml");
 		
 		primaryStage.show();
 	}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.BookController">
+   <children>
+      <VBox prefHeight="900.0" prefWidth="283.0" style="-fx-background-color: #252426;">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="42.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/logo_horizontal-02.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <StackPane prefHeight="547.0" prefWidth="325.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <MFXScrollPane hbarPolicy="NEVER" prefHeight="900.0" prefWidth="325.0" style="-fx-background-color: transparent;">
+                     <content>
+                        <VBox alignment="CENTER" prefHeight="171.0" prefWidth="282.0" spacing="20.0">
+                           <children>
+                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </MFXButton>
+                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="18.0" />
+                                 </font>
+                              </MFXButton>
+                           </children>
+                        </VBox>
+                     </content>
+                  </MFXScrollPane>
+               </children>
+            </StackPane>
+            <AnchorPane prefHeight="85.0" prefWidth="325.0" style="-fx-background-color: #201f21; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 30, 0, 0, 0);">
+               <children>
+                  <Label layoutX="27.0" layoutY="14.0" prefHeight="28.0" prefWidth="70.0" text="Name" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="24.0" />
+                     </font>
+                  </Label>
+                  <MFXButton layoutX="197.0" layoutY="16.0" style="-fx-background-color: transparent;" text="setting" textFill="WHITE" />
+                  <Label layoutX="27.0" layoutY="42.0" prefHeight="14.0" prefWidth="94.0" text="uid" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+      <VBox prefHeight="900.0" prefWidth="459.0">
+         <children>
+            <HBox fx:id="searchContainer" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="459.0" spacing="20.0" style="-fx-background-color: #fff;">
+               <children>
+                  <TextField fx:id="searchBar" prefHeight="29.0" prefWidth="294.0" stylesheets="@textfield.css" HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="searchButton" prefHeight="37.0" prefWidth="48.0" text="+">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+            </HBox>
+            <MFXTableView fx:id="table" prefHeight="855.0" prefWidth="459.0" style="-fx-background-color: #fff; -fx-border-color: transparent;" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS" />
+   </children>
+</HBox>
