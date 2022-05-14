@@ -34,7 +34,7 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                         </Label>
-                        <MFXButton fx:id="forgotEmailBtn" onAction="#onForgotEmailBtnAction" prefHeight="20.0" prefWidth="155.0" text="이메일을 잊으셨나요?" textFill="#a4a4a4" />
+                        <MFXButton fx:id="forgotEmailBtn" onAction="#onForgotEmailBtnAction" prefHeight="30.0" text="이메일을 잊으셨나요?" textFill="#a4a4a4" />
                      </children>
                   </VBox>
                </children>

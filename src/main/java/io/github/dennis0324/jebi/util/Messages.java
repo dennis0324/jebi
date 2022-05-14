@@ -33,4 +33,10 @@ public final class Messages {
 	
 	// 이메일 주소가 올바르지 않을 때 출력할 오류 메시지.
 	public static final String ERROR_INVALID_EMAIL = "올바르지 않은 이메일 주소입니다.";
+	
+	// 입력한 이메일 주소를 가진 사용자가 없을 때 출력할 오류 메시지.
+	public static final String ERROR_USER_NOT_FOUND = "사용자를 찾을 수 없습니다.";
+	
+	// 알 수 없는 오류가 발생했을 때 출력할 오류 메시지.
+	public static final String ERROR_UNKNOWN = "알 수 없는 오류가 발생하였습니다.";
 }
