@@ -23,12 +23,14 @@ package io.github.dennis0324.jebi.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.commons.validator.routines.EmailValidator;
+
 /**
- * 문자열 해싱 메소드가 정의된 클래스.
+ * 문자열 관련 유틸리티 메소드가 정의된 클래스.
  * 
  * @author jdeokkim
  */
-public final class PasswordUtils {
+public final class StringUtils {
 	private static final int MIN_LENGTH = 8;
 	
 	/**
@@ -57,12 +59,22 @@ public final class PasswordUtils {
 	}
 	
 	/**
+	 * 주어진 문자열이 올바른 이메일 주소인지 확인한다.
+	 * 
+	 * @param str 올바른 이메일 주소인지 확인할 문자열.
+	 * @return 문자열이 올바른 이메일 주소인지 여부.
+	 */
+	public static boolean isValidEmail(String str) {
+		return EmailValidator.getInstance().isValid(str);
+	}
+	
+	/**
 	 * 주어진 문자열이 올바른 비밀번호인지 확인한다.
 	 * 
 	 * @param str 올바른 비밀번호인지 확인할 문자열.
 	 * @return 문자열이 올바른 비밀번호인지 여부.
 	 */
-	public static boolean isValid(String str) {
+	public static boolean isValidPassword(String str) {
 		return !str.isBlank() && str.length() > MIN_LENGTH;
 	}
 }

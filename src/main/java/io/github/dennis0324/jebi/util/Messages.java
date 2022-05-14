@@ -30,4 +30,7 @@ public final class Messages {
 	
 	// 프로그램의 메인 창의 이름.
 	public static final String PRIMARY_STAGE_TITLE = "jebi - JavaFX로 만든 도서 관리 소프트웨어";
+	
+	// 이메일 주소가 올바르지 않을 때 출력할 오류 메시지.
+	public static final String ERROR_INVALID_EMAIL = "올바르지 않은 이메일 주소입니다.";
 }

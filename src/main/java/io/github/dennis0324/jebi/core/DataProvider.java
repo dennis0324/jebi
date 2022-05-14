@@ -18,7 +18,6 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-
 package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
@@ -52,7 +51,7 @@ import io.github.dennis0324.jebi.util.Constants;
  * 
  * @author jdeokkim
  */
-public class DataProvider {
+public final class DataProvider {
 	// `DataProvider`의 로거.
 	private static final Logger LOG = LoggerFactory.getLogger(DataProvider.class);
 	

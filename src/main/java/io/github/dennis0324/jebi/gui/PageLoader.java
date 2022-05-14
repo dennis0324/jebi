@@ -23,6 +23,10 @@ package io.github.dennis0324.jebi.gui;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.controller.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,6 +39,9 @@ import javafx.stage.Stage;
  * @author jdeokkim
  */
 public final class PageLoader {
+	// `PageLoader`의 로거.
+	private static final Logger LOG = LoggerFactory.getLogger(PageLoader.class);
+	
 	// 각 페이지의 경로와 페이지에 대응하는 장면이 저장된 해시맵.
 	private static final HashMap<String, Scene> scenes;
 	
@@ -99,7 +106,7 @@ public final class PageLoader {
 	 * @param path 페이지의 FXML 문서 경로.
 	 * @return 주어진 경로에 해당하는 페이지.
 	 */
-	public Scene getScene(String path) {
+	private Scene getScene(String path) {
 		// JDK 8: 메소드 레퍼런스 (method references)를 이용한 해시맵 조작
 		return scenes.computeIfAbsent(path, this::load);
 	}
