@@ -15,46 +15,40 @@
          <center>
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXPasswordField fx:id="pwdField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
+                  <MFXPasswordField floatingText="Password" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
-                     <font>
-                        <Font name="Malgun Gothic" size="14.0" />
-                     </font>
                   </MFXPasswordField>
-                  <MFXButton fx:id="forgotPwd" layoutY="172.0" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Malgun Gothic" size="13.0" />
-                     </font>
-                  </MFXButton>
                </children>
             </AnchorPane>
          </center>
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="login" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
+                  <MFXButton fx:id="loginPswd" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></MFXButton>
+                  <MFXButton fx:id="forgotPswd" layoutY="4.0" prefHeight="39.0" prefWidth="97.0" text="비밀번호 찾기" textFill="#6a8bff">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
-                     <font>
-                        <Font name="Malgun Gothic" size="13.0" />
-                     </font></MFXButton>
+                  </MFXButton>
                </children>
             </AnchorPane>
          </bottom>
          <top>
             <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="accName" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="이름">
+                  <Label fx:id="nameID" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="ID_name">
                      <font>
-                        <Font name="Malgun Gothic" size="56.0" />
+                        <Font name="Arial" size="50.0" />
                      </font>
                   </Label>
-                  <Label fx:id="accEmail" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="이메일" textAlignment="CENTER">
+                  <Label fx:id="emailID" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="ID_Email" textAlignment="CENTER">
                      <font>
-                        <Font name="Malgun Gothic" size="18.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
                </children>

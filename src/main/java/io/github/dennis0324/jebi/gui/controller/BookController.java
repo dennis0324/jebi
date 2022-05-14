@@ -124,7 +124,7 @@ public class BookController extends Controller implements Initializable {
     private void setcontentArea(){
         Parent parent;
         try{
-            parent = FXMLLoader.load(getClass().getResource("/pages/Component/nonSelected.fxml"));
+            parent = FXMLLoader.load(getClass().getResource("/pages/components/nonSelectedComponent.fxml"));
             contentArea.getChildren().removeAll();
             contentArea.getChildren().setAll(parent);
         }
