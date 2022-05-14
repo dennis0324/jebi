@@ -50,13 +50,8 @@ public class Main extends Application {
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
 		primaryStage.setResizable(false);
-<<<<<<< HEAD
-
+		
 		pageLoader.to("/pages/Table.fxml");
-=======
-    
-		pageLoader.to("/pages/Books.fxml");
->>>>>>> a14cd96... `unstable` 브랜치의 내용을 `main` 브랜치와 병합 (#7)
 		
 		primaryStage.show();
 	}

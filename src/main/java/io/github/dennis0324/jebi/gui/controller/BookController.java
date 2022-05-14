@@ -41,7 +41,7 @@ class TextFieldListener implements EventHandler<ActionEvent> {
 }
 
 
-public class BookController extends Controller implements Initializable {
+public class BookController implements Initializable {
 
     @FXML
     private MFXTableView<Book> table;
