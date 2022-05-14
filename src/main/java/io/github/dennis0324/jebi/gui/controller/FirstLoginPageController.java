@@ -4,13 +4,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-import javafx.event.ActionEvent; 
-import javafx.event.EventHandler;
 
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 
 public class FirstLoginPageController implements Initializable {

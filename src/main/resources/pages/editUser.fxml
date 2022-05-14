@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXToggleButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="470.0" layoutY="253.0" prefHeight="394.0" prefWidth="500.0">
+         <children>
+            <HBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="500.0">
+               <children>
+                  <Label text="name">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <Label text="uid">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0" spacing="20.0">
+               <children>
+                  <Label text="회원정보">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0" spacing="20.0">
+               <children>
+                  <Label text="이름">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0" spacing="20.0">
+               <children>
+                  <Label text="전화번호">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+                  <TextField />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0">
+               <children>
+                  <Label text="어드민 권환" />
+                  <MFXToggleButton />
+               </children>
+            </HBox>
+            <StackPane prefHeight="0.0" prefWidth="500.0">
+               <children>
+                  <MFXButton text="Submit" />
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
