@@ -26,7 +26,7 @@ package io.github.dennis0324.jebi.model;
  * @author jdeokkim
  */
 public class Book {
-	// 책의 고유 번호.
+	// 책의 고유 ID.
 	private String uid;
 	
 	// 책의 이름.
@@ -47,7 +47,7 @@ public class Book {
 	/**
 	 * `Book` 클래스의 생성자.
 	 * 
-	 * @param uid 책의 고유 번호.
+	 * @param uid 책의 고유 ID.
 	 */
 	public Book(String uid) {
 		/* TODO: ... */
@@ -56,9 +56,9 @@ public class Book {
 	}
 	
 	/**
-	 * 책의 고유 번호를 반환한다. 
+	 * 책의 고유 ID를 반환한다. 
 	 * 
-	 * @return 책의 고유 번호.
+	 * @return 책의 고유 ID.
 	 */
 	public String getUid() {
 		return uid;
