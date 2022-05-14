@@ -4,20 +4,29 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-
 import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.util.DisppearText;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
-public class FirstLoginPageController implements Initializable {
+public class FirstLoginPageController extends Controller implements Initializable {
 
-    private PageLoader pageLoader;
+    @FXML
+    private Label errorMessage;
 
+    @FXML
+    private Button forgetID;
 
-    public FirstLoginPageController(PageLoader pageLoader){
-        this.pageLoader = pageLoader;
-    }
+    @FXML
+    private MFXButton forgotID;
+
+    @FXML
+    private MFXTextField idInput;
 
     @FXML
     private MFXButton login;
@@ -26,16 +35,16 @@ public class FirstLoginPageController implements Initializable {
     private MFXButton makeID;
 
     @FXML
-    private MFXButton forgotID;
+    private HBox testing;
 
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        
+        System.out.print("testing");
+        errorMessage.setVisible(false);
 
         login.setOnMouseClicked(event -> {
-            System.out.print("loginBTN click");
-            // System.out.println(pageLoader.getScene("/fxml/login_second.fxml").getUserData());
+            DisppearText.setText(errorMessage, "testing", 500);
             
         });
 
@@ -47,6 +56,11 @@ public class FirstLoginPageController implements Initializable {
             System.out.println("forgot ID");
         });
 
+    }
+
+    private void setErrorMessage(String text){
+        errorMessage.setText(text);
+        errorMessage.setVisible(true);
     }
 
     

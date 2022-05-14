@@ -25,34 +25,19 @@
                            <children>
                               <VBox layoutX="14.0" prefHeight="515.0" prefWidth="403.0" spacing="30.0" style="-fx-background-color: #fff; -fx-background-radius: 0px 20px 20px 20px;" AnchorPane.leftAnchor="2.0">
                                  <children>
-                                    <HBox prefHeight="100.0" prefWidth="200.0">
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <VBox.margin>
-                                          <Insets left="20.0" />
-                                       </VBox.margin>
+                                    <StackPane prefHeight="86.0" prefWidth="379.0">
                                        <children>
-                                          <StackPane prefHeight="86.0" prefWidth="379.0">
-                                             <children>
-                                                <Label text="아이디 찾기">
-                                                   <font>
-                                                      <Font size="24.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </StackPane>
+                                          <Label text="이메일 찾기">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Label>
                                        </children>
-                                    </HBox>
+                                    </StackPane>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
                                           <MFXTextField fx:id="lastName1" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="79.0" />
                                           <MFXTextField fx:id="firstName1" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
-                                       <children>
-                                          <MFXTextField fx:id="email1" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" />
                                        </children>
                                     </HBox>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
