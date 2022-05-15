@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-public class FirstLoginPageController extends Controller implements Initializable {
+public class FirstLoginPageController extends Controller {
 
     @FXML
     private Label errorMessage;
@@ -38,8 +38,9 @@ public class FirstLoginPageController extends Controller implements Initializabl
     private HBox testing;
 
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void onPageLoad() {};
+
+    public void initialize() {
         System.out.print("testing");
         errorMessage.setVisible(false);
 
