@@ -31,6 +31,7 @@ import io.github.dennis0324.jebi.gui.controller.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -90,6 +91,18 @@ public final class PageLoader {
         
         to(path);
     }
+
+    /**
+     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙힌다.
+     * 
+     * @param parent 컴포넌트를 붙힐 부모 클라스
+     * @param path 페이지의 FXML 문서 경로.
+     * @param arg 다음 페이지에 넘겨줄 객체.
+     */
+    public void to(Pane pane, String path , Object arg) {
+        this.arg = arg;
+        load(pane, path);
+    }
     
     /**
      * 다음 페이지에 넘겨줄 객체를 반환한다.
@@ -99,6 +112,16 @@ public final class PageLoader {
     public Object getArgument() {
         return arg;
     }
+
+    /**
+     * 다음 페이지에 넘겨줄 객체를 지정해준다.
+     * 
+     * @param 다음 페이지에 넘겨줄 객체.
+     */
+    public void setArgument(Object arg) {
+        this.arg = arg;
+    }
+
     
     /**
      * 주어진 경로에 해당하는 페이지를 반환한다.
@@ -142,4 +165,29 @@ public final class PageLoader {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
+     * 
+     * @param path 페이지의 FXML 문서 경로.
+     * @return 주어진 경로에 해당하는 페이지.
+     */
+    private Boolean load(Pane pane, String path) {
+        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        try {
+            Parent parent = loader.load();
+            
+            Controller controller = loader.getController();
+            
+            if (controller != null)
+                controller.setPageLoader(this);
+            
+            pane.getChildren().removeAll();
+            return pane.getChildren().setAll(parent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

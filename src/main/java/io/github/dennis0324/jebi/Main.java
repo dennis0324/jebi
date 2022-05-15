@@ -50,7 +50,11 @@ public class Main extends Application {
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
 		primaryStage.setResizable(false);
+<<<<<<< HEAD
 		
+=======
+    
+>>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
 		pageLoader.to("/pages/Table.fxml");
 		
 		primaryStage.show();
