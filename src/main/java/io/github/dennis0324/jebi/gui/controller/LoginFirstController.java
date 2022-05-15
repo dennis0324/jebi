@@ -26,6 +26,7 @@ import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -73,6 +74,11 @@ public class LoginFirstController extends Controller {
         errorMsgLabel.setManaged(false);
     }
     
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
+    
     @FXML
     public void onForgotEmailBtnAction() {
         getPageLoader().to("/pages/Search.fxml");
@@ -94,19 +100,19 @@ public class LoginFirstController extends Controller {
         }
         
         ApiFutures.addCallback(
-            provider.emailExists(email),
-            new ApiFutureCallback<Boolean>() {
+            provider.getUserByEmail(email),
+            new ApiFutureCallback<User>() {
                 @Override
-                public void onSuccess(Boolean result) {
-                    if (result) Platform.runLater(() -> getPageLoader().to("/pages/LoginSecond.fxml"));
-                    else Platform.runLater(() -> updateErrorMsgLabel(Messages.ERROR_USER_NOT_FOUND));
+                public void onSuccess(User result) {
+                	String uid = result.getUid();
+                	
+                    if (uid != null) Platform.runLater(() -> getPageLoader().to("/pages/LoginSecond.fxml", result));
+                    else Platform.runLater(() -> updateErrorMsgLabel(Messages.ERROR_UNKNOWN));
                 }
 
                 @Override
                 public void onFailure(Throwable t) {
-                    Platform.runLater(
-                        () -> updateErrorMsgLabel(Messages.ERROR_UNKNOWN)
-                    );
+                	Platform.runLater(() -> updateErrorMsgLabel(Messages.ERROR_USER_NOT_FOUND));
                 }
             },
             Executors.newCachedThreadPool()
@@ -119,8 +125,8 @@ public class LoginFirstController extends Controller {
      * @return 오류 메시지 레이블의 애니메이션.
      */
     private SequentialTransition getErrorMsgLabelTransition() {
-        PauseTransition pauseAnim = new PauseTransition(Duration.seconds(1.5));
-        FadeTransition fadeAnim = new FadeTransition(Duration.seconds(1.0), errorMsgLabel);
+        PauseTransition pauseAnim = new PauseTransition(Duration.seconds(1.25));
+        FadeTransition fadeAnim = new FadeTransition(Duration.seconds(0.5), errorMsgLabel);
         
         fadeAnim.setFromValue(1.0);
         fadeAnim.setToValue(0.0);

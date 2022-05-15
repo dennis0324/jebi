@@ -21,6 +21,9 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.model.User;
+import io.github.dennis0324.jebi.util.Messages;
+import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
 import javafx.fxml.FXML;
@@ -33,7 +36,16 @@ import javafx.scene.control.Label;
  */
 public class LoginSecondController extends Controller {
 	// 로그인 페이지 컨트롤러의 `DataProvider` 인스턴스.
-    private DataProvider provider;
+    // private DataProvider provider;
+    
+    // 로그인 페이지 컨트롤러의 사용자 정보.
+    private User user;
+    
+    @FXML
+    private Label nameLabel;
+    
+    @FXML
+    private Label emailLabel;
     
     @FXML
     private MFXPasswordField passwordField;
@@ -43,15 +55,36 @@ public class LoginSecondController extends Controller {
     
     @FXML
     private MFXButton loginBtn;
-    
-    @FXML
-    private Label nameLabel;
-    
-    @FXML
-    private Label emailLabel;
 
     @Override
     public void initialize() {
-        provider = DataProvider.getInstance();
+        // provider = DataProvider.getInstance();
+    }
+    
+    @Override
+	public void onPageLoad() {
+    	user = (User) getPageLoader().getArgument();
+	}
+    
+    @FXML
+    public void onForgotPwdBtnAction() {
+    	getPageLoader().to("/pages/Search.fxml");
+    }
+    
+    @FXML
+    public void onLoginBtnAction() {
+    	String password = passwordField.getText();
+    	
+    	if (!StringUtils.isValidPassword(password)) {
+            // TODO: ...
+            
+            return;
+        }
+    	
+    	boolean success = StringUtils.encrypt(password)
+    		.equals(user.getPwdHash());
+    	
+    	if (!success) /* TODO: ... */;
+    	else getPageLoader().to("/pages/Table.fxml", user);
     }
 }

@@ -34,6 +34,10 @@ public final class Messages {
 	// 이메일 주소가 올바르지 않을 때 출력할 오류 메시지.
 	public static final String ERROR_INVALID_EMAIL = "올바르지 않은 이메일 주소입니다.";
 	
+	// 비밀번호가 올바르지 않을 때 출력할 오류 메시지.
+	public static final String ERROR_INVALID_PASSWORD = "비밀번호는 최소 " 
+			+ StringUtils.MIN_PASSWORD_LENGTH + "자 이상이어야 합니다.";
+	
 	// 입력한 이메일 주소를 가진 사용자가 없을 때 출력할 오류 메시지.
 	public static final String ERROR_USER_NOT_FOUND = "사용자를 찾을 수 없습니다.";
 	

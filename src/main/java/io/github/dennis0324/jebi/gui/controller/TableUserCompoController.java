@@ -39,7 +39,7 @@ public class TableUserCompoController extends Controller {@FXML
         // );
     }
     
-
+    @Override
     public void initialize(){
 
 
@@ -47,4 +47,9 @@ public class TableUserCompoController extends Controller {@FXML
         table.autosizeColumnsOnInitialization();
         // table.setItems()
     }
+    
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
 }

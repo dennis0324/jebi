@@ -9,43 +9,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" 
-    style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="io.github.dennis0324.jebi.gui.controller.LoginSecondController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.LoginSecondController">
    <children>
       <BorderPane layoutX="530.0" layoutY="237.0" prefHeight="427.0" prefWidth="348.0">
-         <center>
-            <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                     <font>
-                        <Font name="Malgun Gothic" size="14.0" />
-                     </font>
-                  </MFXPasswordField>
-                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
-                     <font>
-                        <Font name="Malgun Gothic" size="13.0" />
-                     </font>
-                  </MFXButton>
-               </children>
-            </AnchorPane>
-         </center>
-         <bottom>
-            <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
-               <children>
-                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <font>
-                        <Font name="Malgun Gothic" size="13.0" />
-                     </font></MFXButton>
-               </children>
-            </AnchorPane>
-         </bottom>
          <top>
             <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
@@ -62,6 +28,38 @@
                </children>
             </VBox>
          </top>
+         <center>
+            <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
+                     <cursor>
+                        <Cursor fx:constant="TEXT" />
+                     </cursor>
+                     <font>
+                        <Font name="Malgun Gothic" size="14.0" />
+                     </font>
+                  </MFXPasswordField>
+                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" onAction="#onForgotPwdBtnAction" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Malgun Gothic" size="13.0" />
+                     </font>
+                  </MFXButton>
+               </children>
+            </AnchorPane>
+         </center>
+         <bottom>
+            <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="Malgun Gothic" size="13.0" />
+                     </font></MFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
       </BorderPane>
    </children>
    <cursor>

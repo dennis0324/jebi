@@ -27,6 +27,11 @@ public class TableBookCompoController extends Controller {
         // TODO Auto-generated method stub
         
     }
+    
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
 
     private void setupTable(){
         MFXTableColumn<Book> uidColumn = new MFXTableColumn<>("책 ID",false,Comparator.comparing(Book::getUid));
