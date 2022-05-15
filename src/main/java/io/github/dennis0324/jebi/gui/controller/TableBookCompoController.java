@@ -76,18 +76,5 @@ public class TableBookCompoController extends Controller {
             table.setItems(FXCollections.observableArrayList(new Book("testing"),new Book("testing")));
     }
 
-
-    // private void openEditComponent(StackPane stackPane, String pathString){
-    //     try{
-    //         Parent parent = FXMLLoader.load(getClass().getResource(pathString));
-    //         stackPane.getChildren().removeAll();
-    //         stackPane.getChildren().setAll(parent);
-    //     }
-    //     catch (IOException e){
-    //         throw new RuntimeException(e);
-    //     }
-
-    // }
-
     
 }

@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 
+import javafx.scene.text.Font;
 
 
 // class TextFieldListener implements EventHandler<ActionEvent> {
@@ -140,6 +141,7 @@ public class TableController extends Controller {
     }
 
     public void initialize() {
+        // Font font = new Font()
         searchBar.focusedProperty().addListener(new InvalidationListener() {               
             @Override
             public void invalidated(Observable observable) {
@@ -163,7 +165,6 @@ public class TableController extends Controller {
         testing.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
         NodeUtils.makeRegionCircular(testing);
-        
     }
 
     /**

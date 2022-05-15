@@ -5,8 +5,6 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,9 +16,9 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.RegisterController">
    <left>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" stylesheets="@testing.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox layoutX="519.0" layoutY="193.0" prefHeight="515.0" prefWidth="403.0" spacing="30.0" style="-fx-background-color: #fff; -fx-background-radius: 20px; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 30, 0, 0, 0);">
+            <VBox layoutX="519.0" layoutY="193.0" prefHeight="515.0" prefWidth="403.0" spacing="10.0" style="-fx-background-color: #fff; -fx-background-radius: 20px; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 30, 0, 0, 0);">
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
@@ -47,21 +45,33 @@
                         <MFXTextField fx:id="firstName" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" />
                      </children>
                   </HBox>
+                  <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
                         <MFXTextField fx:id="email" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
+                  <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED" />
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
                         <MFXPasswordField floatMode="BORDER" floatingText="비밀번호" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
+                  <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
                         <MFXTextField fx:id="phoneNumber1" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
+                  <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED" />
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <MFXButton fx:id="submitButton" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="가입하기" textFill="WHITE" />
@@ -72,20 +82,6 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
             </VBox>
-            <TabPane layoutX="59.0" layoutY="75.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: transparent;" tabClosingPolicy="UNAVAILABLE">
-              <tabs>
-                <Tab text="Untitled Tab 1">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-                <Tab text="Untitled Tab 2">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
          </children>
       </AnchorPane>
    </left>
