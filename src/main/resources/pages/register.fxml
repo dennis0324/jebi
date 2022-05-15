@@ -22,13 +22,16 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="logo" fitHeight="135.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="logoImage" fitHeight="136.0" fitWidth="122.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../image/logoImage.png" />
-                           </image></ImageView>
-                        <Label alignment="CENTER" prefHeight="189.0" prefWidth="218.0" text="갈피끈 계정 만들기">
+                              <Image url="@../images/logo.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="24.0" />
+                           </HBox.margin></ImageView>
+                        <Label alignment="CENTER" prefHeight="188.0" prefWidth="218.0" text="갈피끈 계정 만들기">
                            <font>
-                              <Font name="Arial" size="18.0" />
+                              <Font name="Malgun Gothic" size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -41,8 +44,8 @@
                   </HBox>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="lastName" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="79.0" />
-                        <MFXTextField fx:id="firstName" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" />
+                        <MFXTextField fx:id="lastNameField" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="79.0" />
+                        <MFXTextField fx:id="firstNameField" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" />
                      </children>
                   </HBox>
                   <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED">
@@ -52,13 +55,13 @@
                   </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="email" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
                   <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED" />
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXPasswordField floatMode="BORDER" floatingText="비밀번호" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXPasswordField fx:id="passwordField" floatMode="BORDER" floatingText="비밀번호" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
                   <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED">
@@ -68,13 +71,13 @@
                   </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="phoneNumber1" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXTextField fx:id="phoneNumberField" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="355.0" />
                      </children>
                   </HBox>
                   <Label prefHeight="14.0" prefWidth="361.0" text="Label" textFill="RED" />
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <MFXButton fx:id="submitButton" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="가입하기" textFill="WHITE" />
+                        <MFXButton fx:id="submitBtn" onAction="#onSubmitBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="가입하기" textFill="WHITE" />
                      </children>
                   </StackPane>
                </children>

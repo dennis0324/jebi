@@ -10,7 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<<<<<<< HEAD
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.LoginFirstController">
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" 
+   style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" 
+   fx:controller="io.github.dennis0324.jebi.gui.controller.LoginFirstController">
+>>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
    <children>
       <BorderPane layoutX="530.0" layoutY="237.0" prefHeight="427.0" prefWidth="348.0">
          <center>
@@ -18,7 +24,11 @@
                <children>
                   <VBox layoutY="40.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
+<<<<<<< HEAD
                         <MFXTextField fx:id="emailTextField" floatingText="이메일" prefHeight="49.0" prefWidth="348.0">
+=======
+                        <MFXTextField fx:id="emailField" floatingText="이메일" prefHeight="49.0" prefWidth="348.0">
+>>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -28,7 +38,11 @@
                         </MFXTextField>
                         <Label fx:id="errorMsgLabel" prefHeight="27.0" prefWidth="348.0" text="..." textFill="RED">
                            <font>
+<<<<<<< HEAD
                               <Font name="Arial" size="12.0" />
+=======
+                              <Font name="Malgun Gothic" size="12.0" />
+>>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
                            </font>
                            <padding>
                               <Insets left="10.0" right="10.0" />
@@ -62,7 +76,11 @@
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="LOGIN">
                      <font>
+<<<<<<< HEAD
                         <Font name="Arial" size="50.0" />
+=======
+                        <Font name="Malgun Gothic" size="50.0" />
+>>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
                      </font>
                   </Label>
                </children>

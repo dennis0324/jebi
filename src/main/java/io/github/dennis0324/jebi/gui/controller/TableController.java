@@ -1,3 +1,5 @@
+/*
+
 package io.github.dennis0324.jebi.gui.controller;
 
 import java.io.IOException;
@@ -186,6 +188,7 @@ public class TableController extends Controller {
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml",this);
     }
 
+<<<<<<< HEAD
     /**
      * 기본 클릭 액션 설정구역의 정보를 반환
      * 
@@ -205,3 +208,7 @@ public class TableController extends Controller {
     }
 
 }
+=======
+}
+*/
+>>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트

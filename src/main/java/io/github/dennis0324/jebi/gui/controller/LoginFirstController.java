@@ -44,12 +44,14 @@ import javafx.util.Duration;
  * @author dennis0324, jdeokkim
  */
 public class LoginFirstController extends Controller {
+	// 로그인 페이지 컨트롤러의 `DataProvider` 인스턴스.
     private DataProvider provider;
     
+    // 오류 메시지 레이블의 애니메이션.
     private SequentialTransition errorMsgLabelAnim;
     
     @FXML
-    private MFXTextField emailTextField;
+    private MFXTextField emailField;
     
     @FXML
     private Label errorMsgLabel;
@@ -87,7 +89,7 @@ public class LoginFirstController extends Controller {
     
     @FXML
     public void onNextStepBtnAction() {
-        String email = emailTextField.getText();
+        String email = emailField.getText();
         
         if (!StringUtils.isValidEmail(email)) {
             updateErrorMsgLabel(Messages.ERROR_INVALID_EMAIL);
