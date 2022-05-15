@@ -32,7 +32,7 @@ import org.apache.commons.validator.routines.EmailValidator;
  * @author jdeokkim
  */
 public final class StringUtils {
-	private static final int MIN_LENGTH = 8;
+	public static final int MIN_PASSWORD_LENGTH = 8;
 	
 	/**
 	 * SHA-256 해싱 알고리즘을 사용하여, 주어진 문자열을 암호화한다.
@@ -76,7 +76,7 @@ public final class StringUtils {
 	 * @return 문자열이 올바른 비밀번호인지 여부.
 	 */
 	public static boolean isValidPassword(String str) {
-		return !str.isBlank() && str.length() >= MIN_LENGTH;
+		return !str.isBlank() && str.length() >= MIN_PASSWORD_LENGTH;
 	}
 	
 	/**

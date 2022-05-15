@@ -45,10 +45,18 @@ public class TableUserCompoController extends Controller {@FXML
     }
     
     @Override
+<<<<<<< HEAD
     public void onPageLoad() {}
 
+=======
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
     public void initialize(){
         setupTable();
         table.autosizeColumnsOnInitialization();
     }
+    
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
 }

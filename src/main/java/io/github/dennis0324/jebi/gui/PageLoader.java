@@ -157,6 +157,15 @@ public final class PageLoader {
     }
     
     /**
+     * 다음 페이지에 넘겨줄 객체를 설정한다.
+     * 
+     * @param arg 다음 페이지에 넘겨줄 객체.
+     */
+    public void setArgument(Object arg) {
+    	this.arg = arg;
+    }
+    
+    /**
      * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
      * 
      * @param path 페이지의 FXML 문서 경로.
@@ -170,8 +179,15 @@ public final class PageLoader {
             
             Controller controller = loader.getController();
             
+<<<<<<< HEAD
             if (controller != null){
                 controller.setPageLoader(this);
+=======
+            if (controller != null) {
+                controller.setPageLoader(this);
+                controller.setParent(parent);
+                
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
                 controller.onPageLoad();
             }
             

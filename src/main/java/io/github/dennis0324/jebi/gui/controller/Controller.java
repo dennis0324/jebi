@@ -21,6 +21,7 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 import io.github.dennis0324.jebi.gui.PageLoader;
+import javafx.scene.Parent;
 
 /**
  * 이벤트 컨트롤러를 나타내는 추상 클래스.
@@ -28,7 +29,11 @@ import io.github.dennis0324.jebi.gui.PageLoader;
  * @author jdeokkim
  */
 public abstract class Controller {
+	// 이벤트 컨트롤러의 `PageLoader` 인스턴스.
 	private PageLoader pageLoader;
+	
+	// 이벤트 컨트롤러의 부모 노드.
+	private Parent parent;
 	
 	/**
 	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
@@ -49,11 +54,30 @@ public abstract class Controller {
 	}
 	
 	/**
+	 * 이벤트 컨트롤러의 부모 노드를 반환한다.
+	 * 
+	 * @return 이벤트 컨트롤러의 부모 노드.
+	 */
+	public Parent getParent() {
+		return parent;
+	}
+	
+	/**
+	 * 이벤트 컨트롤러의 부모 노드를 설정한다.
+	 * 
+	 * @param parent 이벤트 컨트롤러의 부모 노드.
+	 */
+	public void setParent(Parent parent) {
+		this.parent = parent;
+	}
+	
+	/**
      * 이벤트 컨트롤러를 초기화한다.
      * 
      * 이 메소드는 JavaFX에 의해 자동으로 호출된다.
      */
 	public abstract void initialize();
+<<<<<<< HEAD
 
 
 	/**
@@ -61,5 +85,11 @@ public abstract class Controller {
      * 
      * 이 메소드는 JavaFX::initialize에 의해 자동으로 호출된다.
      */
+=======
+	
+	/**
+	 * 이벤트 컨트롤러의 초기화 직후에 호출되는 메소드이다.
+	 */
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
 	public abstract void onPageLoad();
 }

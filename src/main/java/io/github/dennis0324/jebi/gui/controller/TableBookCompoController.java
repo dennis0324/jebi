@@ -40,6 +40,11 @@ public class TableBookCompoController extends Controller {
         // TODO Auto-generated method stub
         
     }
+    
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
 
     /**
      * Book이라는 테이블을 초기화해주는 함수부분이다.

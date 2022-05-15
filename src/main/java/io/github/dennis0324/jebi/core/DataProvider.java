@@ -146,36 +146,26 @@ public final class DataProvider {
     }
     
     /**
-     * 주어진 고유 ID를 가진 사용자 계정이 존재하는지 확인한다.
+     * 주어진 고유 ID를 가진 사용자 계정을 반환한다.
      * 
      * @param uid 사용자의 고유 ID.
-     * @return 사용자 계정의 존재 여부.
+     * @return 주어진 고유 ID를 가진 사용자 계정.
      */
-    public ApiFuture<Boolean> uidExists(String uid) {
+    public ApiFuture<User> getUserByUid(String uid) {
         ApiFuture<DocumentSnapshot> future = db.collection("users")
             .document(uid)
             .get();
         
-        return ApiFutures.transform(
-            future,
-            (snapshot) -> {
-                try {
-                    return future.get().exists();
-                } catch (InterruptedException | ExecutionException e) {
-                    return false;
-                }
-            },
-            pool
-        );
+        return ApiFutures.transform(future, (snapshot) -> new User(snapshot), pool);
     }
     
     /**
-     * 주어진 이메일 주소를 가진 사용자 계정이 존재하는지 확인한다.
+     * 주어진 이메일 주소를 가진 사용자 계정을 반환한다.
      * 
-     * @param uid 사용자의 이메일 주소.
-     * @return 사용자 계정의 존재 여부.
+     * @param email 사용자의 이메일 주소.
+     * @return 주어진 이메일 주소를 가진 사용자 계정.
      */
-    public ApiFuture<Boolean> emailExists(String email) {
+    public ApiFuture<User> getUserByEmail(String email) {
         ApiFuture<QuerySnapshot> future = db.collection("users")
             .whereEqualTo("email", email)
             .limit(1)
@@ -183,13 +173,7 @@ public final class DataProvider {
         
         return ApiFutures.transform(
             future,
-            (snapshot) -> {
-                try {
-                    return !(future.get().isEmpty());
-                } catch (InterruptedException | ExecutionException e) {
-                    return false;
-                }
-            },
+            (snapshot) -> new User(snapshot.getDocuments().get(0)),
             pool
         );
     }

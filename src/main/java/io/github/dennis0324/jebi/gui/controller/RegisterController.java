@@ -71,6 +71,11 @@ public class RegisterController extends Controller {
 		provider = DataProvider.getInstance();
 	}
 	
+	@Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
+	
 	@FXML
 	public void onSubmitBtnAction() {
 		if (lastNameField.getText().isBlank()) { /* TODO: ... */ return; }

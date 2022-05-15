@@ -9,11 +9,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" 
-    style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="io.github.dennis0324.jebi.gui.controller.LoginSecondController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.LoginSecondController">
    <children>
       <BorderPane layoutX="530.0" layoutY="237.0" prefHeight="427.0" prefWidth="348.0">
+         <top>
+            <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="이름">
+                     <font>
+                        <Font name="Malgun Gothic" size="56.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailLabel" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="이메일" textAlignment="CENTER">
+                     <font>
+                        <Font name="Malgun Gothic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </top>
          <center>
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
@@ -27,8 +41,12 @@
                      </cursor>
                   </MFXPasswordField>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                   <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
+=======
+                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" onAction="#onForgotPwdBtnAction" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
                      <font>
                         <Font name="Malgun Gothic" size="13.0" />
                      </font>
@@ -41,6 +59,7 @@
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <MFXButton fx:id="loginPswd" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -49,6 +68,9 @@
 =======
                   <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
 >>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
+=======
+                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -56,6 +78,7 @@
                </children>
             </AnchorPane>
          </bottom>
+<<<<<<< HEAD
          <top>
             <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
@@ -80,6 +103,8 @@
                </children>
             </VBox>
          </top>
+=======
+>>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
       </BorderPane>
    </children>
    <cursor>
