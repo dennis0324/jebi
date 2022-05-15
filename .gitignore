@@ -17,7 +17,15 @@
 **/target/
 
 # Eclipse IDE 관련 파일
+.classpath
+.project
+**/.classpath
+**/.project
 **/.settings/
 
 # vscode IDE 관련 파일
 .vscode
+**/.vscode
+
+# bin 폴더
+bin/

@@ -44,7 +44,13 @@ public class UserController implements Initializable {
         // });
 
     }
-
+    
+    /**
+     * User이라는 테이블을 초기화해주는 함수부분이다.
+     * 
+     * 
+     */
+    @SuppressWarnings("unchecked")
     private void setupTable(){
         MFXTableColumn<Book> uidColumn = new MFXTableColumn<>("책 ID",false,Comparator.comparing(Book::getUid));
         MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("책 이름",false,Comparator.comparing(Book::getName));

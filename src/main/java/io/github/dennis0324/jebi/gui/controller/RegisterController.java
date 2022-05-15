@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class RegisterController extends Controller implements Initializable {
+public class RegisterController extends Controller {
     @FXML
     private MFXTextField email;
 
@@ -32,7 +32,9 @@ public class RegisterController extends Controller implements Initializable {
     private MFXButton submitButton;
     
     @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
+    public void onPageLoad() {}
+
+    public void initialize() {
         
         // Image image = new Image(getClass().getResource("/fxml/register.fxml").toString());
         // logo.setImage(image);

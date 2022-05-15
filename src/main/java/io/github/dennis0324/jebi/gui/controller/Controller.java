@@ -47,4 +47,19 @@ public abstract class Controller {
 	public void setPageLoader(PageLoader pageLoader) {
 		this.pageLoader = pageLoader;
 	}
+	
+	/**
+     * 이벤트 컨트롤러를 초기화한다.
+     * 
+     * 이 메소드는 JavaFX에 의해 자동으로 호출된다.
+     */
+	public abstract void initialize();
+
+
+	/**
+     * 초기화하면서 화면 출력하기 전 추가로 호출되는 함수이다.
+     * 
+     * 이 메소드는 JavaFX::initialize에 의해 자동으로 호출된다.
+     */
+	public abstract void onPageLoad();
 }

@@ -50,7 +50,7 @@ public class Main extends Application {
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
 		primaryStage.setResizable(false);
-		
+    
 		pageLoader.to("/pages/Table.fxml");
 		
 		primaryStage.show();

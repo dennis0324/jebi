@@ -46,6 +46,11 @@
             <version>1.7.36</version>
         </dependency>
         <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.7</version>
+        </dependency>
+        <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx-materialdesignfont</artifactId>
             <version>2.0.26-9.1.2</version>
@@ -86,7 +91,7 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>io.github.jdeokkim.jebi.Main</mainClass>
+                            <mainClass>io.github.dennis0324.jebi.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>
