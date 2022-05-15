@@ -25,7 +25,11 @@
 
 # vscode IDE 관련 파일
 .vscode
+<<<<<<< HEAD
 **/.vscode
 
 # bin 폴더
 bin/
+=======
+**/.vscode
+>>>>>>> 8c59d83f2a6a01b32ab55ba9bba990cf89ae532e

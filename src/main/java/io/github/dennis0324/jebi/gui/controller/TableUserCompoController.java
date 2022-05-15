@@ -44,11 +44,13 @@ public class TableUserCompoController extends Controller {@FXML
         );
     }
     
-    @Override
-    public void onPageLoad() {}
-
     public void initialize(){
         setupTable();
         table.autosizeColumnsOnInitialization();
     }
+    
+    @Override
+	public void onPageLoad() {
+		/* TODO: ... */
+	}
 }

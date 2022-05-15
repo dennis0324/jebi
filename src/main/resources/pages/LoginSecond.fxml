@@ -9,28 +9,45 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.LoginSecondController">
    <children>
       <BorderPane layoutX="530.0" layoutY="237.0" prefHeight="427.0" prefWidth="348.0">
+         <top>
+            <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="이름">
+                     <font>
+                        <Font name="Malgun Gothic" size="56.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="emailLabel" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="이메일" textAlignment="CENTER">
+                     <font>
+                        <Font name="Malgun Gothic" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </top>
          <center>
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXPasswordField floatingText="Password" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
+                  <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
                      <cursor>
                         <Cursor fx:constant="TEXT" />
                      </cursor>
                   </MFXPasswordField>
+                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" onAction="#onForgotPwdBtnAction" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
+                     <font>
+                        <Font name="Malgun Gothic" size="13.0" />
+                     </font>
+                  </MFXButton>
                </children>
             </AnchorPane>
          </center>
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="loginPswd" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></MFXButton>
-                  <MFXButton fx:id="forgotPswd" layoutY="4.0" prefHeight="39.0" prefWidth="97.0" text="비밀번호 찾기" textFill="#6a8bff">
+                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -38,22 +55,6 @@
                </children>
             </AnchorPane>
          </bottom>
-         <top>
-            <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="nameID" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="ID_name">
-                     <font>
-                        <Font name="Arial" size="50.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="emailID" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="ID_Email" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </top>
       </BorderPane>
    </children>
    <cursor>

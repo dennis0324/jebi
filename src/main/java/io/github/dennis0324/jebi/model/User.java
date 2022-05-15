@@ -20,6 +20,8 @@
 
 package io.github.dennis0324.jebi.model;
 
+import com.google.cloud.firestore.DocumentSnapshot;
+
 /**
  * 사용자를 나타내는 클래스.
  * 
@@ -62,21 +64,18 @@ public class User {
 	/**
 	 * `User` 클래스의 생성자.
 	 * 
-	 * @param uid 사용자의 고유 ID.
-	 * @param name 사용자의 이름.
-	 * @param email 사용자의 이메일 주소.
-	 * @param pwdHash 사용자의 암호화된 비밀번호.
-	 * @param phoneNumber 사용자의 전화번호.
-	 * @param isAdmin 사용자의 관리자 여부.
+	 * @param snapshot 데이터베이스에 저장된 사용자 데이터.
 	 */
-	public User(String uid, String name, String email, 
-		String pwdHash, String phoneNumber, boolean isAdmin) {
-		this.uid = uid;
-		this.name = name;
-		this.email = email;
-		this.pwdHash = pwdHash;
-		this.phoneNumber = phoneNumber;
-		this._isAdmin = isAdmin;
+	public User(DocumentSnapshot snapshot) {
+		this.uid = snapshot.getString("uid");
+		this.name = snapshot.getString("name");
+		this.email = snapshot.getString("email");
+		this.pwdHash = snapshot.getString("pwdHash");
+		this.phoneNumber = snapshot.getString("phoneNumber");
+		
+		this._isAdmin = snapshot.contains("isAdmin") 
+			? snapshot.getBoolean("isAdmin") 
+			: false;
 	}
 	
 	/**

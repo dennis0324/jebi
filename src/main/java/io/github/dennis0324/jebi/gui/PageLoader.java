@@ -126,15 +126,6 @@ public final class PageLoader {
         return arg;
     }
 
-    /**
-     * 다음 페이지에 넘겨줄 객체를 지정해준다.
-     * 
-     * @param arg 다음 페이지에 넘겨줄 객체.
-     */
-    public void setArgument(Object arg) {
-        this.arg = arg;
-    }
-
     
     /**
      * 주어진 경로에 해당하는 페이지를 반환한다.
@@ -157,6 +148,15 @@ public final class PageLoader {
     }
     
     /**
+     * 다음 페이지에 넘겨줄 객체를 설정한다.
+     * 
+     * @param arg 다음 페이지에 넘겨줄 객체.
+     */
+    public void setArgument(Object arg) {
+    	this.arg = arg;
+    }
+    
+    /**
      * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
      * 
      * @param path 페이지의 FXML 문서 경로.
@@ -170,8 +170,10 @@ public final class PageLoader {
             
             Controller controller = loader.getController();
             
-            if (controller != null){
+            if (controller != null) {
                 controller.setPageLoader(this);
+                controller.setParent(parent);
+                
                 controller.onPageLoad();
             }
             
