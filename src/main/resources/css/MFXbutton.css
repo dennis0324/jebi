@@ -1,0 +1,19 @@
+/* @import '../fonts/font.css'; */
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap'); */
+/* @import "MFXColors.css"; */
+
+@font-face {
+    font-family: "Elice Digital Coding";
+    src: url('../fonts/EliceDigitalCoding_Regular.ttf') format('truetype');
+}
+
+.mfx-button {
+	/* -fx-font-family: 'Noto Sans KR', sans-serif; */
+	-fx-text-fill: #fff;
+    -fx-font-size: 30px;
+}
+
+.mfx-text-field {
+	-fx-font-family: 'Elice Digital Coding';
+    
+}

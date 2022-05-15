@@ -1,10 +1,13 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.beans.InvalidationListener;
@@ -19,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.event.ActionEvent;
 
+import javafx.scene.text.Font;
 
 
 // class TextFieldListener implements EventHandler<ActionEvent> {
@@ -39,6 +43,7 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
     private String path;
     private StackPane contentArea; 
     private TableController tableController;
+    private HashMap<String,Parent> childerns;
     public BtnMouseEvent(StackPane contentArea, String path,TableController tableController){
         this.path = path;
         this.contentArea = contentArea;
@@ -61,20 +66,12 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
 
 }
 
-<<<<<<< HEAD
-
-<<<<<<< HEAD
-public class TableController extends Controller implements Initializable {
-=======
-=======
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324
  */
->>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
 public class TableController extends Controller {
->>>>>>> 5d97164... 컨트롤러 추가
 
 
     @FXML
@@ -123,15 +120,6 @@ public class TableController extends Controller {
         System.out.println("tseting");
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-=======
-    public void initialize() {
->>>>>>> 5d97164... 컨트롤러 추가
-        
-=======
     @FXML
     void onSelectUser(ActionEvent event) {
         // try{
@@ -142,9 +130,18 @@ public class TableController extends Controller {
         // getPageLoader().setArgument(this);
     }
     
->>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
+
+
+    @Override
+    public void onPageLoad() {
+        //첫 화면 설정
+        setDefaultcontentArea();
+        setDefaultTableContent();
+        
+    }
 
     public void initialize() {
+        // Font font = new Font()
         searchBar.focusedProperty().addListener(new InvalidationListener() {               
             @Override
             public void invalidated(Observable observable) {
@@ -162,38 +159,12 @@ public class TableController extends Controller {
             System.out.println("mouse clicked");
         });
 
-<<<<<<< HEAD
-
-        MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "22"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
-        
-<<<<<<< HEAD
-        MFXIconWrapper filterIcon = new MFXIconWrapper(icon, 32).defaultRippleGeneratorBehavior(); // this will create the ripple effect, 32 is the ripple size
-        
-        Msetting.makeRegionCircular(filterIcon); // this will make the ripple circular
-        Msetting.make
-=======
-        // MFXIconWrapper filterIcon = new MFXIconWrapper(icon, 32).defaultRippleGeneratorBehavior(); // this will create the ripple effect, 32 is the ripple size
-        
-        // Msetting.makeRegionCircular(filterIcon); // this will make the ripple circular
-        // Msetting.make
->>>>>>> 5d97164... 컨트롤러 추가
-        
-=======
         //설정 버튼 샐성 구역
         MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
         testing.setIcon(icon);
         testing.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
         NodeUtils.makeRegionCircular(testing);
->>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
-        //
-        //각 메뉴 사용자와 책에 클릭 이벤트 부여
-        // user.setOnAction(new BtnMouseEvent(tableArea, "/pages/component/tableUserComponent.fxml",this));
-        // book.setOnAction(new BtnMouseEvent(tableArea,"/pages/component/tableBookComponent.fxml",this));
-        
-        //첫 화면 설정
-        setDefaultcontentArea();
-        setDefaultTableContent();
     }
 
     /**
@@ -203,16 +174,7 @@ public class TableController extends Controller {
      */
 
     private void setDefaultcontentArea(){
-        Parent parent;
-        try{
-            parent = FXMLLoader.load(getClass().getResource("/pages/component/defaultSearchComponent.fxml"));
-            contentArea.getChildren().removeAll();
-            contentArea.getChildren().setAll(parent);
-            // getPageLoader().setArgument(this);
-        }
-        catch (IOException e){
-            throw new RuntimeException(e);
-        }
+        getPageLoader().to(contentArea, "/pages/component/defaultSearchComponent.fxml",this);
     }
 
     /**
@@ -221,16 +183,7 @@ public class TableController extends Controller {
      * 
      */
     private void setDefaultTableContent(){
-        try{
-            Parent parent = FXMLLoader.load(getClass().getResource("/pages/component/tableBookComponent.fxml"));
-            tableArea.getChildren().removeAll();
-            tableArea.getChildren().setAll(parent);
-            // getPageLoader().setArgument(this);
-
-        }
-        catch(IOException e){
-            throw new RuntimeException(e);
-        }
+        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml",this);
     }
 
     /**

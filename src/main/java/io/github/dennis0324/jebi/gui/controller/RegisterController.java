@@ -31,6 +31,9 @@ public class RegisterController extends Controller {
     @FXML
     private MFXButton submitButton;
     
+    @Override
+    public void onPageLoad() {}
+
     public void initialize() {
         
         // Image image = new Image(getClass().getResource("/fxml/register.fxml").toString());
