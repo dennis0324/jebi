@@ -1,10 +1,13 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.beans.InvalidationListener;
@@ -39,6 +42,7 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
     private String path;
     private StackPane contentArea; 
     private TableController tableController;
+    private HashMap<String,Parent> childerns;
     public BtnMouseEvent(StackPane contentArea, String path,TableController tableController){
         this.path = path;
         this.contentArea = contentArea;
@@ -126,6 +130,15 @@ public class TableController extends Controller {
     }
     
 
+
+    @Override
+    public void onPageLoad() {
+        //첫 화면 설정
+        setDefaultcontentArea();
+        setDefaultTableContent();
+        
+    }
+
     public void initialize() {
         searchBar.focusedProperty().addListener(new InvalidationListener() {               
             @Override
@@ -150,14 +163,7 @@ public class TableController extends Controller {
         testing.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
         NodeUtils.makeRegionCircular(testing);
-        //
-        //각 메뉴 사용자와 책에 클릭 이벤트 부여
-        // user.setOnAction(new BtnMouseEvent(tableArea, "/pages/component/tableUserComponent.fxml",this));
-        // book.setOnAction(new BtnMouseEvent(tableArea,"/pages/component/tableBookComponent.fxml",this));
         
-        //첫 화면 설정
-        setDefaultcontentArea();
-        setDefaultTableContent();
     }
 
     /**
@@ -167,16 +173,7 @@ public class TableController extends Controller {
      */
 
     private void setDefaultcontentArea(){
-        Parent parent;
-        try{
-            parent = FXMLLoader.load(getClass().getResource("/pages/component/defaultSearchComponent.fxml"));
-            contentArea.getChildren().removeAll();
-            contentArea.getChildren().setAll(parent);
-            // getPageLoader().setArgument(this);
-        }
-        catch (IOException e){
-            throw new RuntimeException(e);
-        }
+        getPageLoader().to(contentArea, "/pages/component/defaultSearchComponent.fxml",this);
     }
 
     /**
@@ -185,16 +182,7 @@ public class TableController extends Controller {
      * 
      */
     private void setDefaultTableContent(){
-        try{
-            Parent parent = FXMLLoader.load(getClass().getResource("/pages/component/tableBookComponent.fxml"));
-            tableArea.getChildren().removeAll();
-            tableArea.getChildren().setAll(parent);
-            // getPageLoader().setArgument(this);
-
-        }
-        catch(IOException e){
-            throw new RuntimeException(e);
-        }
+        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml",this);
     }
 
     /**

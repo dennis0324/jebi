@@ -3,11 +3,11 @@ package io.github.dennis0324.jebi.gui.controller;
 import java.util.Comparator;
 
 import javafx.fxml.FXML;
-import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.User;
+import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.
@@ -30,28 +30,25 @@ public class TableUserCompoController extends Controller {@FXML
         MFXTableColumn<User> emailColumn = new MFXTableColumn<>("이메일",false,Comparator.comparing(User::getEmail));
         MFXTableColumn<User> phoneNumberColumn = new MFXTableColumn<>("전화번호",false,Comparator.comparing(User::getPhoneNumber));
 
-        uidColumn.setRowCellFactory(book -> new MFXTableRowCell<>(User::getUid));
-        nameColumn.setRowCellFactory(book -> new MFXTableRowCell<>(User::getName));
-        emailColumn.setRowCellFactory(book -> new MFXTableRowCell<>(User::getEmail));
-        phoneNumberColumn.setRowCellFactory(book -> new MFXTableRowCell<>(User::getPhoneNumber));
+        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
+        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
+        emailColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
+        phoneNumberColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
 
         table.getTableColumns().addAll(uidColumn,nameColumn,emailColumn,phoneNumberColumn);
-        // table.getFilters().addAll(
-        //     new StringFilter<>("책 ID",Book::getUid),
-        //     new StringFilter<>("책 이름",Book::getName),
-        //     new StringFilter<>("작가",Book::getAuthor),
-        //     new StringFilter<>("출판사",Book::getPublisher),
-        //     new StringFilter<>("출판 날짜",Book::getPubDate),
-        //     new IntegerFilter<>("카테고리",Book::getCategory)
-        // );
+        table.getFilters().addAll(
+            new StringFilter<>("책 ID",User::getUid),
+            new StringFilter<>("책 이름",User::getName),
+            new StringFilter<>("작가",User::getEmail),
+            new StringFilter<>("출판사",User::getPhoneNumber)
+        );
     }
     
+    @Override
+    public void onPageLoad() {}
 
     public void initialize(){
-
-
         setupTable();
         table.autosizeColumnsOnInitialization();
-        // table.setItems()
     }
 }
