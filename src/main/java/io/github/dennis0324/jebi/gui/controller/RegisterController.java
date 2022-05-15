@@ -28,7 +28,6 @@ import com.google.cloud.firestore.WriteResult;
 
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
-import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
@@ -74,11 +73,14 @@ public class RegisterController extends Controller {
 	
 	@FXML
 	public void onSubmitBtnAction() {
+		if (lastNameField.getText().isBlank()) { /* TODO: ... */ return; }
+		if (firstNameField.getText().isBlank()) { /* TODO: ... */ return; }
+		if (!StringUtils.isValidEmail(emailField.getText())) { /* TODO: ... */ return; }
+		if (!StringUtils.isValidPassword(passwordField.getText())) { /* TODO: ... */ return; }
+		if (!StringUtils.isValidPhoneNumber(phoneNumberField.getText())) { /* TODO: ... */ return; }
+			
 		String name = lastNameField.getText() + firstNameField.getText();
 		
-		/* TODO: 각 텍스트필드 값을 검사하고, 올바르지 않은 값일 경우 오류 메시지 출력 */
-		
-		// TODO: ...
 		User user = new User(
 			name, 
 			emailField.getText(), 
@@ -91,7 +93,7 @@ public class RegisterController extends Controller {
 			new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onSuccess(WriteResult result) {
-                	/* TODO: ... */
+                	Platform.runLater(() -> getPageLoader().to("/pages/LoginFirst.fxml"));
                 }
 
                 @Override
