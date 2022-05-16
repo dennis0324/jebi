@@ -20,7 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.util.concurrent.Executors;
 
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
@@ -32,13 +31,10 @@ import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.animation.*;
-import javafx.animation.Animation.Status;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.

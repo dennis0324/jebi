@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -32,6 +33,7 @@
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <MFXPasswordField floatingText="Password" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
 =======
                   <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
@@ -52,6 +54,30 @@
                      </font>
                   </MFXButton>
 >>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
+=======
+                  <VBox alignment="CENTER_LEFT" layoutY="36.0" prefHeight="200.0" prefWidth="348.0">
+                     <children>
+                        <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" prefHeight="49.0" prefWidth="348.0">
+                           <cursor>
+                              <Cursor fx:constant="TEXT" />
+                           </cursor>
+                        </MFXPasswordField>
+                        <Label fx:id="passwordMsgLabel" prefHeight="24.0" prefWidth="348.0" text="..." textFill="RED">
+                           <font>
+                              <Font name="Malgun Gothic" size="12.0" />
+                           </font>
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding>
+                        </Label>
+                        <MFXButton fx:id="forgotPwdBtn" onAction="#onForgotPwdBtnAction" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
+                           <font>
+                              <Font name="Malgun Gothic" size="13.0" />
+                           </font>
+                        </MFXButton>
+                     </children>
+                  </VBox>
+>>>>>>> b2c8655... 두 번째 로그인 페이지에 오류 메시지 레이블 추가
                </children>
             </AnchorPane>
          </center>
