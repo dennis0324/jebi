@@ -55,7 +55,11 @@ public class Main extends Application {
 =======
     
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
+=======
+		//Component/SearchComponent
+>>>>>>> 2de52cb... 옆 검색에 카드 추가
 		pageLoader.to("/pages/Table.fxml");
 =======
 		pageLoader.to("/pages/LoginFirst.fxml");

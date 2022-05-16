@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.SearchCompoController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0" spacing="20.0">
+         <children>
+            <MFXTextField fx:id="searchBox" floatingText="serach" prefHeight="49.0" prefWidth="378.0" stylesheets="@../../css/customMFXTextField.css" />
+            <MFXIconWrapper fx:id="sumbitButton" prefHeight="47.0" prefWidth="47.0" style="-fx-background-radius: 10px;" />
+         </children>
+      </HBox>
+      <VBox fx:id="searchResultContainer" prefHeight="805.0" prefWidth="440.0" spacing="40.0">
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding></VBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

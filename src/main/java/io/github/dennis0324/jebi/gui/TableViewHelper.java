@@ -9,6 +9,11 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
 public class TableViewHelper {
+
+    public enum Type{
+        User,
+        Book
+    }
     /**
      * 로그인 페이지 컨트롤러를 나타내는 클래스.
      * 

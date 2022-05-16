@@ -34,6 +34,7 @@
                <children>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                   <MFXPasswordField floatingText="Password" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
 =======
                   <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
@@ -55,6 +56,8 @@
                   </MFXButton>
 >>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
 =======
+=======
+>>>>>>> 2de52cb... 옆 검색에 카드 추가
                   <VBox alignment="CENTER_LEFT" layoutY="36.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
                         <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" prefHeight="49.0" prefWidth="348.0">
@@ -62,9 +65,15 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </MFXPasswordField>
+<<<<<<< HEAD
                         <Label fx:id="passwordMsgLabel" prefHeight="24.0" prefWidth="348.0" text="..." textFill="RED">
                            <font>
                               <Font name="Malgun Gothic" size="12.0" />
+=======
+                        <Label prefHeight="24.0" prefWidth="348.0" text="Label" textFill="RED">
+                           <font>
+                              <Font name="Arial" size="14.0" />
+>>>>>>> 2de52cb... 옆 검색에 카드 추가
                            </font>
                            <padding>
                               <Insets left="5.0" />
@@ -77,7 +86,10 @@
                         </MFXButton>
                      </children>
                   </VBox>
+<<<<<<< HEAD
 >>>>>>> b2c8655... 두 번째 로그인 페이지에 오류 메시지 레이블 추가
+=======
+>>>>>>> 2de52cb... 옆 검색에 카드 추가
                </children>
             </AnchorPane>
          </center>
