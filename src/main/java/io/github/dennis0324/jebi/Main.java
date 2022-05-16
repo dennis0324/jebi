@@ -51,6 +51,7 @@ public class Main extends Application {
 		
 		primaryStage.setResizable(false);
     
+		//Component/SearchComponent
 		pageLoader.to("/pages/Table.fxml");
 		
 		primaryStage.show();

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-=======
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
->>>>>>> e2cd5484f627acaf49677037bcd07e728d8c33e9
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -20,7 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" 
+style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" 
+fx:controller="io.github.dennis0324.jebi.gui.controller.TableController">
    <children>
       <VBox prefHeight="900.0" prefWidth="283.0" style="-fx-background-color: #252426;">
          <children>
@@ -39,20 +37,12 @@
                      <content>
                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="282.0" spacing="20.0">
                            <children>
-<<<<<<< HEAD
-                              <MFXButton fx:id="user" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
-=======
                               <MFXButton fx:id="user" onAction="#onSelectUser" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
->>>>>>> e2cd5484f627acaf49677037bcd07e728d8c33e9
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </MFXButton>
-<<<<<<< HEAD
-                              <MFXButton fx:id="book" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
-=======
                               <MFXButton fx:id="book" onAction="#onSelectBook" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
->>>>>>> e2cd5484f627acaf49677037bcd07e728d8c33e9
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
@@ -75,16 +65,8 @@
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Label>
-<<<<<<< HEAD
-                  <Button fx:id="setting" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 50%;" stylesheets="@../css/button.css">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="COG" selectionEnd="0" size="25" />
-                     </graphic>
-                  </Button>
-=======
                   <Button fx:id="setting" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 50%;" stylesheets="@../css/button.css" />
                   <MFXIconWrapper fx:id="testing" layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
->>>>>>> e2cd5484f627acaf49677037bcd07e728d8c33e9
                </children>
             </AnchorPane>
          </children>

@@ -9,6 +9,7 @@ import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.beans.InvalidationListener;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 
 import javafx.scene.text.Font;
@@ -73,7 +75,7 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
  * @author dennis0324
  */
 public class TableController extends Controller {
-
+    private Type type;
 
     @FXML
     private MFXButton book;
@@ -112,23 +114,23 @@ public class TableController extends Controller {
     @FXML
     void testingAction(ActionEvent event) {
         System.out.println(event);
+
     }
 
     
     @FXML
     void onSelectBook(ActionEvent event) {
-        // getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
+        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
         System.out.println("tseting");
+        this.type = Type.Book;
+
     }
 
     @FXML
     void onSelectUser(ActionEvent event) {
-        // try{
-        //     Parent parent = FXMLLoader.load(getClass().getResource("/pages/component/tableBookComponent.fxml"));
-        // }
-        // contentArea.getChildren().removeAll();
-        // contentArea.getChildren().setAll(parent);
-        // getPageLoader().setArgument(this);
+        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
+        this.type = Type.User;
+
     }
     
 
@@ -162,6 +164,8 @@ public class TableController extends Controller {
 
         //설정 버튼 샐성 구역
         MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
+        icon.fillProperty().set(Color.WHITE);
+        // icon.setStyle("-fx-fill:#fff");
         testing.setIcon(icon);
         testing.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
@@ -175,7 +179,7 @@ public class TableController extends Controller {
      */
 
     private void setDefaultcontentArea(){
-        getPageLoader().to(contentArea, "/pages/component/defaultSearchComponent.fxml",this);
+        getPageLoader().to(contentArea, "/pages/component/SearchComponent.fxml",this);
     }
 
     /**
@@ -185,6 +189,7 @@ public class TableController extends Controller {
      */
     private void setDefaultTableContent(){
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml",this);
+        this.type = Type.Book;
     }
 
     /**
@@ -205,4 +210,12 @@ public class TableController extends Controller {
         return tableArea;
     }
 
+    /**
+     * 현재 테이블 컨트롤러의 기본 타입을 반환해준다.
+     * 
+     * @return 현재 테이블의 타입
+     */
+    public Type getType(){
+        return type;
+    }
 }

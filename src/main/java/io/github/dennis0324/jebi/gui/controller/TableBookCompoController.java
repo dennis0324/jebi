@@ -25,6 +25,7 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 public class TableBookCompoController extends Controller {
 
     private StackPane stackPane;
+    private TableViewHelper.Type type;
 
     @FXML
     private MFXTableView<Book> table;
