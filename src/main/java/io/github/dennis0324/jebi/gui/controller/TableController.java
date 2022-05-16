@@ -12,6 +12,7 @@ import io.github.palexdev.materialfx.utils.NodeUtils;
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -77,24 +78,25 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
  */
 public class TableController extends Controller {
     private Type type;
+    private MFXComboBox<String> searchFilterComboBox; 
+
+    @FXML
+    private MFXButton addDBBtn;
+
+    @FXML
+    private TextField addDBText;
 
     @FXML
     private MFXButton book;
-
-    @FXML
-    private StackPane contentArea; //일반 창 변경에 필요함
-
+    
     @FXML
     private TextField searchBar;
-
-    @FXML
-    private MFXButton searchButton;
-
+    
     @FXML
     private HBox searchContainer;
 
     @FXML
-    private Button setting;
+    private StackPane contentArea; //일반 창 변경에 필요함
 
     @FXML
     private StackPane tableArea; //테이블 창 변경에 필요함
@@ -109,21 +111,29 @@ public class TableController extends Controller {
     private MFXButton Msetting;
 
     @FXML
-    private MFXIconWrapper testing;
+    private MFXIconWrapper setting;
 
 
     @FXML
-    void testingAction(ActionEvent event) {
-        System.out.println(event);
+    void onAddDBBtnClicked(ActionEvent event) {
+        String name = addDBText.getText();
+        addDBText.setText("");
+        // TODO dennis ko: 책 편집/추가 인터페이스 구현 & 유저 편집/추가 인터페이스 구현
+        if(type == Type.Book){
+            // TODO 데이터베이스 연결
+        }
+        else if(type == Type.User){
+            // TODO 데이터베이스 연결
+        }
 
     }
 
-    
     @FXML
     void onSelectBook(ActionEvent event) {
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
         System.out.println("tseting");
         this.type = Type.Book;
+        searchFilterComboBox.setItems(SearchCompoController.BookSelectList);
 
     }
 
@@ -131,6 +141,7 @@ public class TableController extends Controller {
     void onSelectUser(ActionEvent event) {
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
         this.type = Type.User;
+        searchFilterComboBox.setItems(SearchCompoController.UserSelectList);
 
     }
     
@@ -145,32 +156,28 @@ public class TableController extends Controller {
     }
 
     public void initialize() {
-        // Font font = new Font()
-        searchBar.focusedProperty().addListener(new InvalidationListener() {               
-            @Override
-            public void invalidated(Observable observable) {
-                //here it is changing
-                if(searchBar.isFocused()){
-                    System.out.print("testing");
-                }
-                else{
-                    System.out.print("testing2");
-                }
-            }
-        });
-
-        searchButton.setOnMouseClicked(event -> {
-            System.out.println("mouse clicked");
-        });
+        // 지우지 말아주세요!
+        // searchBar.focusedProperty().addListener(new InvalidationListener() {               
+        //     @Override
+        //     public void invalidated(Observable observable) {
+        //         //here it is changing
+        //         if(searchBar.isFocused()){
+        //             System.out.print("testing");
+        //         }
+        //         else{
+        //             System.out.print("testing2");
+        //         }
+        //     }
+        // });
 
         //설정 버튼 샐성 구역
         MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
         icon.fillProperty().set(Color.WHITE);
         // icon.setStyle("-fx-fill:#fff");
-        testing.setIcon(icon);
-        testing.defaultRippleGeneratorBehavior();
+        setting.setIcon(icon);
+        setting.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
-        NodeUtils.makeRegionCircular(testing);
+        NodeUtils.makeRegionCircular(setting);
     }
 
     /**
@@ -219,6 +226,10 @@ public class TableController extends Controller {
      */
     public Type getType(){
         return type;
+    }
+
+    public void setComboBox(MFXComboBox<String> searchFilterComboBox){
+        this.searchFilterComboBox = searchFilterComboBox;
     }
 }
 =======
