@@ -64,6 +64,9 @@ public class LoginSecondController extends Controller {
     @Override
 	public void onPageLoad() {
     	user = (User) getPageLoader().getArgument();
+    	
+    	nameLabel.setText(user.getName());
+    	emailLabel.setText(user.getEmail());
 	}
     
     @FXML

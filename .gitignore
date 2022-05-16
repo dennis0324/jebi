@@ -14,6 +14,7 @@
 *.rar
 
 # Maven 관련 파일
+**/bin/
 **/target/
 
 # Eclipse IDE 관련 파일
@@ -23,13 +24,15 @@
 **/.project
 **/.settings/
 
-# vscode IDE 관련 파일
+# Visual Studio Code 관련 파일
 .vscode
-<<<<<<< HEAD
 **/.vscode
+<<<<<<< HEAD
 
 # bin 폴더
 bin/
 =======
 **/.vscode
 >>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
+=======
+>>>>>>> beff403... 두 번째 로그인 페이지 수정
