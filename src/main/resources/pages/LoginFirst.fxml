@@ -28,7 +28,7 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </MFXTextField>
-                        <Label fx:id="errorMsgLabel" prefHeight="27.0" prefWidth="348.0" text="..." textFill="RED">
+                        <Label fx:id="emailMsgLabel" prefHeight="27.0" prefWidth="348.0" text="..." textFill="RED">
                            <font>
                               <Font name="Malgun Gothic" size="12.0" />
                            </font>

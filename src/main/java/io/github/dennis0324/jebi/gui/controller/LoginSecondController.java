@@ -20,7 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
