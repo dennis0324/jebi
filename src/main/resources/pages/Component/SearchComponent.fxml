@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -11,7 +12,8 @@
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0" spacing="20.0">
          <children>
             <MFXTextField fx:id="searchBox" floatingText="serach" prefHeight="49.0" prefWidth="378.0" stylesheets="@../../css/customMFXTextField.css" />
-            <MFXIconWrapper fx:id="sumbitButton" prefHeight="47.0" prefWidth="47.0" style="-fx-background-radius: 10px;" />
+            <MFXComboBox fx:id="SearchFilterComboBox" floatMode="BORDER" floatingText="카테고리" prefHeight="49.0" prefWidth="118.0" />
+            <MFXIconWrapper fx:id="sumbitButton" onMouseClicked="#onSumbitMouseBtnClicked" prefHeight="47.0" prefWidth="47.0" style="-fx-background-radius: 10px;" />
          </children>
       </HBox>
       <VBox fx:id="searchResultContainer" prefHeight="805.0" prefWidth="440.0" spacing="40.0">
