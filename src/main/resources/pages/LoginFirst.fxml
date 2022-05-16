@@ -36,7 +36,7 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </MFXTextField>
-                        <Label fx:id="errorMsgLabel" prefHeight="27.0" prefWidth="348.0" text="..." textFill="RED">
+                        <Label fx:id="emailMsgLabel" prefHeight="27.0" prefWidth="348.0" text="..." textFill="RED">
                            <font>
 <<<<<<< HEAD
                               <Font name="Arial" size="12.0" />

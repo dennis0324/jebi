@@ -106,7 +106,7 @@ public final class PageLoader {
     }
 
     /**
-     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙힌다.
+     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙인다.
      * 
      * @param parent 컴포넌트를 붙힐 부모 클라스
      * @param path 페이지의 FXML 문서 경로.
@@ -198,10 +198,11 @@ public final class PageLoader {
     }
 
     /**
-     * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
+     * ...
      * 
-     * @param path 페이지의 FXML 문서 경로.
-     * @return 주어진 경로에 해당하는 `Parent`.
+     * @param pane
+     * @param path
+     * @return
      */
     private Parent load(Pane pane, String path) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));

@@ -54,8 +54,12 @@ public class Main extends Application {
 		
 =======
     
+<<<<<<< HEAD
 >>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
 		pageLoader.to("/pages/Table.fxml");
+=======
+		pageLoader.to("/pages/LoginFirst.fxml");
+>>>>>>> 7cb4f2b... 계정 생성 페이지 구현 완료
 		
 		primaryStage.show();
 	}
