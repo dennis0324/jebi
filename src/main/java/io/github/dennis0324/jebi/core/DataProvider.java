@@ -106,6 +106,15 @@ public final class DataProvider {
         return instance;
     }
     
+    /** 
+     * 비동기 작업 처리를 위한 스레드 풀을 반환한다.
+     * 
+     * @return 비동기 작업 처리를 위한 스레드 풀.
+     */
+    public ExecutorService getThreadPool() {
+    	return pool;
+    }
+    
     /**
      * 주어진 사용자 정보를 통해 사용자 계정을 생성한다.
      * 

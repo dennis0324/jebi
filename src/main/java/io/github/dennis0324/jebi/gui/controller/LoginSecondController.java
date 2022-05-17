@@ -20,8 +20,8 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
+import io.github.dennis0324.jebi.util.Animations;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -51,6 +51,9 @@ public class LoginSecondController extends Controller {
     private MFXPasswordField passwordField;
     
     @FXML
+    private Label passwordMsgLabel;
+    
+    @FXML
     private MFXButton forgotPwdBtn;
     
     @FXML
@@ -59,11 +62,16 @@ public class LoginSecondController extends Controller {
     @Override
     public void initialize() {
         // provider = DataProvider.getInstance();
+    	
+    	passwordMsgLabel.setManaged(false);
     }
     
     @Override
 	public void onPageLoad() {
     	user = (User) getPageLoader().getArgument();
+    	
+    	nameLabel.setText(user.getName());
+    	emailLabel.setText(user.getEmail());
 	}
     
     @FXML
@@ -76,7 +84,7 @@ public class LoginSecondController extends Controller {
     	String password = passwordField.getText();
     	
     	if (!StringUtils.isValidPassword(password)) {
-            // TODO: ...
+    		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_INVALID_PASSWORD);
             
             return;
         }
@@ -84,7 +92,7 @@ public class LoginSecondController extends Controller {
     	boolean success = StringUtils.encrypt(password)
     		.equals(user.getPwdHash());
     	
-    	if (!success) /* TODO: ... */;
+    	if (!success) Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
     	else getPageLoader().to("/pages/Table.fxml", user);
     }
 }

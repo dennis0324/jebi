@@ -20,24 +20,21 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.util.concurrent.Executors;
 
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
+import io.github.dennis0324.jebi.util.Animations;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
-import javafx.animation.*;
-import javafx.animation.Animation.Status;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
 
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.
@@ -48,14 +45,11 @@ public class LoginFirstController extends Controller {
 	// 로그인 페이지 컨트롤러의 `DataProvider` 인스턴스.
     private DataProvider provider;
     
-    // 오류 메시지 레이블의 애니메이션.
-    private SequentialTransition errorMsgLabelAnim;
-    
     @FXML
     private MFXTextField emailField;
     
     @FXML
-    private Label errorMsgLabel;
+    private Label emailMsgLabel;
 
     @FXML
     private Button forgotEmailBtn;
@@ -70,9 +64,8 @@ public class LoginFirstController extends Controller {
     @Override
     public void initialize() {
         provider = DataProvider.getInstance();
-        errorMsgLabelAnim = getErrorMsgLabelTransition();
         
-        errorMsgLabel.setManaged(false);
+        emailMsgLabel.setManaged(false);
     }
     
     @Override
@@ -95,7 +88,7 @@ public class LoginFirstController extends Controller {
         String email = emailField.getText();
         
         if (!StringUtils.isValidEmail(email)) {
-            updateErrorMsgLabel(Messages.ERROR_INVALID_EMAIL);
+        	Animations.updateLabel(emailMsgLabel, Messages.ERROR_INVALID_EMAIL);
             
             return;
         }
@@ -108,47 +101,19 @@ public class LoginFirstController extends Controller {
                 	String uid = result.getUid();
                 	
                     if (uid != null) Platform.runLater(() -> getPageLoader().to("/pages/LoginSecond.fxml", result));
-                    else Platform.runLater(() -> updateErrorMsgLabel(Messages.ERROR_UNKNOWN));
+                    else Platform.runLater(() -> Animations.updateLabel(emailMsgLabel, Messages.ERROR_UNKNOWN));
                 }
 
                 @Override
                 public void onFailure(Throwable t) {
-                	Platform.runLater(() -> updateErrorMsgLabel(Messages.ERROR_USER_NOT_FOUND));
+                	Platform.runLater(
+                		() -> { 
+                			Animations.updateLabel(emailMsgLabel, Messages.ERROR_USER_NOT_FOUND);
+                		}
+                	);
                 }
             },
-            Executors.newCachedThreadPool()
+            provider.getThreadPool()
         );
-    }
-    
-    /**
-     * 오류 메시지 레이블의 애니메이션을 반환한다.
-     * 
-     * @return 오류 메시지 레이블의 애니메이션.
-     */
-    private SequentialTransition getErrorMsgLabelTransition() {
-        PauseTransition pauseAnim = new PauseTransition(Duration.seconds(1.25));
-        FadeTransition fadeAnim = new FadeTransition(Duration.seconds(0.5), errorMsgLabel);
-        
-        fadeAnim.setFromValue(1.0);
-        fadeAnim.setToValue(0.0);
-        
-        SequentialTransition result = new SequentialTransition(pauseAnim, fadeAnim);
-        
-        result.setOnFinished(event -> errorMsgLabel.setManaged(false));
-        
-        return result;
-    }
-    
-    /**
-     * 오류 메시지 레이블을 업데이트한다.
-     * 
-     * @param message 레이블이 보여줄 오류 메시지.
-     */
-    private void updateErrorMsgLabel(String message) {
-        errorMsgLabel.setText(message);
-        errorMsgLabel.setManaged(true);
-        
-        if (errorMsgLabelAnim.getStatus() != Status.RUNNING)
-            errorMsgLabelAnim.playFromStart();
     }
 }
