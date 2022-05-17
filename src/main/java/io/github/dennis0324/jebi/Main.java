@@ -60,6 +60,7 @@ public class Main extends Application {
 =======
 		//Component/SearchComponent
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2de52cb... 옆 검색에 카드 추가
 		pageLoader.to("/pages/Table.fxml");
 =======
@@ -68,6 +69,9 @@ public class Main extends Application {
 =======
 		pageLoader.to("/pages/Search.fxml");
 >>>>>>> 27af3bc... 오른쪽 구역 버튼 이벤트 추가
+=======
+		pageLoader.to("/pages/Table.fxml");
+>>>>>>> cc8738c... 추가 편집상황에 맞게 userEditAddCompoController 이벤트 속성 부여
 		
 		primaryStage.show();
 	}
