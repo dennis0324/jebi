@@ -106,7 +106,7 @@ public final class PageLoader {
     }
 
     /**
-     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙인다.
+     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙힌다.
      * 
      * @param parent 컴포넌트를 붙힐 부모 클라스
      * @param path 페이지의 FXML 문서 경로.
@@ -124,15 +124,6 @@ public final class PageLoader {
      */
     public Object getArgument() {
         return arg;
-    }
-
-    /**
-     * 다음 페이지에 넘겨줄 객체를 지정해준다.
-     * 
-     * @param arg 다음 페이지에 넘겨줄 객체.
-     */
-    public void setArgument(Object arg) {
-        this.arg = arg;
     }
 
     
@@ -179,15 +170,10 @@ public final class PageLoader {
             
             Controller controller = loader.getController();
             
-<<<<<<< HEAD
-            if (controller != null){
-                controller.setPageLoader(this);
-=======
             if (controller != null) {
                 controller.setPageLoader(this);
                 controller.setParent(parent);
                 
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
                 controller.onPageLoad();
             }
             
@@ -198,11 +184,10 @@ public final class PageLoader {
     }
 
     /**
-     * ...
+     * 주어진 경로에 해당하는 FXML 문서로 페이지를 생성한다.
      * 
-     * @param pane
-     * @param path
-     * @return
+     * @param path 페이지의 FXML 문서 경로.
+     * @return 주어진 경로에 해당하는 `Parent`.
      */
     private Parent load(Pane pane, String path) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));

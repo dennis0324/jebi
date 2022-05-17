@@ -48,12 +48,6 @@ public class TableUserCompoController extends Controller {@FXML
         table.setItems(FXCollections.observableArrayList(new User("testing1","testing1","testing1","testing1"),new User("testing2","testing2","testing2","testing2")));
     }
     
-    @Override
-<<<<<<< HEAD
-    public void onPageLoad() {}
-
-=======
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
     public void initialize(){
 
     }

@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
-=======
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
->>>>>>> beff403... 두 번째 로그인 페이지 수정
-=======
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-=======
->>>>>>> 246a9ae... 자잘한 버튼 이벤트 수정 및 추가
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
->>>>>>> 2de52cb... 옆 검색에 카드 추가
 <?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -47,28 +33,12 @@
                      <content>
                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="282.0" spacing="20.0">
                            <children>
-<<<<<<< HEAD
-<<<<<<< HEAD
                               <MFXButton fx:id="user" onAction="#onSelectUser" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
-=======
-                              <MFXButton fx:id="user" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
->>>>>>> beff403... 두 번째 로그인 페이지 수정
-=======
-                              <MFXButton fx:id="user" onAction="#onSelectUser" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
->>>>>>> 2de52cb... 옆 검색에 카드 추가
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </MFXButton>
-<<<<<<< HEAD
-<<<<<<< HEAD
                               <MFXButton fx:id="book" onAction="#onSelectBook" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
-=======
-                              <MFXButton fx:id="book" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
->>>>>>> beff403... 두 번째 로그인 페이지 수정
-=======
-                              <MFXButton fx:id="book" onAction="#onSelectBook" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
->>>>>>> 2de52cb... 옆 검색에 카드 추가
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
@@ -91,25 +61,7 @@
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Label>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  <Button fx:id="setting" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 50%;" stylesheets="@../css/button.css" />
-                  <MFXIconWrapper fx:id="testing" layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
-=======
-                  <Button fx:id="setting" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 50%;" stylesheets="@../css/button.css">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="COG" selectionEnd="0" size="25" />
-                     </graphic>
-                  </Button>
->>>>>>> beff403... 두 번째 로그인 페이지 수정
-=======
-                  <Button fx:id="setting" layoutX="225.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-radius: 50%;" stylesheets="@../css/button.css" />
-                  <MFXIconWrapper fx:id="testing" layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
->>>>>>> 2de52cb... 옆 검색에 카드 추가
-=======
                   <MFXIconWrapper fx:id="setting" layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
->>>>>>> 246a9ae... 자잘한 버튼 이벤트 수정 및 추가
                </children>
             </AnchorPane>
          </children>

@@ -32,9 +32,6 @@ public class TableBookCompoController extends Controller {
     private MFXTableView<Book> table;
     
 
-    @Override
-    public void onPageLoad() {}
-    
     public void initialize() {
 
 

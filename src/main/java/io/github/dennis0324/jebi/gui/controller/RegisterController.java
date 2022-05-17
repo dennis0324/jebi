@@ -147,22 +147,7 @@ public class RegisterController extends Controller {
                 	
                 	canRegister = false;
                 }
-
-<<<<<<< HEAD
-    @FXML
-    private MFXButton submitButton;
-    
-    @Override
-    public void onPageLoad() {}
-
-    public void initialize() {
-        
-        // Image image = new Image(getClass().getResource("/fxml/register.fxml").toString());
-        // logo.setImage(image);
-        // logo.setImage(image);
-        
-    }
-=======
+                
                 @Override
                 public void onFailure(Throwable t) {
                 	Platform.runLater(
@@ -197,5 +182,4 @@ public class RegisterController extends Controller {
 			);
 		}
 	}
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
 }

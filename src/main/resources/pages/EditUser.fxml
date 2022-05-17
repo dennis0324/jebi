@@ -59,7 +59,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="700.0" prefWidth="500.0">
                <children>
-                  <Label text="어드민 권환" />
+                  <Label text="관리자 권한" />
                   <MFXToggleButton />
                </children>
             </HBox>

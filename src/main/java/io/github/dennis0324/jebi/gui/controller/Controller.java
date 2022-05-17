@@ -77,19 +77,9 @@ public abstract class Controller {
      * 이 메소드는 JavaFX에 의해 자동으로 호출된다.
      */
 	public abstract void initialize();
-<<<<<<< HEAD
-
-
-	/**
-     * 초기화하면서 화면 출력하기 전 추가로 호출되는 함수이다.
-     * 
-     * 이 메소드는 JavaFX::initialize에 의해 자동으로 호출된다.
-     */
-=======
 	
 	/**
 	 * 이벤트 컨트롤러의 초기화 직후에 호출되는 메소드이다.
 	 */
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
 	public abstract void onPageLoad();
 }

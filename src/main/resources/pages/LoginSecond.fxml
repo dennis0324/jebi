@@ -32,32 +32,6 @@
          <center>
             <AnchorPane prefHeight="306.0" prefWidth="384.0" BorderPane.alignment="CENTER">
                <children>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  <MFXPasswordField floatingText="Password" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
-=======
-                  <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" layoutY="116.0" prefHeight="49.0" prefWidth="348.0">
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
-                     <cursor>
-                        <Cursor fx:constant="TEXT" />
-                     </cursor>
-                  </MFXPasswordField>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
-=======
-                  <MFXButton fx:id="forgotPwdBtn" layoutY="172.0" onAction="#onForgotPwdBtnAction" prefHeight="20.0" text="비밀번호를 잊으셨나요?" textFill="#a4a4a4">
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
-                     <font>
-                        <Font name="Malgun Gothic" size="13.0" />
-                     </font>
-                  </MFXButton>
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
-=======
-=======
->>>>>>> 2de52cb... 옆 검색에 카드 추가
                   <VBox alignment="CENTER_LEFT" layoutY="36.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
                         <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" prefHeight="49.0" prefWidth="348.0">
@@ -65,15 +39,9 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </MFXPasswordField>
-<<<<<<< HEAD
-                        <Label fx:id="passwordMsgLabel" prefHeight="24.0" prefWidth="348.0" text="..." textFill="RED">
-                           <font>
-                              <Font name="Malgun Gothic" size="12.0" />
-=======
                         <Label prefHeight="24.0" prefWidth="348.0" text="Label" textFill="RED">
                            <font>
                               <Font name="Arial" size="14.0" />
->>>>>>> 2de52cb... 옆 검색에 카드 추가
                            </font>
                            <padding>
                               <Insets left="5.0" />
@@ -86,29 +54,13 @@
                         </MFXButton>
                      </children>
                   </VBox>
-<<<<<<< HEAD
->>>>>>> b2c8655... 두 번째 로그인 페이지에 오류 메시지 레이블 추가
-=======
->>>>>>> 2de52cb... 옆 검색에 카드 추가
                </children>
             </AnchorPane>
          </center>
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                  <MFXButton fx:id="loginPswd" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="다음">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor></MFXButton>
-                  <MFXButton fx:id="forgotPswd" layoutY="4.0" prefHeight="39.0" prefWidth="97.0" text="비밀번호 찾기" textFill="#6a8bff">
-=======
-                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
-=======
                   <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -116,33 +68,6 @@
                </children>
             </AnchorPane>
          </bottom>
-<<<<<<< HEAD
-         <top>
-            <VBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-<<<<<<< HEAD
-                  <Label fx:id="nameID" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="ID_name">
-=======
-                  <Label fx:id="nameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="381.0" text="이름">
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
-                     <font>
-                        <Font name="Arial" size="50.0" />
-                     </font>
-                  </Label>
-<<<<<<< HEAD
-                  <Label fx:id="emailID" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="ID_Email" textAlignment="CENTER">
-=======
-                  <Label fx:id="emailLabel" alignment="CENTER" prefHeight="39.0" prefWidth="348.0" text="이메일" textAlignment="CENTER">
->>>>>>> bf019fc... 계정 생성 컨트롤러 업데이트
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </top>
-=======
->>>>>>> 8c59d83... 두 번째 로그인 페이지 구현 완료
       </BorderPane>
    </children>
    <cursor>

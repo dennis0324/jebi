@@ -61,10 +61,6 @@ public class LoginFirstController extends Controller {
     private MFXButton nextStepBtn;
 
     @Override
-    public void onPageLoad() {}
-    
-
-    @Override
     public void initialize() {
         provider = DataProvider.getInstance();
         

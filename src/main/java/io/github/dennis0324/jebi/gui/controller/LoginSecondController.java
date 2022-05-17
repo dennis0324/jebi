@@ -50,8 +50,8 @@ public class LoginSecondController extends Controller {
     @FXML
     private MFXPasswordField passwordField;
     
-    @FXML
-    private Label passwordMsgLabel;
+    //@FXML
+    //private Label passwordMsgLabel;
     
     @FXML
     private MFXButton forgotPwdBtn;
@@ -63,7 +63,7 @@ public class LoginSecondController extends Controller {
     public void initialize() {
         // provider = DataProvider.getInstance();
     	
-    	passwordMsgLabel.setManaged(false);
+    	//passwordMsgLabel.setManaged(false);
     }
     
     @Override
@@ -84,7 +84,7 @@ public class LoginSecondController extends Controller {
     	String password = passwordField.getText();
     	
     	if (!StringUtils.isValidPassword(password)) {
-    		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_INVALID_PASSWORD);
+    		//Animations.updateLabel(passwordMsgLabel, Messages.ERROR_INVALID_PASSWORD);
             
             return;
         }
@@ -92,7 +92,7 @@ public class LoginSecondController extends Controller {
     	boolean success = StringUtils.encrypt(password)
     		.equals(user.getPwdHash());
     	
-    	if (!success) Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
+    	if (!success) /*Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH)*/;
     	else getPageLoader().to("/pages/Table.fxml", user);
     }
 }
