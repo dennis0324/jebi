@@ -8,6 +8,7 @@ import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -20,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class UserEditAddCompoController extends Controller {
@@ -43,6 +45,8 @@ public class UserEditAddCompoController extends Controller {
     @FXML
     private MFXToggleButton editModeSelector;
     
+    @FXML
+    private VBox tableContainer;
 
     @FXML
     private MFXTextField email;
@@ -65,13 +69,7 @@ public class UserEditAddCompoController extends Controller {
 
     @FXML
     void onChangeEditMode(ActionEvent event) {
-        System.out.println(editModeSelector.isSelected());
-        email.setSelectable(editModeSelector.isSelected());
-        email.setEditable(editModeSelector.isSelected());
-        name.setSelectable(editModeSelector.isSelected());
-        name.setEditable(editModeSelector.isSelected());
-        phoneNumber.setSelectable(editModeSelector.isSelected());
-        phoneNumber.setEditable(editModeSelector.isSelected());
+        setEditMode(editModeSelector.isSelected());
     }
     
     @SuppressWarnings("unchecked")
@@ -105,26 +103,70 @@ public class UserEditAddCompoController extends Controller {
     }
 
     @Override
-    public void onPageLoad() {     
+    public void onPageLoad() {
+        User user;
+        Book book;
         TableController tableController = (TableController)getPageLoader().getArgument();
         AddWindowType windowType = tableController.getWindowType();
         System.out.print(windowType);
         CapsuleButton button = new CapsuleButton();
         if(windowType == AddWindowType.add){
-            table.setManaged(false);
-            table.setVisible(false);
+            tableContainer.setManaged(false);
+            tableContainer.setVisible(false);
+            setEditMode(true);
+            editModeSelector.setSelected(true);
+            // table
             button.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
             button.setText("Add");
             button.prefHeight(30);
             button.prefWidth(70);
+            user = tableController.getUser();
+
+            if(user.getEmail() == "")
+                email.setPromptText("정보 없음");
+            
+            if(user.getName() == "")
+                name.setPromptText("정보 없음");
+            else
+                name.setText(user.getName());
+
+            if(user.getPhoneNumber() == "")
+                phoneNumber.setPromptText("정보 없음");
+                
         }
         else{
             button.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
             button.setText("Delete");
             button.prefHeight(30);
             button.prefWidth(70);
+            user = tableController.getUser();
+
+            // System.out.println(user.getEmail());
+            if(user.getEmail() == "")
+                email.setText("정보 없음");
+            else
+                email.setText(user.getEmail());
+            
+            if(user.getName() == "")
+                name.setText("정보 없음");
+            else
+                name.setText(user.getName());
+
+            if(user.getPhoneNumber() == "")
+                phoneNumber.setText("정보 없음");
+            else
+                phoneNumber.setText(user.getPhoneNumber());
         }
         deleteBtnContainer.getChildren().add(button);
+    }
+
+    public void setEditMode(boolean input){
+        email.setSelectable(input);
+        email.setEditable(input);
+        name.setSelectable(input);
+        name.setEditable(input);
+        phoneNumber.setSelectable(input);
+        phoneNumber.setEditable(input); 
     }
 
 }
