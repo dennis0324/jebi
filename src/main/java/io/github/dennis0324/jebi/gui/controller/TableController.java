@@ -5,11 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
+import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
+import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -21,6 +27,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.event.ActionEvent;
 
 import javafx.scene.text.Font;
@@ -73,25 +80,29 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
  * @author dennis0324
  */
 public class TableController extends Controller {
+    private Type type;
+    private AddWindowType addWindowType;
+    private MFXComboBox<String> searchFilterComboBox;
+    private User tempUser;
+    private Book tempBook;
 
+    @FXML
+    private MFXButton addDBBtn;
+
+    @FXML
+    private TextField addDBText;
 
     @FXML
     private MFXButton book;
-
-    @FXML
-    private StackPane contentArea; //일반 창 변경에 필요함
-
+    
     @FXML
     private TextField searchBar;
-
-    @FXML
-    private MFXButton searchButton;
-
+    
     @FXML
     private HBox searchContainer;
 
     @FXML
-    private Button setting;
+    private StackPane contentArea; //일반 창 변경에 필요함
 
     @FXML
     private StackPane tableArea; //테이블 창 변경에 필요함
@@ -106,29 +117,46 @@ public class TableController extends Controller {
     private MFXButton Msetting;
 
     @FXML
-    private MFXIconWrapper testing;
+    private MFXIconWrapper setting;
 
 
     @FXML
-    void testingAction(ActionEvent event) {
-        System.out.println(event);
+    void onAddDBBtnClicked(ActionEvent event) {
+        String name = addDBText.getText();
+        addDBText.setText("");
+        if(name == ""){
+            return;
+        }
+        // TODO dennis ko: 책 편집/추가 인터페이스 구현 & 유저 편집/추가 인터페이스 구현
+        if(type == Type.Book){
+            tempBook = new Book("uid");
+            addWindowType = AddWindowType.add;
+            // TODO 데이터베이스 연결
+        }
+        else if(type == Type.User){
+            addWindowType = AddWindowType.add;
+            tempUser = new User(name,"","","");
+            getPageLoader().to(contentArea, "/pages/component/userEditAddComponent.fxml", this);
+
+            // TODO 데이터베이스 연결
+        }
+
     }
 
-    
     @FXML
     void onSelectBook(ActionEvent event) {
-        // getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
-        System.out.println("tseting");
+        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
+        this.type = Type.Book;
+        searchFilterComboBox.setItems(SearchCompoController.BookSelectList);
+
     }
 
     @FXML
     void onSelectUser(ActionEvent event) {
-        // try{
-        //     Parent parent = FXMLLoader.load(getClass().getResource("/pages/component/tableBookComponent.fxml"));
-        // }
-        // contentArea.getChildren().removeAll();
-        // contentArea.getChildren().setAll(parent);
-        // getPageLoader().setArgument(this);
+        getPageLoader().to(tableArea, "/pages/component/tableUserComponent.fxml", this);
+        this.type = Type.User;
+        searchFilterComboBox.setItems(SearchCompoController.UserSelectList);
+
     }
     
 
@@ -136,36 +164,34 @@ public class TableController extends Controller {
     @Override
     public void onPageLoad() {
         //첫 화면 설정
-        setDefaultcontentArea();
         setDefaultTableContent();
+        setDefaultcontentArea();
         
     }
 
     public void initialize() {
-        // Font font = new Font()
-        searchBar.focusedProperty().addListener(new InvalidationListener() {               
-            @Override
-            public void invalidated(Observable observable) {
-                //here it is changing
-                if(searchBar.isFocused()){
-                    System.out.print("testing");
-                }
-                else{
-                    System.out.print("testing2");
-                }
-            }
-        });
-
-        searchButton.setOnMouseClicked(event -> {
-            System.out.println("mouse clicked");
-        });
+        // 지우지 말아주세요!
+        // searchBar.focusedProperty().addListener(new InvalidationListener() {               
+        //     @Override
+        //     public void invalidated(Observable observable) {
+        //         //here it is changing
+        //         if(searchBar.isFocused()){
+        //             System.out.print("testing");
+        //         }
+        //         else{
+        //             System.out.print("testing2");
+        //         }
+        //     }
+        // });
 
         //설정 버튼 샐성 구역
         MaterialIconView icon = new MaterialIconView(MaterialIcon.SETTINGS, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
-        testing.setIcon(icon);
-        testing.defaultRippleGeneratorBehavior();
+        icon.fillProperty().set(Color.WHITE);
+        // icon.setStyle("-fx-fill:#fff");
+        setting.setIcon(icon);
+        setting.defaultRippleGeneratorBehavior();
         //지역을 둥글게 만들어준다.
-        NodeUtils.makeRegionCircular(testing);
+        NodeUtils.makeRegionCircular(setting);
     }
 
     /**
@@ -175,7 +201,7 @@ public class TableController extends Controller {
      */
 
     private void setDefaultcontentArea(){
-        getPageLoader().to(contentArea, "/pages/component/defaultSearchComponent.fxml",this);
+        getPageLoader().to(contentArea, "/pages/component/SearchComponent.fxml",this);
     }
 
     /**
@@ -185,6 +211,7 @@ public class TableController extends Controller {
      */
     private void setDefaultTableContent(){
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml",this);
+        this.type = Type.Book;
     }
 
     /**
@@ -205,4 +232,46 @@ public class TableController extends Controller {
         return tableArea;
     }
 
+    /**
+     * 현재 테이블 컨트롤러의 기본 타입을 반환해준다.
+     * 
+     * @return 현재 테이블의 타입
+     */
+    public Type getType(){
+        return type;
+    }
+    /**
+     * 수정모드인지 추가모드인지 설정한다.
+     * 
+     * @param windowType `enum`타입으로 모드를 반환해준다.
+     */
+    public void setAddWindowType(AddWindowType windowType){
+        this.addWindowType = windowType;
+    }
+
+    /**
+     * 수정모드인지 추가모드인지 반환해준다.
+     * 
+     * @return 현재 사용중인 모드를 반환해준다. 
+     */
+    public AddWindowType getWindowType(){
+        return this.addWindowType;
+    }
+
+    /**
+     * 검색 필터 카테고리를 설정해준다.
+     * 
+     * @param searchFilterComboBx `SearchCompoController`에서의 `String` 타입의 제네릭 array이다.
+     */
+    public void setComboBox(MFXComboBox<String> searchFilterComboBox){
+        this.searchFilterComboBox = searchFilterComboBox;
+    }
+
+    public void setUser(User tempUser){
+        this.tempUser = tempUser;
+    }
+
+    public User getUser(){
+        return tempUser;
+    }
 }

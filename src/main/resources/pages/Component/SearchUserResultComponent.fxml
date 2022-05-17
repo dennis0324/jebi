@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="150.0" prefWidth="450.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.SearchUserResultCompoController">
+   <children>
+      <HBox prefHeight="47.0" prefWidth="600.0" style="-fx-border-color: #252426; -fx-border-width: 0 0 2px 0;">
+         <children>
+            <Label alignment="BOTTOM_RIGHT" prefHeight="47.0" prefWidth="152.0" text="name" HBox.hgrow="SOMETIMES">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="BOTTOM_LEFT" prefHeight="47.0" prefWidth="330.0" text="email" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox prefHeight="45.0" prefWidth="430.0">
+         <children>
+            <Label prefHeight="42.0" prefWidth="366.0" text="phoneNumber" />
+            <Label prefHeight="44.0" prefWidth="74.0" text="isAdmin" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="580.0" spacing="30.0">
+         <children>
+            <MFXButton fx:id="editButton" onAction="#onEditBtnPressed" prefHeight="46.0" prefWidth="82.0" style="-fx-background-color: #252426;" text="edit" textFill="WHITE" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>

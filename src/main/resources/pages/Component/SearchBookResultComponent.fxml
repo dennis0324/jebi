@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="150.0" prefWidth="450.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.SearchUserResultCompoController">
+   <children>
+      <HBox prefHeight="35.0" prefWidth="430.0" style="-fx-border-color: #252426; -fx-border-width: 0 0 2px 0;">
+         <children>
+            <Label alignment="BOTTOM_RIGHT" prefHeight="47.0" prefWidth="152.0" text="name" HBox.hgrow="SOMETIMES">
+               <font>
+                  <Font name="Arial" size="18.0" />
+               </font>
+            </Label>
+            <Label alignment="BOTTOM_LEFT" prefHeight="47.0" prefWidth="330.0" text="publisher" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="430.0" spacing="10.0">
+         <children>
+            <MFXTextField editable="false" floatMode="BORDER" floatingText="빌린 여부" floatingTextGap="2.0" graphicTextGap="1.0" prefHeight="27.0" prefWidth="93.0" selectable="false" stylesheets="@../../css/customMFXTextField.css" text="O">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </MFXTextField>
+            <Label prefHeight="52.0" prefWidth="331.0" text="BorrowDate" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="40.0" prefWidth="580.0" spacing="30.0">
+         <children>
+            <MFXButton fx:id="editButton" onAction="#onEditBtnPressed" prefHeight="46.0" prefWidth="82.0" style="-fx-background-color: #252426;" text="edit" textFill="WHITE" />
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</VBox>
