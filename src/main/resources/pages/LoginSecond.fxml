@@ -39,9 +39,9 @@
                               <Cursor fx:constant="TEXT" />
                            </cursor>
                         </MFXPasswordField>
-                        <Label prefHeight="24.0" prefWidth="348.0" text="Label" textFill="RED">
+                        <Label fx:id="passwordMsgLabel" prefHeight="24.0" prefWidth="348.0" text="..." textFill="RED">
                            <font>
-                              <Font name="Arial" size="14.0" />
+                              <Font name="Malgun Gothic" size="14.0" />
                            </font>
                            <padding>
                               <Insets left="5.0" />

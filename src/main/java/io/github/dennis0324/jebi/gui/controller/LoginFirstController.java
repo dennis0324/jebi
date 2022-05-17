@@ -74,7 +74,7 @@ public class LoginFirstController extends Controller {
     
     @FXML
     public void onForgotEmailBtnAction() {
-        getPageLoader().to("/pages/Search.fxml");
+        getPageLoader().to("/pages/Recovery.fxml");
     }
     
     @FXML
