@@ -90,6 +90,12 @@ public class SearchCompoController extends Controller {
     public void onPageLoad() {
         this.tableController = (TableController)getPageLoader().getArgument();
         type = tableController.getType();
+        if(type == Type.Book){
+                SearchFilterComboBox.setItems(BookSelectList); //선택 카테고리 설정
+            }
+            else if(type == Type.User){
+                SearchFilterComboBox.setItems(UserSelectList); //선택 카테고리 설정
+            }
         this.tableController.setComboBox(this.SearchFilterComboBox);
     }
     

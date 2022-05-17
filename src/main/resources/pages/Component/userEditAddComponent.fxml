@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #f0eff0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="777.0" prefWidth="500.0" spacing="20.0" style="-fx-background-color: #f0eff0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController">
    <children>
       <BorderPane prefHeight="37.0" prefWidth="500.0">
          <left>
@@ -25,23 +24,32 @@
          <right>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="153.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXToggleButton prefHeight="41.0" prefWidth="63.0" selected="true" text="수정하기" />
+                  <MFXToggleButton fx:id="editModeSelector" onAction="#onChangeEditMode" prefHeight="41.0" prefWidth="63.0" text="수정하기" />
                </children>
             </HBox>
          </right>
       </BorderPane>
       <VBox alignment="CENTER" prefHeight="298.0" prefWidth="460.0" spacing="30.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="323.0" prefWidth="360.0" spacing="30.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
+            <VBox alignment="CENTER" prefHeight="318.0" prefWidth="360.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
                <children>
                   <AnchorPane prefHeight="22.0" prefWidth="356.0">
                      <children>
                         <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-25.0" />
                      </children>
                   </AnchorPane>
-                  <MFXTextField floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" stylesheets="@../../css/customMFXTextField.css" />
-                  <MFXTextField floatMode="BORDER" floatingText="이메일" prefHeight="49.0" prefWidth="247.0" stylesheets="@../../css/customMFXTextField.css" />
-                  <MFXTextField floatMode="BORDER" floatingText="전화번호" prefHeight="49.0" prefWidth="247.0" stylesheets="@../../css/customMFXTextField.css" />
+                  <MFXTextField fx:id="name" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin></MFXTextField>
+                  <MFXTextField fx:id="email" editable="false" floatMode="BORDER" floatingText="이메일" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin></MFXTextField>
+                  <MFXTextField fx:id="phoneNumber" editable="false" floatMode="BORDER" floatingText="전화번호" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin></MFXTextField>
                </children>
             </VBox>
          </children>
@@ -54,6 +62,7 @@
             <MFXPaginatedTableView fx:id="table" prefHeight="239.0" prefWidth="371.0" />
          </children>
       </VBox>
+      <HBox fx:id="deleteBtnContainer" alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

@@ -1,0 +1,23 @@
+.mfx-button {
+	-fx-text-fill: #fff;
+	-fx-pref-height: 30px;
+	-fx-pref-width: 70px;
+	-fx-background-radius:15px;
+
+}
+
+.mfx-button:armed,
+.mfx-button:hover,
+.mfx-button:focused,
+.mfx-button {
+	-fx-background-insets: 0px;
+	-fx-pref-height: 30px;
+	-fx-pref-width: 70px;
+	-fx-background-radius:25px;
+}
+
+.mfx-button,
+.mfx-button:armed,
+.mfx-button:focused {
+	-fx-background-color: #f73939;
+}

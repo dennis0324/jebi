@@ -5,11 +5,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
+import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
+import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
@@ -77,7 +81,10 @@ class BtnMouseEvent implements EventHandler<ActionEvent>{
  */
 public class TableController extends Controller {
     private Type type;
-    private MFXComboBox<String> searchFilterComboBox; 
+    private AddWindowType addWindowType;
+    private MFXComboBox<String> searchFilterComboBox;
+    private User tempUser;
+    private Book tempBook;
 
     @FXML
     private MFXButton addDBBtn;
@@ -117,11 +124,20 @@ public class TableController extends Controller {
     void onAddDBBtnClicked(ActionEvent event) {
         String name = addDBText.getText();
         addDBText.setText("");
+        if(name == ""){
+            return;
+        }
         // TODO dennis ko: 책 편집/추가 인터페이스 구현 & 유저 편집/추가 인터페이스 구현
         if(type == Type.Book){
+            tempBook = new Book("uid");
+            addWindowType = AddWindowType.add;
             // TODO 데이터베이스 연결
         }
         else if(type == Type.User){
+            tempUser = new User(name,"","","");
+            addWindowType = AddWindowType.add;
+            getPageLoader().to(contentArea, "/pages/component/userEditAddComponent.fxml", this);
+
             // TODO 데이터베이스 연결
         }
 
@@ -130,7 +146,6 @@ public class TableController extends Controller {
     @FXML
     void onSelectBook(ActionEvent event) {
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
-        System.out.println("tseting");
         this.type = Type.Book;
         searchFilterComboBox.setItems(SearchCompoController.BookSelectList);
 
@@ -149,8 +164,8 @@ public class TableController extends Controller {
     @Override
     public void onPageLoad() {
         //첫 화면 설정
-        setDefaultcontentArea();
         setDefaultTableContent();
+        setDefaultcontentArea();
         
     }
 
@@ -225,8 +240,19 @@ public class TableController extends Controller {
     public Type getType(){
         return type;
     }
+    public void setAddWindowType(AddWindowType windowType){
+        this.addWindowType = windowType;
+    }
+
+    public AddWindowType getWindowType(){
+        return this.addWindowType;
+    }
 
     public void setComboBox(MFXComboBox<String> searchFilterComboBox){
         this.searchFilterComboBox = searchFilterComboBox;
+    }
+
+    public User getUser(){
+        return tempUser;
     }
 }

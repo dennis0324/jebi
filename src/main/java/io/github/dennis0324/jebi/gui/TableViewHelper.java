@@ -6,6 +6,9 @@ import io.github.dennis0324.jebi.gui.controller.TableController;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 
+import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
+import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 
@@ -29,6 +32,13 @@ public class TableViewHelper {
                 mouseEvent.consume();  
                 if(pageLoader != null){
                     TableController tableController = (TableController) pageLoader.getArgument();
+                    tableController.setAddWindowType(AddWindowType.edit);
+                    if(tableController.getType() == Type.Book){
+                        
+                    }
+                    else{
+
+                    }
                     pageLoader.to(tableController.getContentArea(),pathString,pageLoader.getArgument());
                 }
             }
