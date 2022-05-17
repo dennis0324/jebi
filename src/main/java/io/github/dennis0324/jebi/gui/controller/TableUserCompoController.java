@@ -33,10 +33,10 @@ public class TableUserCompoController extends Controller {@FXML
         MFXTableColumn<User> emailColumn = new MFXTableColumn<>("이메일",false,Comparator.comparing(User::getEmail));
         MFXTableColumn<User> phoneNumberColumn = new MFXTableColumn<>("전화번호",false,Comparator.comparing(User::getPhoneNumber));
 
-        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
-        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
-        emailColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
-        phoneNumberColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, pageLoader,"/pages/Component/userEditAddComponent.fxml"));
+        uidColumn.setRowCellFactory(user -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        nameColumn.setRowCellFactory(user -> TableViewHelper.toItemClickEventHandler(User::getName, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        emailColumn.setRowCellFactory(user -> TableViewHelper.toItemClickEventHandler(User::getEmail, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        phoneNumberColumn.setRowCellFactory(user -> TableViewHelper.toItemClickEventHandler(User::getPhoneNumber, table, pageLoader,"/pages/Component/userEditAddComponent.fxml"));
 
         table.getTableColumns().addAll(uidColumn,nameColumn,emailColumn,phoneNumberColumn);
         table.getFilters().addAll(
@@ -45,7 +45,7 @@ public class TableUserCompoController extends Controller {@FXML
             new StringFilter<>("작가",User::getEmail),
             new StringFilter<>("출판사",User::getPhoneNumber)
         );
-        table.setItems(FXCollections.observableArrayList(new User("testing","","",""),new User("testing","","","")));
+        table.setItems(FXCollections.observableArrayList(new User("testing1","testing1","testing1","testing1"),new User("testing2","testing2","testing2","testing2")));
     }
     
     @Override

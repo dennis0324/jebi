@@ -135,8 +135,8 @@ public class TableController extends Controller {
             // TODO 데이터베이스 연결
         }
         else if(type == Type.User){
-            tempUser = new User(name,"","","");
             addWindowType = AddWindowType.add;
+            tempUser = new User(name,"","","");
             getPageLoader().to(contentArea, "/pages/component/userEditAddComponent.fxml", this);
 
             // TODO 데이터베이스 연결
@@ -242,16 +242,35 @@ public class TableController extends Controller {
     public Type getType(){
         return type;
     }
+    /**
+     * 수정모드인지 추가모드인지 설정한다.
+     * 
+     * @param windowType `enum`타입으로 모드를 반환해준다.
+     */
     public void setAddWindowType(AddWindowType windowType){
         this.addWindowType = windowType;
     }
 
+    /**
+     * 수정모드인지 추가모드인지 반환해준다.
+     * 
+     * @return 현재 사용중인 모드를 반환해준다. 
+     */
     public AddWindowType getWindowType(){
         return this.addWindowType;
     }
 
+    /**
+     * 검색 필터 카테고리를 설정해준다.
+     * 
+     * @param searchFilterComboBx `SearchCompoController`에서의 `String` 타입의 제네릭 array이다.
+     */
     public void setComboBox(MFXComboBox<String> searchFilterComboBox){
         this.searchFilterComboBox = searchFilterComboBox;
+    }
+
+    public void setUser(User tempUser){
+        this.tempUser = tempUser;
     }
 
     public User getUser(){

@@ -29,8 +29,11 @@ import javafx.scene.paint.Paint;
 
 public class SearchCompoController extends Controller {
 
+    //tableController 저장
     private TableController tableController;
+    //현재 사용하고 있는 타입
     private Type type;
+    //static 타입의 observableList
     public static final ObservableList<String> UserSelectList = FXCollections.observableList(Arrays.asList("이름","전화번호"));
     public static final ObservableList<String> BookSelectList = FXCollections.observableList(Arrays.asList("이름","출판사","카테고리"));
 

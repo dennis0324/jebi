@@ -57,7 +57,7 @@
             <Insets left="50.0" right="50.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
+      <VBox fx:id="tableContainer" alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
          <children>
             <MFXPaginatedTableView fx:id="table" prefHeight="239.0" prefWidth="371.0" />
          </children>
