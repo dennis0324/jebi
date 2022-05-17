@@ -12,7 +12,7 @@
 	-fx-border-radius: 5;
 	-fx-padding: 5;
 
-}
+}SearchComponent
 
 .mfx-text-field:readonly,
 .mfx-text-field:readonly .text-field {

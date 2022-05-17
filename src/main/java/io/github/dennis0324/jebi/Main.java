@@ -52,7 +52,7 @@ public class Main extends Application {
 		primaryStage.setResizable(false);
     
 		//Component/SearchComponent
-		pageLoader.to("/pages/Table.fxml");
+		pageLoader.to("/pages/Search.fxml");
 		
 		primaryStage.show();
 	}

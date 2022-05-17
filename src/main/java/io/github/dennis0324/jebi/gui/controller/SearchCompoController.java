@@ -59,10 +59,13 @@ public class SearchCompoController extends Controller {
         System.out.println(serachContent + " : " + searchFilterContent); // TODO 이거 데베랑 연동해서 하면 될것같음
 
         if(tableController.getType() == Type.Book){
+        // getPageLoader().to(searchResultContainer, "/pages/Component/SearchBookResultComponent.fxml", tableController); //이거 검색할때 파베랑 연결하면 됨
             
             System.out.println("book");
         }
         else if(tableController.getType() == Type.User){
+        // getPageLoader().to(searchResultContainer, "/pages/Component/SearchUserResultComponent.fxml", tableController); //이거 검색할때 파베랑 연결하면 됨
+
             System.out.println("User");
         }
     }
@@ -88,8 +91,6 @@ public class SearchCompoController extends Controller {
         this.tableController = (TableController)getPageLoader().getArgument();
         type = tableController.getType();
         this.tableController.setComboBox(this.SearchFilterComboBox);
-
-        // getPageLoader().to(searchResultContainer, "/pages/Component/SearchUserResultComponent.fxml", tableController); //이거 검색할때 파베랑 연결하면 됨
     }
     
 }

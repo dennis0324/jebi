@@ -2,7 +2,9 @@ package io.github.dennis0324.jebi.gui.controller;
 
 import java.util.Comparator;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.filter.StringFilter;
@@ -25,15 +27,16 @@ public class TableUserCompoController extends Controller {@FXML
      */
     @SuppressWarnings("unchecked")
     private void setupTable(){
+        PageLoader pageLoader = (PageLoader)getPageLoader();
         MFXTableColumn<User> uidColumn = new MFXTableColumn<>("사용자 ID",false,Comparator.comparing(User::getUid));
         MFXTableColumn<User> nameColumn = new MFXTableColumn<>("이름",false,Comparator.comparing(User::getName));
         MFXTableColumn<User> emailColumn = new MFXTableColumn<>("이메일",false,Comparator.comparing(User::getEmail));
         MFXTableColumn<User> phoneNumberColumn = new MFXTableColumn<>("전화번호",false,Comparator.comparing(User::getPhoneNumber));
 
-        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
-        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
-        emailColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
-        phoneNumberColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, "to edit user"));
+        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        emailColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table,pageLoader, "/pages/Component/userEditAddComponent.fxml"));
+        phoneNumberColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(User::getUid, table, pageLoader,"/pages/Component/userEditAddComponent.fxml"));
 
         table.getTableColumns().addAll(uidColumn,nameColumn,emailColumn,phoneNumberColumn);
         table.getFilters().addAll(
@@ -42,15 +45,16 @@ public class TableUserCompoController extends Controller {@FXML
             new StringFilter<>("작가",User::getEmail),
             new StringFilter<>("출판사",User::getPhoneNumber)
         );
+        table.setItems(FXCollections.observableArrayList(new User("testing","","",""),new User("testing","","","")));
     }
     
     public void initialize(){
-        setupTable();
-        table.autosizeColumnsOnInitialization();
+
     }
     
     @Override
 	public void onPageLoad() {
-		/* TODO: ... */
+        setupTable();
+        table.autosizeColumnsOnInitialization();
 	}
 }

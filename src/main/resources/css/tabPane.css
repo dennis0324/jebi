@@ -30,7 +30,6 @@
     -fx-text-fill: #fff;
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-skin: "com.sun.javafx.scene.control.skin.LabelSkin";
     -fx-background-color: transparent;    
 }
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {-fx-border-color: transparent}
