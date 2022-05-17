@@ -69,6 +69,7 @@ element{
 
 .mfx-text-field:disabled {
 	-fx-border-color: rgba(0, 0, 0, 0.1);
+	-fx-text-fill: #ff4848;
 }
 
 .mfx-text-field:disabled .floating-text {
@@ -77,4 +78,9 @@ element{
 
 .mfx-text-field:disabled .text-field {
 	-fx-text-inner-color: -mfx-text-disabled;
+}
+
+.mfx-text-field:readonly {
+	-fx-border-color: #252426;
+	-fx-text-fill: rgba(0,0,0,0.3);
 }

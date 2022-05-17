@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.Book;
 
@@ -35,16 +36,15 @@ public class TableBookCompoController extends Controller {
     public void onPageLoad() {}
     
     public void initialize() {
-        setupTable();
-        table.autosizeColumnsOnInitialization();
+
 
         // TODO Auto-generated method stub
-        
     }
     
     @Override
 	public void onPageLoad() {
-		/* TODO: ... */
+        setupTable();
+        table.autosizeColumnsOnInitialization();
 	}
 
     /**
@@ -54,6 +54,7 @@ public class TableBookCompoController extends Controller {
      */
     @SuppressWarnings("unchecked")
     private void setupTable(){
+        PageLoader pageLoader = getPageLoader();
         MFXTableColumn<Book> uidColumn = new MFXTableColumn<>("책 ID",false,Comparator.comparing(Book::getUid));
         MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("책 이름",false,Comparator.comparing(Book::getName));
         MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가",false,Comparator.comparing(Book::getAuthor));
@@ -61,12 +62,12 @@ public class TableBookCompoController extends Controller {
         MFXTableColumn<Book> pubDateColumn = new MFXTableColumn<>("출판 날짜",false,Comparator.comparing(Book::getPubDate));
         MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리",false,Comparator.comparing(Book::getCategory));
 
-        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getUid,table,"/pages/Component/editbookComponent.fxml"));
-        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,"/pages/Component/editbookComponent.fxml"));
-        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,"/pages/Component/editbookComponent.fxml"));
-        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,"/pages/Component/editbookComponent.fxml"));
-        pubDateColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPubDate,table,"/pages/Component/editbookComponent.fxml"));
-        categoryColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getCategory,table,"/pages/Component/editbookComponent.fxml"));
+        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getUid,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        pubDateColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPubDate,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        categoryColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getCategory,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
 
         table.getTableColumns().addAll(uidColumn,nameColumn,authorColumn,publisherColumn,pubDateColumn,categoryColumn);
 

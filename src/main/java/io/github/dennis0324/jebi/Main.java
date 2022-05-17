@@ -59,11 +59,15 @@ public class Main extends Application {
 >>>>>>> 1d61eb3... 테이블 아이템 클릭 이벤트 추가 및 PageLoader파일 수정
 =======
 		//Component/SearchComponent
+<<<<<<< HEAD
 >>>>>>> 2de52cb... 옆 검색에 카드 추가
 		pageLoader.to("/pages/Table.fxml");
 =======
 		pageLoader.to("/pages/LoginFirst.fxml");
 >>>>>>> 7cb4f2b... 계정 생성 페이지 구현 완료
+=======
+		pageLoader.to("/pages/Search.fxml");
+>>>>>>> 27af3bc... 오른쪽 구역 버튼 이벤트 추가
 		
 		primaryStage.show();
 	}

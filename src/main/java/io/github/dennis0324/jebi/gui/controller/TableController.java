@@ -139,7 +139,7 @@ public class TableController extends Controller {
 
     @FXML
     void onSelectUser(ActionEvent event) {
-        getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
+        getPageLoader().to(tableArea, "/pages/component/tableUserComponent.fxml", this);
         this.type = Type.User;
         searchFilterComboBox.setItems(SearchCompoController.UserSelectList);
 
