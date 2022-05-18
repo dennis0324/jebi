@@ -33,14 +33,7 @@ import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
-import io.github.palexdev.materialfx.controls.cell.MFXComboBoxCell;
 import javafx.scene.control.Label;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
@@ -131,6 +124,11 @@ public class BookEditAddCompoController extends Controller {
         // bigCategory.
     }
 
+    /**
+     * 책 편집 설정 모드이다.
+     * 
+     * @param input 참 거짓으로 설정한다.
+     */
     public void setEditMode(boolean input){
         author.setSelectable(input);
         author.setEditable(input);
@@ -151,37 +149,50 @@ public class BookEditAddCompoController extends Controller {
         categoryNumber.setEditable(input);
     }
 
-
+    /**
+     * 주 카테고리를 반환해준다.
+     * 
+     * @return `MFXcomboBox<Item>의 반환
+     */
     public MFXComboBox<Item> getBigCategory(){
         return bigCategory;
     }
+    /**
+     * 보조 카테고리를 반환해준다.
+     * 
+     * @return `MFXcomboBox<Item>`의 반환
+     */
     public MFXComboBox<Item> getSmallCategory(){
         return smallCategory;
     }
+    /**
+     * `categoryNumber`라는 텍스트필드를 반환한다.
+     * 
+     * @return `MFXTextField`의 반환
+     */
     public MFXTextField getCategoryNumber(){
         return categoryNumber;
     }
-    public void setMainCategoryNum(int number){
-        this.mainCategoryNum = number;
-    }
+
+    /**
+     * `errorText`라는 레이블을 반환한다.
+     * @return `Label`의 반환
+     */
     public Label getErrorText(){
         return errorText;
     }
 
+    /**
+     * 메인 콤보박스를 설정한다.
+     */
     private void setMainComboBox(){
         BookType.setMainComboBox(this);
-        // for(int i = 0; i< BookType.BIGCATEGORY.length;i++){
-        //     bigCategory.getItems().add(new Item(BookType.BIGCATEGORY[i], i, this));
-        // }
-
-        // bigCategory.valueProperty().addListener((obs,oldItem,newItem) -> {
-        //     // System.out.println(obs);
-        //     newItem.getSmallCategory().getItems().removeAll();
-        //     newItem.setMainNum();
-
-        // });
     }
 
+    /**
+     * `errorText`의 텍스트를 설정한다.
+     * @param text 오류 메세지
+     */
     public void setErrorText(String text){
         if(text == ""){
             errorText.setVisible(false);

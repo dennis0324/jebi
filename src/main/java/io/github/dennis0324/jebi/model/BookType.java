@@ -210,10 +210,6 @@ public class BookType {
             return value;
         }
 
-        public void setMainNum(){
-            controller.setMainCategoryNum(this.value);
-        }
-
         public MFXComboBox<Item> getSmallCategory(){
             return controller.getSmallCategory();
         }

@@ -267,10 +267,18 @@ public class TableController extends Controller {
         this.searchFilterComboBox = searchFilterComboBox;
     }
 
+    /**
+     * 유저의 데이터를 임시적으로 저장해둔다.
+     * @param tempUser `User` 객체
+     */
     public void setUser(User tempUser){
         this.tempUser = tempUser;
     }
 
+    /**
+     * 임시적으로 저장한 유저의 데이터를 받아온다.
+     * @return `User` 객체
+     */
     public User getUser(){
         return tempUser;
     }
