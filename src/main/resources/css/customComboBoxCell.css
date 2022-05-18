@@ -1,0 +1,22 @@
+.mfx-combo-box-cell {
+	-mfx-main: #252426;
+	-mfx-hover: rgba(98, 0, 238, 0.1);
+	-mfx-selected: rgba(98, 0, 238, 0.2);
+
+	-fx-background-color: transparent;
+	-fx-background-radius: 5;
+	-fx-padding: 5;
+}
+
+.mfx-combo-box-cell:hover {
+	-fx-background-color: -mfx-hover;
+}
+
+.mfx-combo-box-cell:selected {
+	-fx-background-color: -mfx-selected;
+}
+
+.mfx-combo-box-cell .data-label {
+	-fx-font-family: "Open Sans Regular";
+	-fx-text-fill: -mfx-text-he;
+}
