@@ -51,7 +51,7 @@ public class Main extends Application {
 		
 		primaryStage.setResizable(false);
 
-		pageLoader.to("/pages/Component/bookEditAddComponent.fxml");
+		pageLoader.to("/pages/loginFirst.fxml");
 		
 		primaryStage.show();
 	}

@@ -11,6 +11,7 @@ import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TableViewHelper.Type;
+import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController;
 import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
@@ -83,6 +84,7 @@ public class TableController extends Controller {
     private Type type;
     private AddWindowType addWindowType;
     private MFXComboBox<String> searchFilterComboBox;
+    private UserEditAddCompoController userEditAddCompoController;
     private User tempUser;
     private Book tempBook;
 
@@ -281,5 +283,9 @@ public class TableController extends Controller {
      */
     public User getUser(){
         return tempUser;
+    }
+
+    public void SetUserEditAddCompoController(UserEditAddCompoController userEditAddCompoController){
+        this.userEditAddCompoController = userEditAddCompoController;
     }
 }
