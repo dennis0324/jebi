@@ -44,7 +44,11 @@ import javafx.scene.control.Label;
  */
 public class LoginSecondController extends Controller {
 	// 로그인 페이지 컨트롤러의 `DataProvider` 인스턴스.
+<<<<<<< HEAD
     private DataProvider provider;
+=======
+    // private DataProvider provider;
+>>>>>>> unstable
     
     // 로그인 페이지 컨트롤러의 사용자 정보.
     private User user;
@@ -69,7 +73,7 @@ public class LoginSecondController extends Controller {
 
     @Override
     public void initialize() {
-        provider = DataProvider.getInstance();
+        // provider = DataProvider.getInstance();
     	
     	passwordMsgLabel.setManaged(false);
     }
@@ -84,7 +88,7 @@ public class LoginSecondController extends Controller {
     
     @FXML
     public void onForgotPwdBtnAction() {
-    	getPageLoader().to("/pages/Recovery.fxml");
+    	getPageLoader().to("/pages/Search.fxml");
     }
     
     @FXML
