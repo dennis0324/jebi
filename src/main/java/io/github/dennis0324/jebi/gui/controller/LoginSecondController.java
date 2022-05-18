@@ -44,11 +44,7 @@ import javafx.scene.control.Label;
  */
 public class LoginSecondController extends Controller {
 	// 로그인 페이지 컨트롤러의 `DataProvider` 인스턴스.
-<<<<<<< HEAD
     private DataProvider provider;
-=======
-    // private DataProvider provider;
->>>>>>> unstable
     
     // 로그인 페이지 컨트롤러의 사용자 정보.
     private User user;

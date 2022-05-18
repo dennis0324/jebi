@@ -57,8 +57,4 @@ public class TableUserCompoController extends Controller {@FXML
         setupTable();
         table.autosizeColumnsOnInitialization();
 	}
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> unstable
