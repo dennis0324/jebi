@@ -26,6 +26,8 @@ import com.google.firebase.database.snapshot.Index;
 
 import io.github.dennis0324.jebi.gui.TextFieldColor;
 import io.github.dennis0324.jebi.gui.TextFieldColor.TextfieldType;
+import io.github.dennis0324.jebi.gui.component.CapsuleButton;
+import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
 import io.github.dennis0324.jebi.model.BookType;
 import io.github.dennis0324.jebi.model.BookType.CategoryChangeListener;
 import io.github.dennis0324.jebi.model.BookType.Item;
@@ -45,6 +47,7 @@ public class BookEditAddCompoController extends Controller {
 
     private int mainCategoryNum;
     private int subCategoryNum;
+    private AddWindowType windowType;
     @FXML
     private MFXIconWrapper backBtn;
 
@@ -85,6 +88,9 @@ public class BookEditAddCompoController extends Controller {
     private Label errorText;
 
     @FXML
+    private HBox brrowBtn;
+
+    @FXML
     void onBackBtnClicked(MouseEvent event) {
 
     }
@@ -116,10 +122,22 @@ public class BookEditAddCompoController extends Controller {
         setMainComboBox();
         setErrorText("");
         setEditMode(false);
+        windowType = AddWindowType.add;
     }
 
     @Override
     public void onPageLoad() {
+        CapsuleButton button = new CapsuleButton();
+        if(windowType == AddWindowType.add){
+            editModeSelector.setVisible(false);
+            button.setText("추가하기");
+        }
+        else{
+            button.setText("빌리기");
+        }
+        button.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        brrowBtn.getChildren().add(button);
+
         // FXCollections.observableList(Arrays.asList(""));
         // bigCategory.
     }
