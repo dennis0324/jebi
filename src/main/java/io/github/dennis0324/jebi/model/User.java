@@ -20,6 +20,11 @@
 
 package io.github.dennis0324.jebi.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import com.google.cloud.firestore.DocumentSnapshot;
 
 /**
@@ -45,6 +50,9 @@ public class User {
 	
 	// 사용자의 관리자 여부.
 	private boolean _isAdmin;
+	
+	// 사용자가 빌린 책의 고유 ID 배열.
+	private ArrayList<String> bookIds;
 	
 	/**
 	 * `User` 클래스의 생성자.
@@ -72,10 +80,14 @@ public class User {
 		this.email = snapshot.getString("email");
 		this.pwdHash = snapshot.getString("pwdHash");
 		this.phoneNumber = snapshot.getString("phoneNumber");
-		
 		this._isAdmin = snapshot.contains("isAdmin") 
 			? snapshot.getBoolean("isAdmin") 
 			: false;
+		
+		@SuppressWarnings("unchecked")
+		List<String> list = (List<String>) snapshot.get("bookIds");
+		
+		this.bookIds = new ArrayList<String>(list);
 	}
 	
 	/**
@@ -130,6 +142,34 @@ public class User {
 	 */
 	public boolean isAdmin() {
 		return _isAdmin;
+	}
+	
+	/**
+	 * 사용자가 빌린 책의 고유 ID 배열을 반환한다.
+	 * 
+	 * @return 사용자가 빌린 책의 고유 ID 배열.
+	 */
+	public ArrayList<String> getBookIds() {
+		return bookIds;
+	}
+	
+	/**
+	 * 사용자 정보를 해시맵 형태로 반환한다.
+	 * 
+	 * @return 해시맵 형태로 변환된 사용자 정보.
+	 */
+	public HashMap<String, Object> getData() {
+		HashMap<String, Object> result = new HashMap<>();
+		
+		result.put("uid", uid);
+		result.put("name", name);
+		result.put("email", email);
+		result.put("pwdHash", pwdHash);
+		result.put("phoneNumber", phoneNumber);
+		result.put("isAdmin", _isAdmin);
+		result.put("bookIds", bookIds);
+		
+		return result;
 	}
 	
 	/**

@@ -20,6 +20,10 @@
 
 package io.github.dennis0324.jebi.model;
 
+import java.util.HashMap;
+
+import com.google.cloud.firestore.DocumentSnapshot;
+
 /**
  * 책을 나타내는 클래스.
  * 
@@ -44,15 +48,35 @@ public class Book {
 	// 책의 분류.
 	private int category;
 	
+	// 책을 빌린 사용자의 고유 ID.
+	private String borrowerId;
+	
+	// 책을 빌려간 날짜.
+	private String borrowDate;
+	
 	/**
 	 * `Book` 클래스의 생성자.
 	 * 
 	 * @param uid 책의 고유 ID.
 	 */
 	public Book(String uid) {
-		/* TODO: ... */
-		
 		this.uid = uid;
+	}
+	
+	/**
+	 * `User` 클래스의 생성자.
+	 * 
+	 * @param snapshot 데이터베이스에 저장된 책의 데이터.
+	 */
+	public Book(DocumentSnapshot snapshot) {
+		this.uid = snapshot.getString("uid");
+		this.name = snapshot.getString("name");
+		this.author = snapshot.getString("author");
+		this.publisher = snapshot.getString("publisher");
+		this.pubDate = snapshot.getString("pubDate");
+		this.category = snapshot.getLong("category").intValue();
+		this.borrowerId = snapshot.getString("borrowerId");
+		this.borrowDate = snapshot.getString("borrowDate");
 	}
 	
 	/**
@@ -107,5 +131,52 @@ public class Book {
 	 */
 	public int getCategory() {
 		return category;
+	}
+	
+	/**
+	 * 책을 빌린 사용자의 고유 ID를 반환한다. 
+	 * 
+	 * @return 책을 빌린 사용자의 고유 ID.
+	 */
+	public String getBorrowerId() {
+		return borrowerId;
+	}
+	
+	/**
+	 * 책을 빌려간 날짜를 반환한다.
+	 * 
+	 * @return 책을 빌려간 날짜.
+	 */
+	public String getBorrowDate() {
+		return borrowDate;
+	}
+	
+	/**
+	 * 책의 정보를 해시맵 형태로 반환한다.
+	 * 
+	 * @return 해시맵 형태로 변환된 책의 정보.
+	 */
+	public HashMap<String, Object> getData() {
+		HashMap<String, Object> result = new HashMap<>();
+		
+		result.put("uid", uid);
+		result.put("name", name);
+		result.put("author", author);
+		result.put("publisher", publisher);
+		result.put("pubDate", pubDate);
+		result.put("category", category);
+		result.put("borrowerId", borrowerId);
+		result.put("borrowDate", borrowDate);
+		
+		return result;
+	}
+	
+	/**
+	 * 책의 고유 ID를 설정한다.
+	 * 
+	 * @param uid 책의 고유 ID.
+	 */
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 }

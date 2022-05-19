@@ -22,6 +22,7 @@ package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -43,6 +44,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Constants;
 
@@ -116,6 +118,23 @@ public final class DataProvider {
     }
     
     /**
+     * 주어진 책의 정보를 통해 책을 생성한다.
+     * 
+     * @param book 책의 정보.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> createBook(Book book) {
+    	if (book.getUid() == null)
+    		book.setUid(UUID.randomUUID().toString());
+    	
+    	DocumentReference ref = db.collection("books").document(book.getUid());
+        
+        LOG.info("책을 생성합니다. (고유 ID: " + book.getUid() + ")");
+        
+        return ref.set(book.getData());
+    }
+    
+    /**
      * 주어진 사용자 정보를 통해 사용자 계정을 생성한다.
      * 
      * @param user 사용자 계정의 정보.
@@ -127,17 +146,51 @@ public final class DataProvider {
         
         DocumentReference ref = db.collection("users").document(user.getUid());
         
-        HashMap<String, Object> data = new HashMap<>();
+        LOG.info("사용자 계정을 생성합니다. (고유 ID: " + user.getUid() + ")");
         
-        data.put("uid", user.getUid());
-        data.put("name", user.getName());
-        data.put("email", user.getEmail());
-        data.put("pwdHash", user.getPwdHash());
-        data.put("phoneNumber", user.getPhoneNumber());
+        return ref.set(user.getData());
+    }
+    
+    /**
+     * 주어진 책의 정보를 통해, 데이터베이스에 저장된 책의 정보를 업데이트한다.
+     * 
+     * @param user 책의 정보.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> updateBook(Book book) {
+    	DocumentReference ref = db.collection("books").document(book.getUid());
+    	
+    	LOG.info("책의 정보를 업데이트합니다. (고유 ID: " + book.getUid() + ")");
+    	
+    	return ref.update(book.getData());
+    }
+    
+    /**
+     * 주어진 사용자 정보를 통해, 데이터베이스에 저장된 사용자 정보를 업데이트한다.
+     * 
+     * @param user 사용자 계정의 정보.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> updateUser(User user) {
+    	DocumentReference ref = db.collection("users").document(user.getUid());
+    	
+    	LOG.info("사용자 정보를 업데이트합니다. (고유 ID: " + user.getUid() + ")");
+    	
+    	return ref.update(user.getData());
+    }
+    
+    /**
+     * 주어진 고유 ID에 대응하는 책을 삭제한다.
+     * 
+     * @param uid 책의 고유 ID.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> deleteBook(String uid) {
+        DocumentReference ref = db.collection("books").document(uid);
         
-        LOG.info("사용자 계정을 생성합니다...");
+        LOG.info("책을 삭제합니다. (고유 ID: " + uid + ")");
         
-        return ref.set(data);
+        return ref.delete();
     }
     
     /**
@@ -149,9 +202,23 @@ public final class DataProvider {
     public ApiFuture<WriteResult> deleteUser(String uid) {
         DocumentReference ref = db.collection("users").document(uid);
         
-        LOG.info("사용자 계정을 삭제합니다...");
+        LOG.info("사용자 계정을 삭제합니다. (고유 ID: " + uid + ")");
         
         return ref.delete();
+    }
+    
+    /**
+     * 주어진 고유 ID를 가진 책을 반환한다.
+     * 
+     * @param uid 책의 고유 ID.
+     * @return 주어진 고유 ID를 가진 책.
+     */
+    public ApiFuture<Book> getBookByUid(String uid) {
+    	ApiFuture<DocumentSnapshot> future = db.collection("books")
+                .document(uid)
+                .get();
+            
+        return ApiFutures.transform(future, (snapshot) -> new Book(snapshot), pool);
     }
     
     /**
