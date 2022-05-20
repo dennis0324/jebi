@@ -36,12 +36,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 
 /**
- * 계정 생성 페이지 컨트롤러를 나타내는 클래스.
+ * 이메일 및 비밀번호 찾기 페이지 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
 public class RecoveryController extends Controller {
-	// 계정 생성 페이지 컨트롤러의 `DataProvider` 인스턴스.
+	// `DataProvider` 인스턴스.
     private DataProvider provider;
     
     @FXML

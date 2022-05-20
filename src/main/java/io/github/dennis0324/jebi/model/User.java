@@ -42,7 +42,7 @@ public class User {
 	// 사용자의 이메일 주소.
 	private String email;
 	
-	// 사용자의 암호화된 비밀번호.
+	// 사용자의 비밀번호 해시 값.
 	private String pwdHash;
 	
 	// 사용자의 전화번호.
@@ -59,7 +59,7 @@ public class User {
 	 * 
 	 * @param name 사용자의 이름.
 	 * @param email 사용자의 이메일 주소.
-	 * @param pwdHash 사용자의 암호화된 비밀번호.
+	 * @param pwdHash 사용자의 비밀번호 해시 값.
 	 * @param phoneNumber 사용자의 전화번호.
 	 */
 	public User(String name, String email, String pwdHash, String phoneNumber) {
@@ -114,9 +114,9 @@ public class User {
 	}
 	
 	/**
-	 * 사용자의 암호화된 비밀번호를 반환한다.
+	 * 사용자의 비밀번호 해시 값을 반환한다.
 	 * 
-	 * @return 사용자의 암호화된 비밀번호.
+	 * @return 사용자의 비밀번호 해시 값.
 	 */
 	public String getPwdHash() {
 		return pwdHash;
@@ -184,5 +184,14 @@ public class User {
 	 */
 	public void setUid(String uid) {
 		this.uid = uid;
+	}
+	
+	/**
+	 * 사용자의 비밀번호 해시 값을 설정한다.
+	 * 
+	 * @param pwdHash 사용자의 비밀번호 해시 값.
+	 */
+	public void setPwdHash(String pwdHash) {
+		this.pwdHash = pwdHash;
 	}
 }

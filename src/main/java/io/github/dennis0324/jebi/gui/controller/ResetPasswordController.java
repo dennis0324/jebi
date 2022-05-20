@@ -20,6 +20,10 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+import com.google.cloud.firestore.WriteResult;
+
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
@@ -27,6 +31,7 @@ import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -35,7 +40,7 @@ import javafx.scene.control.Label;
  * 
  * @author dennis0324, jdeokkim
  */
-public class LoginSecondController extends Controller {
+public class ResetPasswordController extends Controller {
 	// `DataProvider` 인스턴스.
     private DataProvider provider;
     
@@ -49,22 +54,22 @@ public class LoginSecondController extends Controller {
     private Label emailLabel;
     
     @FXML
-    private MFXPasswordField passwordField;
+    private MFXPasswordField passwordField0;
+    
+    @FXML
+    private MFXPasswordField passwordField1;
     
     @FXML
     private Label passwordMsgLabel;
     
     @FXML
-    private MFXButton forgotPwdBtn;
-    
-    @FXML
-    private MFXButton loginBtn;
+    private MFXButton resetPasswordBtn;
 
     @Override
     public void initialize() {
-        // provider = DataProvider.getInstance();
-    	
-    	passwordMsgLabel.setManaged(false);
+        provider = DataProvider.getInstance();
+        
+        passwordMsgLabel.setManaged(false);
     }
     
     @Override
@@ -76,24 +81,32 @@ public class LoginSecondController extends Controller {
 	}
     
     @FXML
-    public void onForgotPwdBtnAction() {
-    	getPageLoader().to("/pages/Recovery.fxml", 1);
-    }
-    
-    @FXML
-    public void onLoginBtnAction() {
-    	String password = passwordField.getText();
+    public void onResetPasswordBtnAction() {
+    	String password0 = passwordField0.getText();
+    	String password1 = passwordField1.getText();
     	
-    	if (!StringUtils.isValidPassword(password)) {
-    		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_INVALID_PASSWORD);
-            
-            return;
-        }
+    	if (!password0.equals(password1)) {
+    		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
+    		
+    		return;
+    	}
     	
-    	boolean success = StringUtils.encrypt(password)
-    		.equals(user.getPwdHash());
-    	
-    	if (!success) Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
-    	else getPageLoader().to("/pages/Table.fxml", user);
+    	ApiFutures.addCallback(
+            provider.updateUser(user),
+            new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	Platform.runLater(() -> getPageLoader().to("/pages/LoginFirst.fxml"));
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	Platform.runLater(() -> Animations.updateLabel(passwordMsgLabel, Messages.ERROR_UNKNOWN));
+                	
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
     }
 }

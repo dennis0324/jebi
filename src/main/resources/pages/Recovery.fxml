@@ -50,6 +50,9 @@
                                        <font>
                                           <Font name="Malgun Gothic" size="12.0" />
                                        </font>
+                                       <padding>
+                                          <Insets left="6.0" />
+                                       </padding>
                                     </Label>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
@@ -63,6 +66,9 @@
                                        <font>
                                           <Font name="Malgun Gothic" size="12.0" />
                                        </font>
+                                       <padding>
+                                          <Insets left="6.0" />
+                                       </padding>
                                     </Label>
                                     <Label fx:id="emailQueryLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="48.0" prefWidth="356.0" text="..." textAlignment="CENTER">
                                        <font>
@@ -114,6 +120,9 @@
                                        <font>
                                           <Font name="Malgun Gothic" size="12.0" />
                                        </font>
+                                       <padding>
+                                          <Insets left="6.0" />
+                                       </padding>
                                     </Label>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
@@ -127,6 +136,9 @@
                                        <font>
                                           <Font name="Malgun Gothic" size="12.0" />
                                        </font>
+                                       <padding>
+                                          <Insets left="6.0" />
+                                       </padding>
                                     </Label>
                                     <StackPane prefHeight="150.0" prefWidth="200.0">
                                        <children>

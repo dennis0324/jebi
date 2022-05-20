@@ -43,7 +43,7 @@ import javafx.scene.image.ImageView;
  * @author dennis0324, jdeokkim
  */
 public class RegisterController extends Controller {
-	// 계정 생성 페이지 컨트롤러의 `DataProvider` 인스턴스.
+	// `DataProvider` 인스턴스.
     private DataProvider provider;
     
     // 입력한 사용자 정보로 계정 생성이 가능한지 여부.
