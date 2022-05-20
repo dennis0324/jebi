@@ -20,6 +20,9 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
@@ -36,6 +39,9 @@ import javafx.scene.control.Label;
  * @author dennis0324, jdeokkim
  */
 public class LoginSecondController extends Controller {
+	// `LoginSecondController`의 로거.
+    private static final Logger LOG = LoggerFactory.getLogger(LoginSecondController.class);
+    
 	// `DataProvider` 인스턴스.
     private DataProvider provider;
     
@@ -93,7 +99,12 @@ public class LoginSecondController extends Controller {
     	boolean success = StringUtils.encrypt(password)
     		.equals(user.getPwdHash());
     	
-    	if (!success) Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
-    	else getPageLoader().to("/pages/Table.fxml", user);
+    	if (success) {
+    		LOG.info("사용자가 로그인 중입니다. (고유 ID: " + user.getUid() + ")");
+    		
+    		getPageLoader().to("/pages/Table.fxml", user);
+    	} else {
+    		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
+    	}
     }
 }

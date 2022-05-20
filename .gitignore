@@ -27,10 +27,7 @@
 # Visual Studio Code 관련 파일
 .vscode
 **/.vscode
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 # bin 폴더
 bin/
 **/.vscode
-

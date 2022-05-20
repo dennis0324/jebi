@@ -33,12 +33,12 @@
                      <content>
                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="282.0" spacing="20.0">
                            <children>
-                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
+                              <MFXButton fx:id="user" onAction="#onSelectUser" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
+                              <MFXButton fx:id="book" onAction="#onSelectBook" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
@@ -51,27 +51,27 @@
             </StackPane>
             <AnchorPane prefHeight="85.0" prefWidth="325.0" style="-fx-background-color: #201f21; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 30, 0, 0, 0);">
                <children>
-                  <Label fx:id="nameLabel" layoutX="27.0" layoutY="14.0" prefHeight="28.0" text="name" textFill="WHITE">
+                  <Label layoutX="27.0" layoutY="14.0" prefHeight="28.0" prefWidth="70.0" text="Name" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="24.0" />
                      </font>
                   </Label>
-                  <Label fx:id="emailLabel" layoutX="27.0" layoutY="42.0" prefHeight="14.0" text="email" textFill="WHITE">
+                  <Label layoutX="27.0" layoutY="42.0" prefHeight="14.0" prefWidth="94.0" text="uid" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="12.0" />
                      </font>
                   </Label>
-                  <MFXIconWrapper layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
+                  <MFXIconWrapper fx:id="setting" layoutX="231.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="35.0" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
       <VBox prefHeight="900.0" prefWidth="379.0">
          <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="459.0" spacing="20.0" style="-fx-background-color: #fff;">
+            <HBox fx:id="searchContainer" alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="459.0" spacing="20.0" style="-fx-background-color: #fff;">
                <children>
-                  <TextField prefHeight="29.0" prefWidth="311.0" promptText="add" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
-                  <MFXButton prefHeight="37.0" prefWidth="48.0" text="+">
+                  <TextField fx:id="addDBText" prefHeight="29.0" prefWidth="311.0" promptText="add" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="addDBBtn" onAction="#onAddDBBtnClicked" prefHeight="37.0" prefWidth="48.0" text="+">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -84,9 +84,9 @@
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
             </HBox>
-            <StackPane prefHeight="863.0" prefWidth="459.0" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="tableArea" prefHeight="863.0" prefWidth="459.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS" />
+      <StackPane fx:id="contentArea" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS" />
    </children>
 </HBox>

@@ -129,7 +129,7 @@ public final class DataProvider {
      * @param book 책의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> createBook(Book book) {
+    public ApiFuture<WriteResult> createBook(final Book book) {
     	if (book.getUid() == null)
     		book.setUid(UUID.randomUUID().toString());
     	
@@ -146,7 +146,7 @@ public final class DataProvider {
      * @param user 사용자 계정의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> createUser(User user) {
+    public ApiFuture<WriteResult> createUser(final User user) {
         if (user.getUid() == null)
             user.setUid(UUID.randomUUID().toString());
         
@@ -163,7 +163,7 @@ public final class DataProvider {
      * @param user 책의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> updateBook(Book book) {
+    public ApiFuture<WriteResult> updateBook(final Book book) {
     	DocumentReference ref = db.collection("books").document(book.getUid());
     	
     	LOG.info("책의 정보를 업데이트합니다. (고유 ID: " + book.getUid() + ")");
@@ -177,7 +177,7 @@ public final class DataProvider {
      * @param user 사용자 계정의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> updateUser(User user) {
+    public ApiFuture<WriteResult> updateUser(final User user) {
     	DocumentReference ref = db.collection("users").document(user.getUid());
     	
     	LOG.info("사용자 정보를 업데이트합니다. (고유 ID: " + user.getUid() + ")");
@@ -191,7 +191,7 @@ public final class DataProvider {
      * @param uid 책의 고유 ID.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> deleteBook(String uid) {
+    public ApiFuture<WriteResult> deleteBook(final String uid) {
         DocumentReference ref = db.collection("books").document(uid);
         
         LOG.info("책을 삭제합니다. (고유 ID: " + uid + ")");
@@ -205,7 +205,7 @@ public final class DataProvider {
      * @param uid 사용자의 고유 ID.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> deleteUser(String uid) {
+    public ApiFuture<WriteResult> deleteUser(final String uid) {
         DocumentReference ref = db.collection("users").document(uid);
         
         LOG.info("사용자 계정을 삭제합니다. (고유 ID: " + uid + ")");
@@ -219,7 +219,7 @@ public final class DataProvider {
      * @param uid 책의 고유 ID.
      * @return 주어진 고유 ID를 가진 책.
      */
-    public ApiFuture<Book> getBookByUid(String uid) {
+    public ApiFuture<Book> getBookByUid(final String uid) {
     	ApiFuture<DocumentSnapshot> future = db.collection("books")
     		.document(uid)
             .get();
@@ -233,7 +233,7 @@ public final class DataProvider {
      * @param uid 사용자의 고유 ID.
      * @return 주어진 고유 ID를 가진 사용자 계정.
      */
-    public ApiFuture<User> getUserByUid(String uid) {
+    public ApiFuture<User> getUserByUid(final String uid) {
         ApiFuture<DocumentSnapshot> future = db.collection("users")
             .document(uid)
             .get();
@@ -247,7 +247,7 @@ public final class DataProvider {
      * @param email 사용자의 이메일 주소.
      * @return 주어진 이메일 주소를 가진 사용자 계정.
      */
-    public ApiFuture<User> getUserByEmail(String email) {
+    public ApiFuture<User> getUserByEmail(final String email) {
         ApiFuture<QuerySnapshot> future = db.collection("users")
             .whereEqualTo("email", email)
             .limit(1)
@@ -272,7 +272,7 @@ public final class DataProvider {
      * @param email 사용자의 전화번호.
      * @return 주어진 전화번호를 가진 사용자 계정.
      */
-    public ApiFuture<User> getUserByPhoneNumber(String phoneNumber) {
+    public ApiFuture<User> getUserByPhoneNumber(final String phoneNumber) {
         ApiFuture<QuerySnapshot> future = db.collection("users")
             .whereEqualTo("phoneNumber", phoneNumber)
             .limit(1)
