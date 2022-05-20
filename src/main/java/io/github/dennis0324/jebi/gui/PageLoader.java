@@ -79,19 +79,6 @@ public final class PageLoader {
         if (scene != null || scene != stage.getScene()) 
             stage.setScene(scene);
     }
-
-    /**
-     * 주어진 경로에 해당하는 페이지로 이동한다.
-     * 
-     * @param pane 컴포넌트의 종착지
-     * @param parent 컴포넌트
-     */
-    public void to(Pane pane, Parent parent) {
-        if (pane != null || parent != null) {
-            pane.getChildren().removeAll();
-            pane.getChildren().setAll(parent);
-        }
-    }
     
     /**
      * 주어진 경로에 해당하는 페이지로 이동한다.
@@ -103,18 +90,6 @@ public final class PageLoader {
         this.arg = arg;
         
         to(path);
-    }
-
-    /**
-     * 주어진 경로에 해당하는 컴포넌트를 부모의 컴포넌트에 붙인다.
-     * 
-     * @param parent 컴포넌트를 붙힐 부모 클라스
-     * @param path 페이지의 FXML 문서 경로.
-     * @param arg 다음 페이지에 넘겨줄 객체.
-     */
-    public void to(Pane pane, String path , Object arg) {
-        this.arg = arg;
-        to(pane,load(pane, path));
     }
     
     /**
@@ -182,30 +157,4 @@ public final class PageLoader {
             throw new RuntimeException(e);
         }
     }
-
-    /**
-     * ...
-     * 
-     * @param pane
-     * @param path
-     * @return
-     */
-    private Parent load(Pane pane, String path) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
-        try {
-            Parent parent = loader.load();
-            
-            Controller controller = loader.getController();
-            
-            if (controller != null){
-                controller.setPageLoader(this);
-                controller.onPageLoad();
-            }
-
-            return parent;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 }

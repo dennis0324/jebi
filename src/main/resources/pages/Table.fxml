@@ -70,7 +70,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="459.0" spacing="20.0" style="-fx-background-color: #fff;">
                <children>
-                  <TextField prefHeight="29.0" prefWidth="311.0" promptText="add" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
+                  <TextField prefHeight="29.0" prefWidth="311.0" promptText="추가" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
                   <MFXButton prefHeight="37.0" prefWidth="48.0" text="+">
                      <font>
                         <Font size="18.0" />
@@ -87,6 +87,9 @@
             <StackPane prefHeight="863.0" prefWidth="459.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS" />
+      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
+         <fx:include source="Component/SearchComponent.fxml"/>
+         <fx:include source="Component/TableBookComponent.fxml"/>
+      </StackPane>
    </children>
 </HBox>
