@@ -67,6 +67,7 @@ public class User {
 		this.email = email;
 		this.pwdHash = pwdHash;
 		this.phoneNumber = phoneNumber;
+		this.bookIds = new ArrayList<String>();
 	}
 	
 	/**
@@ -75,19 +76,23 @@ public class User {
 	 * @param snapshot 데이터베이스에 저장된 사용자 데이터.
 	 */
 	public User(DocumentSnapshot snapshot) {
-		this.uid = snapshot.getString("uid");
-		this.name = snapshot.getString("name");
-		this.email = snapshot.getString("email");
-		this.pwdHash = snapshot.getString("pwdHash");
-		this.phoneNumber = snapshot.getString("phoneNumber");
-		this._isAdmin = snapshot.contains("isAdmin") 
-			? snapshot.getBoolean("isAdmin") 
-			: false;
+		this.bookIds = new ArrayList<String>();
 		
-		@SuppressWarnings("unchecked")
-		List<String> list = (List<String>) snapshot.get("bookIds");
-		
-		this.bookIds = new ArrayList<String>(list);
+		if (snapshot != null) {
+			this.uid = snapshot.getString("uid");
+			this.name = snapshot.getString("name");
+			this.email = snapshot.getString("email");
+			this.pwdHash = snapshot.getString("pwdHash");
+			this.phoneNumber = snapshot.getString("phoneNumber");
+			this._isAdmin = snapshot.contains("isAdmin") 
+				? snapshot.getBoolean("isAdmin") 
+				: false;
+			
+			@SuppressWarnings("unchecked")
+			List<String> list = (List<String>) snapshot.get("bookIds");
+			
+			this.bookIds = new ArrayList<String>(list);
+		}
 	}
 	
 	/**

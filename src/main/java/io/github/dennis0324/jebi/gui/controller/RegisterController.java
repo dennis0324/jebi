@@ -172,11 +172,7 @@ public class RegisterController extends Controller {
 	
 	                @Override
 	                public void onFailure(Throwable t) {
-	                	Platform.runLater(
-	                		() -> {
-	                			Animations.updateLabel(emailMsgLabel, Messages.ERROR_UNKNOWN);
-	                		}
-	                	);
+	                	/* TODO: ... */
 	                }
 	            },
 				provider.getThreadPool()

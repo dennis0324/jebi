@@ -19,7 +19,7 @@ public class Animations {
      * @return 메시지 레이블의 애니메이션.
      */
     public static SequentialTransition getLabelAnimation(Label label) {
-        PauseTransition pauseAnim = new PauseTransition(Duration.seconds(1.25));
+        PauseTransition pauseAnim = new PauseTransition(Duration.seconds(2.5));
         FadeTransition fadeAnim = new FadeTransition(Duration.seconds(0.5), label);
         
         fadeAnim.setFromValue(1.0);

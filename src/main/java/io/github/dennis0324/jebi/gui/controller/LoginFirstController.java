@@ -20,7 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
@@ -74,7 +73,7 @@ public class LoginFirstController extends Controller {
     
     @FXML
     public void onForgotEmailBtnAction() {
-        getPageLoader().to("/pages/Recovery.fxml");
+        getPageLoader().to("/pages/Recovery.fxml", 0);
     }
     
     @FXML
@@ -100,16 +99,13 @@ public class LoginFirstController extends Controller {
                 	String uid = result.getUid();
                 	
                     if (uid != null) Platform.runLater(() -> getPageLoader().to("/pages/LoginSecond.fxml", result));
-                    else Platform.runLater(() -> Animations.updateLabel(emailMsgLabel, Messages.ERROR_UNKNOWN));
+                    else Platform.runLater(() -> Animations.updateLabel(emailMsgLabel, Messages.ERROR_USER_NOT_FOUND));
                 }
-
                 @Override
                 public void onFailure(Throwable t) {
-                	Platform.runLater(
-                		() -> { 
-                			Animations.updateLabel(emailMsgLabel, Messages.ERROR_USER_NOT_FOUND);
-                		}
-                	);
+                	Platform.runLater(() -> Animations.updateLabel(emailMsgLabel, Messages.ERROR_UNKNOWN));
+                	
+                	DataProvider.getLogger().warn(t.toString());
                 }
             },
             provider.getThreadPool()

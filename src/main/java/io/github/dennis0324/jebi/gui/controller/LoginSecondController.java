@@ -20,12 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
-import com.google.api.core.ApiFutureCallback;
-import com.google.api.core.ApiFutures;
-
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
@@ -33,7 +27,6 @@ import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -84,7 +77,7 @@ public class LoginSecondController extends Controller {
     
     @FXML
     public void onForgotPwdBtnAction() {
-    	getPageLoader().to("/pages/Search.fxml");
+    	getPageLoader().to("/pages/Recovery.fxml", 1);
     }
     
     @FXML

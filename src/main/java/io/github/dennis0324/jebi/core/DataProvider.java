@@ -22,10 +22,7 @@ package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -77,7 +74,7 @@ public final class DataProvider {
             try {
                 InputStream stream = getClass().getResourceAsStream(Constants.CONFIG_PATH);
                 
-                LOG.info("Firebase SDK를 초기화합니다...");
+                LOG.info("Firebase SDK를 초기화합니다.");
                 
                 FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(stream))
@@ -106,6 +103,15 @@ public final class DataProvider {
             instance = new DataProvider();
         
         return instance;
+    }
+    
+    /**
+     * `DataProvider`의 로거를 반환한다.
+     * 
+     * @return `DataProvider`의 로거.
+     */
+    public static Logger getLogger() {
+    	return LOG;
     }
     
     /** 
@@ -215,8 +221,8 @@ public final class DataProvider {
      */
     public ApiFuture<Book> getBookByUid(String uid) {
     	ApiFuture<DocumentSnapshot> future = db.collection("books")
-                .document(uid)
-                .get();
+    		.document(uid)
+            .get();
             
         return ApiFutures.transform(future, (snapshot) -> new Book(snapshot), pool);
     }
@@ -249,7 +255,38 @@ public final class DataProvider {
         
         return ApiFutures.transform(
             future,
-            (snapshot) -> new User(snapshot.getDocuments().get(0)),
+            (query) -> {
+            	DocumentSnapshot snapshot = (query.getDocuments().size() > 0) 
+    	            ? query.getDocuments().get(0) 
+    	    	    : null;
+            	
+            	return new User(snapshot);
+    		},
+            pool
+        );
+    }
+    
+    /**
+     * 주어진 전화번호를 가진 사용자 계정을 반환한다.
+     * 
+     * @param email 사용자의 전화번호.
+     * @return 주어진 전화번호를 가진 사용자 계정.
+     */
+    public ApiFuture<User> getUserByPhoneNumber(String phoneNumber) {
+        ApiFuture<QuerySnapshot> future = db.collection("users")
+            .whereEqualTo("phoneNumber", phoneNumber)
+            .limit(1)
+            .get();
+        
+        return ApiFutures.transform(
+            future,
+            (query) -> {
+            	DocumentSnapshot snapshot = (query.getDocuments().size() > 0) 
+    	            ? query.getDocuments().get(0) 
+    	    	    : null;
+            	
+            	return new User(snapshot);
+    		},
             pool
         );
     }
