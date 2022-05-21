@@ -24,10 +24,15 @@ import java.util.Arrays;
 
 import com.google.firebase.database.snapshot.Index;
 
+import de.jensd.fx.glyphs.materialicons.MaterialIcon;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
+import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.gui.TextFieldColor;
 import io.github.dennis0324.jebi.gui.TextFieldColor.TextfieldType;
 import io.github.dennis0324.jebi.gui.component.CapsuleButton;
+import io.github.dennis0324.jebi.gui.component.CustomButtonEvent;
 import io.github.dennis0324.jebi.gui.controller.UserEditAddCompoController.AddWindowType;
+import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.BookType;
 import io.github.dennis0324.jebi.model.BookType.CategoryChangeListener;
 import io.github.dennis0324.jebi.model.BookType.Item;
@@ -37,17 +42,26 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
+
 
 public class BookEditAddCompoController extends Controller {
 
-
+    private TableController tableController;
     private int mainCategoryNum;
     private int subCategoryNum;
     private AddWindowType windowType;
+
+
+    private CapsuleButton saveButton;
+    private CapsuleButton deleteButton;
+    private CapsuleButton borrowBtn;
     @FXML
     private MFXIconWrapper backBtn;
 
@@ -88,11 +102,11 @@ public class BookEditAddCompoController extends Controller {
     private Label errorText;
 
     @FXML
-    private HBox brrowBtn;
+    private HBox buttonContainer;
 
     @FXML
     void onBackBtnClicked(MouseEvent event) {
-
+        getPageLoader().to(tableController.getContentArea(),"/pages/Component/SearchComponent.fxml",tableController);
     }
 
     @FXML
@@ -103,6 +117,7 @@ public class BookEditAddCompoController extends Controller {
     @FXML
     void onChangeEditMode(ActionEvent event) {
         setEditMode(editModeSelector.isSelected());
+
     }
 
     @FXML
@@ -119,27 +134,80 @@ public class BookEditAddCompoController extends Controller {
     @Override
     public void initialize() {
         categoryNumber.textProperty().addListener(new CategoryChangeListener(this));
+
+        //저장하기 버튼
+        saveButton = new CapsuleButton();
+        saveButton.setText("저장");
+        saveButton.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        buttonContainer.getChildren().add(saveButton);
+        
+        //빌리기 버튼
+        borrowBtn = new CapsuleButton();
+        borrowBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        borrowBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new CustomButtonEvent.sendToDB(getPageLoader()));
+        buttonContainer.getChildren().add(borrowBtn);
+
+        //삭제 버튼
+        deleteButton = new CapsuleButton();
+        deleteButton.setText("삭제하기");
+        deleteButton.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
+        buttonContainer.getChildren().add(deleteButton);
+
+        //기본적인 화면 초기화 함수
         setMainComboBox();
         setErrorText("");
         setEditMode(false);
         windowType = AddWindowType.add;
+
+        MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
+
+        backBtn.setIcon(icon);
+        backBtn.defaultRippleGeneratorBehavior();
+        backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
     }
 
     @Override
     public void onPageLoad() {
-        CapsuleButton button = new CapsuleButton();
+        tableController = (TableController)getPageLoader().getArgument();
+        windowType = tableController.getWindowType();
+
+
+        //현재 수정인지 추가인지 확인후에 버튼을 설정하는 단계입니다.
         if(windowType == AddWindowType.add){
             editModeSelector.setVisible(false);
-            button.setText("추가하기");
+            borrowBtn.setText("추가하기");
+            String bookTitle = tableController.getBook().getName();
+
+            name.setText(bookTitle);
+
+            setEditMode(true);
         }
         else{
-            button.setText("빌리기");
-        }
-        button.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
-        brrowBtn.getChildren().add(button);
+            borrowBtn.setText("빌리기");
+            Book tempBook = tableController.getBook();
+            if(tempBook.getName() == null)
+                name.setPromptText("정보없음");
+            else 
+                name.setText(tempBook.getName());
 
-        // FXCollections.observableList(Arrays.asList(""));
-        // bigCategory.
+            if(tempBook.getAuthor() == null)
+                author.setPromptText("정보없음");
+            else
+                author.setText(tempBook.getAuthor());  
+
+            if(tempBook.getPublisher() == null)
+                publishDate.setPromptText("정보없음");
+            else
+                publishDate.setText(tempBook.getPubDate());
+
+            if(tempBook.getPublisher() == null)
+                publisher.setPromptText("정보없음");
+            else
+                publisher.setText(tempBook.getPubDate());
+
+            categoryNumber.setText(String.format("%03d",tempBook.getCategory()));
+        }
+
     }
 
     /**
@@ -163,6 +231,10 @@ public class BookEditAddCompoController extends Controller {
             bookInfoContainer.setPrefHeight(534);
         else
             bookInfoContainer.setPrefHeight(456);
+        saveButton.setVisible(input);
+        saveButton.setManaged(input);
+        deleteButton.setVisible(input);
+        deleteButton.setManaged(input);
         categoryNumber.setSelectable(input);
         categoryNumber.setEditable(input);
     }

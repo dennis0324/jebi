@@ -91,7 +91,6 @@ public class UserEditAddCompoController extends Controller {
         Book book;
         TableController tableController = (TableController)getPageLoader().getArgument();
         AddWindowType windowType = tableController.getWindowType();
-        System.out.print(windowType);
         CapsuleButton button = new CapsuleButton();
 
         tableController.SetUserEditAddCompoController(this);

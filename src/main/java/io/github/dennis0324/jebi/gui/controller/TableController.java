@@ -85,6 +85,7 @@ public class TableController extends Controller {
     private AddWindowType addWindowType;
     private MFXComboBox<String> searchFilterComboBox;
     private UserEditAddCompoController userEditAddCompoController;
+    private BookEditAddCompoController bookEditAddCompoController;
     private User tempUser;
     private Book tempBook;
 
@@ -132,8 +133,10 @@ public class TableController extends Controller {
         // TODO dennis ko: 책 편집/추가 인터페이스 구현 & 유저 편집/추가 인터페이스 구현
         if(type == Type.Book){
             tempBook = new Book("uid");
+            tempBook.setName(name);
             addWindowType = AddWindowType.add;
-            // TODO 데이터베이스 연결
+            getPageLoader().to(contentArea, "/pages/component/bookEditAddComponent.fxml", this);
+            
         }
         else if(type == Type.User){
             addWindowType = AddWindowType.add;
@@ -148,6 +151,7 @@ public class TableController extends Controller {
     @FXML
     void onSelectBook(ActionEvent event) {
         getPageLoader().to(tableArea, "/pages/component/tableBookComponent.fxml", this);
+        getPageLoader().to(contentArea, "/pages/component/SearchComponent.fxml", this);
         this.type = Type.Book;
         searchFilterComboBox.setItems(SearchCompoController.BookSelectList);
 
@@ -156,6 +160,7 @@ public class TableController extends Controller {
     @FXML
     void onSelectUser(ActionEvent event) {
         getPageLoader().to(tableArea, "/pages/component/tableUserComponent.fxml", this);
+        getPageLoader().to(contentArea, "/pages/component/SearchComponent.fxml", this);
         this.type = Type.User;
         searchFilterComboBox.setItems(SearchCompoController.UserSelectList);
 
@@ -166,6 +171,7 @@ public class TableController extends Controller {
     @Override
     public void onPageLoad() {
         //첫 화면 설정
+        
         setDefaultTableContent();
         setDefaultcontentArea();
         
@@ -285,6 +291,26 @@ public class TableController extends Controller {
         return tempUser;
     }
 
+    /**
+     * 책의 데이터를 임시적으로 저장해둔다.
+     * @param tempBook `Book` 객체
+     */
+    public void setBook(Book tempBook){
+        this.tempBook = tempBook;
+    }
+
+    /**
+     * 책의 데이터를 임시적으로 저장해둔다.
+     * @return `Book` 객체
+     */
+    public Book getBook(){
+        return tempBook;
+    }
+
+
+    public void SetBookEditAddCompoController(BookEditAddCompoController bookEditAddCompoController){
+        this.bookEditAddCompoController = bookEditAddCompoController;
+    }
     public void SetUserEditAddCompoController(UserEditAddCompoController userEditAddCompoController){
         this.userEditAddCompoController = userEditAddCompoController;
     }

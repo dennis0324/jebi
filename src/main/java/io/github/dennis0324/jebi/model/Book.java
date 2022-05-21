@@ -72,6 +72,16 @@ public class Book {
 	public String getName() {
 		return name;
 	}
+
+	/**
+	 * 책의 이름을 설정한다.
+	 * 
+	 * @param name 책의 이름.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	
 	/**
 	 * 책의 저자를 반환한다.

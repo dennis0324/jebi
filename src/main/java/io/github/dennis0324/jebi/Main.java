@@ -51,7 +51,7 @@ public class Main extends Application {
 		
 		primaryStage.setResizable(false);
 
-		pageLoader.to("/pages/loginFirst.fxml");
+		pageLoader.to("/pages/Table.fxml");
 		
 		primaryStage.show();
 	}
