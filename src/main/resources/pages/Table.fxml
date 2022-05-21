@@ -14,9 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" 
-   style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" 
-   fx:controller="io.github.dennis0324.jebi.gui.controller.TableController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.TableController">
    <children>
       <VBox prefHeight="900.0" prefWidth="283.0" style="-fx-background-color: #252426;">
          <children>
@@ -35,12 +33,12 @@
                      <content>
                         <VBox alignment="CENTER" prefHeight="171.0" prefWidth="282.0" spacing="20.0">
                            <children>
-                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자" textFill="WHITE">
+                              <MFXButton fx:id="userMenuBtn" onAction="#onUserMenuBtnAction" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="사용자 관리" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
                               </MFXButton>
-                              <MFXButton prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책" textFill="WHITE">
+                              <MFXButton fx:id="bookMenuBtn" onAction="#onBookMenuBtnAction" prefHeight="81.0" prefWidth="325.0" rippleRadius="3.0" style="-fx-background-color: transparent;" text="책 관리" textFill="WHITE">
                                  <font>
                                     <Font name="Arial" size="18.0" />
                                  </font>
@@ -87,13 +85,20 @@
                </padding>
             </HBox>
             <StackPane fx:id="tablePane" prefHeight="863.0" prefWidth="459.0" VBox.vgrow="ALWAYS">
-               <fx:include source="Component/TableUserComponent.fxml" />
-               <fx:include source="Component/TableBookComponent.fxml" />
+            
+               <!-- `<fx:include>`로 다른 FXML 파일을 포함할 때 `fx:id` 속성을 지정해줄 경우, -->
+               <!-- 이 페이지의 컨트롤러에는 "`fx:id`Controller"라는 이름의 컨트롤러 변수가 자동으로 주입된다. -->
+               <!-- 예를 들면, 다음 줄에서 `fx:id`의 값이 "tableUserCompo"이므로, `TableController`에는 -->
+               <!-- `tableUserCompoController`라는 컨트롤러 변수가 생성될 것이다. 자세한 내용은 -->
+               <!-- `javafx.fxml.FXMLLoader.CONTROLLER_SUFFIX`를 참고하자. -->
+               
+               <fx:include fx:id="tableUserCompo" source="Component/TableUserComponent.fxml" />
+               <fx:include fx:id="tableBookCompo" source="Component/TableBookComponent.fxml" />
             </StackPane>
          </children>
       </VBox>
-      <StackPane fx:id="contentPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
-         <fx:include source="Component/SearchComponent.fxml" />
+      <StackPane fx:id="searchPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
+         <fx:include fx:id="searchCompo" source="Component/SearchComponent.fxml" />
       </StackPane>
    </children>
 </HBox>

@@ -2,5 +2,5 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 
-<MFXTableView fx:id="table" prefHeight="900.0" style="-fx-background-color: #fff; -fx-border-color: transparent;" 
+<MFXTableView prefHeight="900.0" style="-fx-background-color: #fff; -fx-border-color: transparent;" 
    xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.TableUserCompoController" />
