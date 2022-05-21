@@ -22,6 +22,9 @@ package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -35,6 +38,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
@@ -228,6 +232,28 @@ public final class DataProvider {
     }
     
     /**
+     * 데이터베이스에 저장된 모든 책 정보를 반환한다.
+     * 
+     * @return 데이터베이스에 저장된 모든 책의 정보.
+     */
+    public ApiFuture<ArrayList<Book>> getBooks() {
+    	ApiFuture<QuerySnapshot> future = db.collection("books").get();
+    	
+    	return ApiFutures.transform(
+    		future, 
+    		(query) -> {
+            	ArrayList<Book> result = new ArrayList<>();
+            	
+            	for (QueryDocumentSnapshot snapshot : query.getDocuments())
+            		result.add(new Book(snapshot));
+            	
+            	return result;
+    		},
+            pool
+    	);
+    }
+    
+    /**
      * 주어진 고유 ID를 가진 사용자 계정을 반환한다.
      * 
      * @param uid 사용자의 고유 ID.
@@ -289,5 +315,27 @@ public final class DataProvider {
     		},
             pool
         );
+    }
+    
+    /**
+     * 데이터베이스에 저장된 모든 사용자 계정 정보를 반환한다.
+     * 
+     * @return 데이터베이스에 저장된 모든 사용자 계정 정보.
+     */
+    public ApiFuture<ArrayList<User>> getUsers() {
+    	ApiFuture<QuerySnapshot> future = db.collection("users").get();
+    	
+    	return ApiFutures.transform(
+    		future, 
+    		(query) -> {
+            	ArrayList<User> result = new ArrayList<>();
+            	
+            	for (QueryDocumentSnapshot snapshot : query.getDocuments())
+            		result.add(new User(snapshot));
+            	
+            	return result;
+    		},
+            pool
+    	);
     }
 }
