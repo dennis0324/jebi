@@ -23,9 +23,10 @@ package io.github.dennis0324.jebi.gui.controller;
 import io.github.dennis0324.jebi.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 /**
- * 계정 생성 페이지 컨트롤러를 나타내는 클래스.
+ * 메인 테이블 페이지 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
@@ -38,6 +39,12 @@ public class TableController extends Controller {
 	
 	@FXML
 	private Label emailLabel;
+	
+	@FXML
+	private StackPane contentPane;
+	
+	@FXML
+	private StackPane tablePane;
 	
 	@Override
 	public void initialize() {

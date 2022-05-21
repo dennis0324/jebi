@@ -74,7 +74,7 @@ public final class DataProvider {
             try {
                 InputStream stream = getClass().getResourceAsStream(Constants.CONFIG_PATH);
                 
-                LOG.info("Firebase SDK를 초기화합니다.");
+                LOG.info("Firebase SDK를 초기화합니다. (설정 파일: " + Constants.CONFIG_PATH + ")");
                 
                 FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(stream))

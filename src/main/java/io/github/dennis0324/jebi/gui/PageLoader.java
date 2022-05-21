@@ -76,6 +76,8 @@ public final class PageLoader {
     public void to(String path) {
         Scene scene = getScene(path);
         
+        LOG.info("다음 페이지로 이동합니다. (페이지 경로: " + path + ")");
+        
         if (scene != null || scene != stage.getScene()) 
             stage.setScene(scene);
     }
@@ -139,6 +141,8 @@ public final class PageLoader {
      */
     private Scene load(String path) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+        
+        LOG.info("새로운 페이지를 생성합니다. (페이지 경로: " + path + ")");
         
         try {
             Parent parent = loader.load();
