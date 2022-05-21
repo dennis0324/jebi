@@ -87,6 +87,7 @@
                   </HBox>
                </children>
             </VBox>
+            <HBox fx:id="buttonContainer" alignment="CENTER" prefHeight="50.0" prefWidth="360.0" spacing="10.0" />
          </children>
          <padding>
             <Insets left="50.0" right="50.0" />

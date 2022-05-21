@@ -35,7 +35,12 @@ public class TableViewHelper {
                     TableController tableController = (TableController) pageLoader.getArgument();
                     tableController.setAddWindowType(AddWindowType.edit);
                     if(tableController.getType() == Type.Book){
-                        // tableController.setUser();
+                        ObservableMap<Integer,T> map = table.getSelectionModel().selectionProperty().get();
+                        if(map.size() == 1){
+                            for( int i : map.keySet())
+                                tableController.setBook((Book)map.get(i));
+                        }
+                        pageLoader.to(tableController.getContentArea(),pathString,pageLoader.getArgument());
                     }
                     else{
                         ObservableMap<Integer,T> map = table.getSelectionModel().selectionProperty().get();

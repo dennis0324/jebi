@@ -59,12 +59,12 @@ public class TableBookCompoController extends Controller {
         MFXTableColumn<Book> pubDateColumn = new MFXTableColumn<>("출판 날짜",false,Comparator.comparing(Book::getPubDate));
         MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리",false,Comparator.comparing(Book::getCategory));
 
-        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getUid,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
-        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
-        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
-        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
-        pubDateColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPubDate,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
-        categoryColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getCategory,table,pageLoader,"/pages/Component/editbookComponent.fxml"));
+        uidColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getUid,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
+        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
+        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
+        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
+        pubDateColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPubDate,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
+        categoryColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getCategory,table,pageLoader,"/pages/Component/bookEditAddComponent.fxml"));
 
         table.getTableColumns().addAll(uidColumn,nameColumn,authorColumn,publisherColumn,pubDateColumn,categoryColumn);
 

@@ -72,7 +72,6 @@ public class UserEditAddCompoController extends Controller {
         setEditMode(editModeSelector.isSelected());
     }
     
-    @SuppressWarnings("unchecked")
     public void initialize() {
         MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35"); // 'PERSON' is my icon from fontawesomefx, 22 is the icon size
         backBtn.setIcon(icon);
@@ -80,23 +79,7 @@ public class UserEditAddCompoController extends Controller {
         backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
         // NodeUtils.makeRegionCircular(sumbitButton);    
 
-        MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("책 이름",false,Comparator.comparing(Book::getName));
-        MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가",false,Comparator.comparing(Book::getAuthor));
-        MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사",false,Comparator.comparing(Book::getPublisher));
 
-        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,null,"/pages/Component/editbookComponent.fxml"));
-        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,null,"/pages/Component/editbookComponent.fxml"));
-        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,null,"/pages/Component/editbookComponent.fxml"));
-        
-        table.getTableColumns().addAll(nameColumn,authorColumn,publisherColumn);
-
-        table.getFilters().addAll(
-            new StringFilter<>("책 이름",Book::getName),
-            new StringFilter<>("작가",Book::getAuthor),
-            new StringFilter<>("출판사",Book::getPublisher)
-            );
-        table.setItems(FXCollections.observableArrayList(new Book("testing")));
-        table.setItems(FXCollections.observableArrayList(new Book("testing")));
 
 
 
@@ -108,12 +91,16 @@ public class UserEditAddCompoController extends Controller {
         Book book;
         TableController tableController = (TableController)getPageLoader().getArgument();
         AddWindowType windowType = tableController.getWindowType();
-        System.out.print(windowType);
         CapsuleButton button = new CapsuleButton();
+
+        tableController.SetUserEditAddCompoController(this);
+        setUpTable();
+        
         if(windowType == AddWindowType.add){
             tableContainer.setManaged(false);
             tableContainer.setVisible(false);
             setEditMode(true);
+            editModeSelector.setVisible(false);
             editModeSelector.setSelected(true);
             // table
             button.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
@@ -158,6 +145,27 @@ public class UserEditAddCompoController extends Controller {
                 phoneNumber.setText(user.getPhoneNumber());
         }
         deleteBtnContainer.getChildren().add(button);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public void setUpTable(){
+        MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("책 이름",false,Comparator.comparing(Book::getName));
+        MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가",false,Comparator.comparing(Book::getAuthor));
+        MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사",false,Comparator.comparing(Book::getPublisher));
+
+        nameColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getName,table,null,""));
+        authorColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getAuthor,table,null,""));
+        publisherColumn.setRowCellFactory(book -> TableViewHelper.toItemClickEventHandler(Book::getPublisher,table,null,""));
+        
+        table.getTableColumns().addAll(nameColumn,authorColumn,publisherColumn);
+
+        table.getFilters().addAll(
+            new StringFilter<>("책 이름",Book::getName),
+            new StringFilter<>("작가",Book::getAuthor),
+            new StringFilter<>("출판사",Book::getPublisher)
+            );
+        table.setItems(FXCollections.observableArrayList(new Book("testing")));
+        table.setItems(FXCollections.observableArrayList(new Book("testing")));
     }
 
     public void setEditMode(boolean input){
