@@ -37,7 +37,7 @@ import javafx.fxml.FXML;
  * 
  * @author dennis0324, jdeokkim
  */
-public class TableUserCompoController {
+public class TableUserCompoController extends Controller {
 	// `TableUserCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(TableUserCompoController.class);
     
@@ -45,6 +45,11 @@ public class TableUserCompoController {
 	private MFXTableView<User> userTable;
 	
 	public void initialize() {
+		onPageLoad();
+	}
+	
+	@Override
+	public void onPageLoad() {
 		setupUserTable();
 	}
 	

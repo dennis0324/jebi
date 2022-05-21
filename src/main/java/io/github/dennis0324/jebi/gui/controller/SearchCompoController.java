@@ -21,7 +21,7 @@
 package io.github.dennis0324.jebi.gui.controller;
 
 /**
- * TODO: ...
+ * 검색 영역 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
