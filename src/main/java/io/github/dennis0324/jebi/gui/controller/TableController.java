@@ -25,6 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -39,11 +41,11 @@ public class TableController extends Controller {
 	// `TableController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(TableController.class);
     
+    // 사용자가 선택한 메뉴의 인덱스.
+    private SimpleIntegerProperty menuIndexProperty;
+    
 	// 사용자 계정 정보.
     private User user;
-    
-    // 사용자가 선택한 메뉴의 인덱스.
-    private int menuIndex;
     
     /* ::: 메뉴 버튼... ::: */
     
@@ -91,11 +93,25 @@ public class TableController extends Controller {
 	
 	@Override
 	public void initialize() {
-		menuIndex = -1;
+		menuIndexProperty = new SimpleIntegerProperty(-1);
+		
+		menuIndexProperty.addListener(
+			(observable, oldValue, newValue) -> {
+				if (oldValue != newValue) {
+					Platform.runLater(
+						() -> searchCompoController.updateFilters(newValue.intValue())
+					);
+				}
+			}
+		);
 	}
 
 	@Override
 	public void onPageLoad() {
+		tableUserCompoController.setParentController(this);
+		tableBookCompoController.setParentController(this);
+		searchCompoController.setParentController(this);
+		
 		user = (User) getPageLoader().getArgument();
 		
 		// 사용자가 관리자 권한을 가지고 있지 않다면, 
@@ -129,7 +145,7 @@ public class TableController extends Controller {
 	 * @param menuIndex 사용자가 선택한 메뉴의 인덱스.
 	 */
 	private void updateTablePane(int menuIndex) {
-		if (this.menuIndex == menuIndex) return;
+		if (menuIndexProperty.get() == menuIndex) return;
 		
 		tableUserCompo.setManaged((menuIndex == 0));
 		tableUserCompo.setVisible((menuIndex == 0));
@@ -137,6 +153,6 @@ public class TableController extends Controller {
 		tableBookCompo.setManaged((menuIndex == 1));
 		tableBookCompo.setVisible((menuIndex == 1));
 		
-		this.menuIndex = menuIndex;
+		menuIndexProperty.set(menuIndex);
 	}
 }

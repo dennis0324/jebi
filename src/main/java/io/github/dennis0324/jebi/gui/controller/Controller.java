@@ -33,7 +33,10 @@ public abstract class Controller {
 	private PageLoader pageLoader;
 	
 	// 이벤트 컨트롤러의 부모 노드.
-	private Parent parent;
+	private Parent parentNode;
+	
+	// 이벤트 컨트롤러의 부모 컨트롤러.
+	private Controller parentController;
 	
 	/**
 	 * 이벤트 컨트롤러의 `PageLoader` 인스턴스를 설정한다.
@@ -42,6 +45,24 @@ public abstract class Controller {
 	 */
 	public PageLoader getPageLoader() {
 		return pageLoader;
+	}
+	
+	/**
+	 * 이벤트 컨트롤러의 부모 노드를 반환한다.
+	 * 
+	 * @return 이벤트 컨트롤러의 부모 노드.
+	 */
+	public Parent setParentNode() {
+		return parentNode;
+	}
+	
+	/**
+	 * 이벤트 컨트롤러의 부모 컨트롤러를 반환한다.
+	 * 
+	 * @return 이벤트 컨트롤러의 부모 컨트롤러.
+	 */
+	public Controller getParentController() {
+		return parentController;
 	}
 	
 	/**
@@ -54,21 +75,21 @@ public abstract class Controller {
 	}
 	
 	/**
-	 * 이벤트 컨트롤러의 부모 노드를 반환한다.
-	 * 
-	 * @return 이벤트 컨트롤러의 부모 노드.
-	 */
-	public Parent getParent() {
-		return parent;
-	}
-	
-	/**
 	 * 이벤트 컨트롤러의 부모 노드를 설정한다.
 	 * 
 	 * @param parent 이벤트 컨트롤러의 부모 노드.
 	 */
-	public void setParent(Parent parent) {
-		this.parent = parent;
+	public void setParentNode(Parent parentNode) {
+		this.parentNode = parentNode;
+	}
+	
+	/**
+	 * 이벤트 컨트롤러의 부모 컨트롤러를 설정한다.
+	 * 
+	 * @param parentController 이벤트 컨트롤러의 부모 컨트롤러.
+	 */
+	public void setParentController(Controller parentController) {
+		this.parentController = parentController;
 	}
 	
 	/**

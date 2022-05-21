@@ -26,12 +26,10 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.controller.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -151,7 +149,7 @@ public final class PageLoader {
             
             if (controller != null) {
                 controller.setPageLoader(this);
-                controller.setParent(parent);
+                controller.setParentNode(parent);
                 
                 controller.onPageLoad();
             }
