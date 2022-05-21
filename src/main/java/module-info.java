@@ -35,6 +35,7 @@ module io.github.dennis0324.jebi {
     requires de.jensd.fx.glyphs.materialdesignicons;
     requires de.jensd.fx.glyphs.fontawesome;
     requires de.jensd.fx.glyphs.materialicons;
+	requires javafx.base;
     opens io.github.dennis0324.jebi.gui.controller to javafx.fxml;
     exports io.github.dennis0324.jebi;
 }

@@ -98,6 +98,8 @@ public class TableController extends Controller {
 	public void onPageLoad() {
 		user = (User) getPageLoader().getArgument();
 		
+		// 사용자가 관리자 권한을 가지고 있지 않다면, 
+		// 사용자가 볼 수 있는 메뉴를 제한한다.
 		if (!user.isAdmin()) {
 			// userMenuBtn.setVisible(false);
 			// bookMenuBtn.setVisible(false);
