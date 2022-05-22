@@ -28,6 +28,7 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.WriteResult;
@@ -95,12 +96,16 @@ public class TableUserCompoController extends Controller {
 	 * @param name 테이블에 추가할 사용자의 이름.
 	 */
 	public void addToTable(String name) {
+		User user = new User(name, "", "", "");
+		
 		ApiFutures.addCallback(
-            provider.createUser(new User(name, "", "", "")),
+            provider.createUser(user),
             new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onSuccess(WriteResult result) {
                 	reloadUsers();
+                	
+                	Platform.runLater(() -> userProperty.set(user));
                 }
                 
                 @Override

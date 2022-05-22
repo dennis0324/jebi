@@ -97,12 +97,16 @@ public class TableBookCompoController extends Controller {
 	 * @param name 테이블에 추가할 책의 이름.
 	 */
 	public void addToTable(String name) {
+		Book book = new Book(name);
+		
 		ApiFutures.addCallback(
-            provider.createBook(new Book(name)),
+            provider.createBook(book),
             new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onSuccess(WriteResult result) {
                 	reloadBooks();
+                	
+                	Platform.runLater(() -> bookProperty.set(book));
                 }
                 
                 @Override

@@ -133,7 +133,7 @@ public final class DataProvider {
      * @param book 책의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> createBook(final Book book) {
+    public ApiFuture<WriteResult> createBook(Book book) {
     	if (book.getUid() == null)
     		book.setUid(UUID.randomUUID().toString());
     	
@@ -150,7 +150,7 @@ public final class DataProvider {
      * @param user 사용자 계정의 정보.
      * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
      */
-    public ApiFuture<WriteResult> createUser(final User user) {
+    public ApiFuture<WriteResult> createUser(User user) {
         if (user.getUid() == null)
             user.setUid(UUID.randomUUID().toString());
         

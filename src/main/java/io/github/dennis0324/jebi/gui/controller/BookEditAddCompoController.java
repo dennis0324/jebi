@@ -23,23 +23,17 @@ package io.github.dennis0324.jebi.gui.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.api.core.ApiFutureCallback;
-import com.google.api.core.ApiFutures;
-
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
-import io.github.dennis0324.jebi.model.User;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.utils.NodeUtils;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -59,6 +53,9 @@ public class BookEditAddCompoController extends Controller {
     
     // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
     private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    
+    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류. (0은 추가, 1은 편집)
+    private SimpleIntegerProperty databaseModeProperty = new SimpleIntegerProperty(-1);
     
     // 테이블에서 선택한 책.
     private Book selectedBook = null;
@@ -130,7 +127,33 @@ public class BookEditAddCompoController extends Controller {
 
     @Override
     public void onPageLoad() {
-       /* TODO: ... */
+    	databaseModeProperty.addListener(
+    		(observable, oldValue, newValue) -> { 
+    			if (newValue.intValue() == 0) {
+    				editToggleBtn.setVisible(true);
+    				
+    				nameField.setEditable(false);
+    		    	authorField.setEditable(false);
+    		    	publisherField.setEditable(false);
+    		    	publishDateField.setEditable(false);
+    		    	categoryField.setEditable(false);
+    		    	
+    		    	borrowCapsuleBtn.setText("대출");
+    			} else if (newValue.intValue() == 1) {
+    				editToggleBtn.setVisible(false);
+    				
+    				nameField.setEditable(true);
+    		    	authorField.setEditable(true);
+    		    	publisherField.setEditable(true);
+    		    	publishDateField.setEditable(true);
+    		    	categoryField.setEditable(true);
+    		    	
+    		    	borrowCapsuleBtn.setText("추가");
+    			}
+    		}
+    	);
+    	
+    	databaseModeProperty.set(0);
     }
     
     @FXML
@@ -159,6 +182,15 @@ public class BookEditAddCompoController extends Controller {
 	}
 	
 	/**
+	 * 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류를 반환한다.
+	 * 
+	 * @return 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
+	 */
+	public SimpleIntegerProperty getDatabaseModeProperty() {
+		return databaseModeProperty;
+	}
+	
+	/**
      * 책 추가 및 수정 영역을 업데이트한다.
      * 
      * @param user 테이블에서 선택한 책.
@@ -170,8 +202,6 @@ public class BookEditAddCompoController extends Controller {
     	
     	backProperty.set(false);
     	
-    	/* TODO: ... */
-    	
     	if (selectedBook == null) {
     		nameField.clear();
     		authorField.clear();
@@ -179,6 +209,9 @@ public class BookEditAddCompoController extends Controller {
     		publishDateField.clear();
     		categoryField.clear();
     	} else {
+    		if (selectedBook.getAuthor().isBlank()) databaseModeProperty.set(1);
+        	else databaseModeProperty.set(0);
+    		
     		nameField.setText(selectedBook.getName());
     		authorField.setText(selectedBook.getAuthor());
     		publisherField.setText(selectedBook.getPublisher());

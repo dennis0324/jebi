@@ -39,7 +39,7 @@ public class TableController extends Controller {
 	// 접속한 사용자 계정의 정보.
     private static User user;
     
-    // 사용자가 선택한 메뉴의 인덱스.
+    // 사용자가 선택한 메뉴의 "관찰 가능한" 인덱스.
     private SimpleIntegerProperty menuIndexProperty = new SimpleIntegerProperty(-1);
     
     /* ::: 메뉴 버튼... ::: */

@@ -43,6 +43,7 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -67,6 +68,9 @@ public class UserEditAddCompoController extends Controller {
     
     // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
     private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    
+    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류. (0은 편집, 1은 추가)
+    private SimpleIntegerProperty databaseModeProperty = new SimpleIntegerProperty(-1);
     
     // 테이블에서 선택한 사용자.
     private User selectedUser = null;
@@ -101,6 +105,14 @@ public class UserEditAddCompoController extends Controller {
     @Override
     public void onPageLoad() {
     	setupBorrowedBookTable();
+    	
+    	databaseModeProperty.addListener(
+    		(observable, oldValue, newValue) -> { 
+    			/* TODO: ... */
+    		}
+    	);
+    	
+    	databaseModeProperty.set(0);
     }
     
     @FXML
@@ -125,6 +137,15 @@ public class UserEditAddCompoController extends Controller {
 	public SimpleBooleanProperty getBackProperty() {
 		return backProperty;
 	}
+	
+	/**
+	 * 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류를 반환한다.
+	 * 
+	 * @return 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
+	 */
+	public SimpleIntegerProperty getDatabaseModeProperty() {
+		return databaseModeProperty;
+	}
     
     /**
      * 사용자 추가 및 수정 영역을 업데이트한다.
@@ -146,6 +167,9 @@ public class UserEditAddCompoController extends Controller {
     		emailField.clear();
     		phoneNumberField.clear();
     	} else {
+    		if (selectedUser.getEmail().isBlank()) databaseModeProperty.set(1);
+        	else databaseModeProperty.set(0);
+    		
     		nameField.setText(selectedUser.getName());
     		emailField.setText(selectedUser.getEmail());
     		phoneNumberField.setText(selectedUser.getPhoneNumber());
