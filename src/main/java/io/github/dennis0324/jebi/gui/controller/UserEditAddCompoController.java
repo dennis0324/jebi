@@ -20,7 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
@@ -44,7 +43,6 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -91,14 +89,12 @@ public class UserEditAddCompoController extends Controller {
 	@FXML
 	private MFXPaginatedTableView<Book> borrowedBookTable;
 	
-	@FXML
-	private HBox deleteBtnContainer;
-	
 	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
 	@Override
     public void initialize() {
 		setupIconBtn();
+		
 		onPageLoad();
     }
 
@@ -116,8 +112,8 @@ public class UserEditAddCompoController extends Controller {
     public void onEditToggleBtnAction() {
     	boolean editMode = editToggleBtn.isSelected();
     	
-    	emailField.setEditable(editMode);
     	nameField.setEditable(editMode);
+    	emailField.setEditable(editMode);
     	phoneNumberField.setEditable(editMode);
     }
     
@@ -141,6 +137,8 @@ public class UserEditAddCompoController extends Controller {
     	this.selectedUser = selectedUser;
     	
     	backProperty.set(false);
+    	
+    	borrowedBooks.clear();
     	borrowedBookTable.setItems(null);
     	
     	if (selectedUser == null) {
@@ -175,6 +173,15 @@ public class UserEditAddCompoController extends Controller {
     }
     
     /**
+   	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
+   	 * 
+   	 * @param event 마우스 이벤트의 종류.
+   	 */
+   	private void onTableRowCellClicked(MouseEvent event) {
+   		/* TODO: ... */
+   	}
+    
+    /**
      * 아이콘 버튼을 초기화한다.
      */
     private void setupIconBtn() {
@@ -186,15 +193,6 @@ public class UserEditAddCompoController extends Controller {
     	
     	NodeUtils.makeRegionCircular(backIconBtn);
     }
-    
-    /**
-	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
-	 * 
-	 * @param event 마우스 이벤트의 종류.
-	 */
-	private void onTableRowCellClicked(MouseEvent event) {
-		/* TODO: ... */
-	}
     
     /**
      * 테이블에서 선택한 사용자가 빌린 모든 책 정보의 테이블을 초기화한다.

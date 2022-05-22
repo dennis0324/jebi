@@ -24,7 +24,7 @@
          <right>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="153.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXToggleButton fx:id="editToggleBtn" onAction="#onEditToggleBtnAction" prefHeight="41.0" prefWidth="63.0" text="수정하기" />
+                  <MFXToggleButton fx:id="editToggleBtn" onAction="#onEditToggleBtnAction" prefHeight="41.0" prefWidth="63.0" text="수정" />
                </children>
             </HBox>
          </right>
@@ -63,7 +63,7 @@
             <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="239.0" prefWidth="371.0" />
          </children>
       </VBox>
-      <HBox fx:id="deleteBtnContainer" alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />
+      <HBox alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

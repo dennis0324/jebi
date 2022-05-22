@@ -327,7 +327,7 @@ public final class DataProvider {
     public ApiFuture<ArrayList<User>> getUsers() {
     	ApiFuture<QuerySnapshot> future = db.collection("users").get();
     	
-    	LOG.info("모든 사용자 정보를 불러옵니다.");
+    	LOG.info("모든 사용자 계정 정보를 불러옵니다.");
     	
     	return ApiFutures.transform(
     		future, 

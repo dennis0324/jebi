@@ -25,7 +25,7 @@ import io.github.palexdev.materialfx.effects.ripple.RippleClipType;
 import io.github.palexdev.materialfx.factories.RippleClipTypeFactory;
 
 /**
- * 캡슐 버튼을 나타내는 클래스.
+ * 캡슐형 버튼을 나타내는 클래스.
  * 
  * @author dennis0324
  */

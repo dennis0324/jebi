@@ -67,6 +67,7 @@ public class User {
 		this.email = email;
 		this.pwdHash = pwdHash;
 		this.phoneNumber = phoneNumber;
+		this._isAdmin = false;
 		this.bookIds = new ArrayList<String>();
 	}
 	

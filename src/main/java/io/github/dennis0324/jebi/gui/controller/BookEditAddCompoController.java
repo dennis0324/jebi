@@ -23,32 +23,208 @@ package io.github.dennis0324.jebi.gui.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+
+import de.jensd.fx.glyphs.materialicons.MaterialIcon;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
+import io.github.palexdev.materialfx.controls.MFXIconWrapper;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.MFXToggleButton;
+import io.github.palexdev.materialfx.utils.NodeUtils;
+import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 
 /**
  * 사용자 추가 및 수정 영역 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
-public class BookEditAddCompoController extends Controller {
-	// `DataProvider` 인스턴스.
-    private DataProvider provider = DataProvider.getInstance();
-    
+public class BookEditAddCompoController extends Controller {  
 	// `BookEditAddCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(BookEditAddCompoController.class);
+    
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
+    
+    // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
+    private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    
+    // 테이블에서 선택한 책.
+    private Book selectedBook = null;
+    
+    /* ::: '이전' 버튼과 '수정' 버튼 영역... ::: */
+    
+    @FXML
+	private MFXIconWrapper backIconBtn;
+	
+	@FXML
+	private MFXToggleButton editToggleBtn;
+	
+	/* ::: 텍스트 필드 영역... ::: */
+	
+	@FXML
+	private MFXTextField nameField;
+	
+	@FXML
+	private MFXTextField authorField;
+	
+	@FXML
+	private MFXTextField publisherField;
+	
+	@FXML
+	private MFXTextField publishDateField;
+	
+	@FXML
+	private MFXTextField categoryField;
+	
+	@FXML
+	private Label errorMsgLabel;
+	
+	/* ::: 대분류와 소분류 선택 영역... ::: */
+	
+	@FXML
+	private HBox categorySelContainer;
+	
+	// @FXML
+	// private MFXComboBox<?> smallCategoryComboBox;
+	
+	// @FXML
+	// private MFXComboBox<?> bigCategoryComboBox;
+	
+	@FXML
+	private HBox btnContainer;
+	
+	/* ::: 나머지 버튼 영역... ::: */
+	
+	// '저장' 버튼.
+	private CapsuleButton saveCapsuleBtn;
+	
+	// '대출' 버튼.
+	private CapsuleButton borrowCapsuleBtn;
+	
+	// '삭제' 버튼.
+	private CapsuleButton deleteCapsuleBtn;
     
 	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
 	@Override
 	public void initialize() {
-    	/* TODO: ... */
+		errorMsgLabel.setManaged(false);
+		
+		setupCapsuleBtns();
+		setupIconBtn();
+		
+		onPageLoad();
     }
 
     @Override
     public void onPageLoad() {
        /* TODO: ... */
     }
+    
+    @FXML
+    public void onBackIconBtnClicked() {
+    	backProperty.set(true);
+    }
+    
+    @FXML
+    public void onEditToggleBtnAction() {
+        boolean editMode = editToggleBtn.isSelected();
+    	
+    	nameField.setEditable(editMode);
+    	authorField.setEditable(editMode);
+    	publisherField.setEditable(editMode);
+    	publishDateField.setEditable(editMode);
+    	categoryField.setEditable(editMode);
+    }
+    
+    /**
+	 * 이전 화면으로 돌아갈지의 "관찰 가능한" 여부를 반환한다.
+	 * 
+	 * @return 이전 화면으로 돌아갈지의 "관찰 가능한" 여부.
+	 */
+	public SimpleBooleanProperty getBackProperty() {
+		return backProperty;
+	}
+	
+	/**
+     * 책 추가 및 수정 영역을 업데이트한다.
+     * 
+     * @param user 테이블에서 선택한 책.
+     */
+    public void updateData(Book selectedBook) {
+    	if (this.selectedBook == selectedBook) return;
+    	
+    	this.selectedBook = selectedBook;
+    	
+    	backProperty.set(false);
+    	
+    	/* TODO: ... */
+    	
+    	if (selectedBook == null) {
+    		nameField.clear();
+    		authorField.clear();
+    		publisherField.clear();
+    		publishDateField.clear();
+    		categoryField.clear();
+    	} else {
+    		nameField.setText(selectedBook.getName());
+    		authorField.setText(selectedBook.getAuthor());
+    		publisherField.setText(selectedBook.getPublisher());
+    		publishDateField.setText(selectedBook.getPublishDate());
+    		categoryField.setText(Integer.toString(selectedBook.getCategory()));
+    		
+    		/* TODO: ... */
+    	}
+    }
+    
+    /**
+     * 아이콘 버튼을 초기화한다.
+     */
+    private void setupCapsuleBtns() {
+        saveCapsuleBtn = new CapsuleButton();
+        
+        saveCapsuleBtn.setText("저장");
+        saveCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        
+        btnContainer.getChildren().add(saveCapsuleBtn);
+        
+        borrowCapsuleBtn = new CapsuleButton();
+        
+        borrowCapsuleBtn.setText("대출");
+        borrowCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        
+        btnContainer.getChildren().add(borrowCapsuleBtn);
+
+        deleteCapsuleBtn = new CapsuleButton();
+        
+        deleteCapsuleBtn.setText("삭제");
+        deleteCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
+        
+        btnContainer.getChildren().add(deleteCapsuleBtn);
+    }
+    
+    /**
+     * 아이콘 버튼을 초기화한다.
+     */
+    private void setupIconBtn() {
+    	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
+		
+    	backIconBtn.setIcon(icon);
+    	backIconBtn.defaultRippleGeneratorBehavior();
+    	backIconBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
+    	
+    	NodeUtils.makeRegionCircular(backIconBtn);
+	}
 }

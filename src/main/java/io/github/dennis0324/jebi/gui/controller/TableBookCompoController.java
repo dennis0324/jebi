@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
+import com.google.cloud.firestore.WriteResult;
 
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
@@ -91,6 +92,29 @@ public class TableBookCompoController extends Controller {
 	}
 	
 	/**
+	 * 주어진 이름을 가진 책을 생성하고, 테이블에 추가한다.
+	 * 
+	 * @param name 테이블에 추가할 책의 이름.
+	 */
+	public void addToTable(String name) {
+		ApiFutures.addCallback(
+            provider.createBook(new Book(name)),
+            new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	reloadBooks();
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
+	}
+	
+	/**
 	 * 테이블의 셀 선택을 해제한다. 
 	 */
 	public void clearSelection() {
@@ -109,6 +133,8 @@ public class TableBookCompoController extends Controller {
 			.getSelection();
 		
 		Iterator<Entry<Integer, Book>> iterator = obMap.entrySet().iterator();
+		
+		clearSelection();
 		
 		if (!iterator.hasNext()) {
 			bookProperty.set(null);
@@ -131,7 +157,7 @@ public class TableBookCompoController extends Controller {
         MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("이름", false, Comparator.comparing(Book::getName));
         MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가", false, Comparator.comparing(Book::getAuthor));
         MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사", false, Comparator.comparing(Book::getPublisher));
-        MFXTableColumn<Book> pubDateColumn = new MFXTableColumn<>("출판 날짜", false, Comparator.comparing(Book::getPubDate));
+        MFXTableColumn<Book> pubDateColumn = new MFXTableColumn<>("출판 날짜", false, Comparator.comparing(Book::getPublishDate));
         MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리", false, Comparator.comparing(Book::getCategory));
         // MFXTableColumn<Book> borrowerIdColumn = new MFXTableColumn<>("빌린 사람", false, Comparator.comparing(Book::getBorrowerId));
         // MFXTableColumn<Book> borrowDateColumn = new MFXTableColumn<>("빌린 날짜", false, Comparator.comparing(Book::getBorrowDate));
@@ -139,7 +165,7 @@ public class TableBookCompoController extends Controller {
         nameColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getName, this::onTableRowCellClicked));
         authorColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getAuthor, this::onTableRowCellClicked));
         publisherColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublisher, this::onTableRowCellClicked));
-        pubDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPubDate, this::onTableRowCellClicked));
+        pubDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublishDate, this::onTableRowCellClicked));
         categoryColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getCategory, this::onTableRowCellClicked));
         // borrowerIdColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowerId));
         // borrowDateColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowDate));
@@ -158,23 +184,34 @@ public class TableBookCompoController extends Controller {
             new StringFilter<>("이름", Book::getName),
             new StringFilter<>("작가", Book::getAuthor),
             new StringFilter<>("출판사", Book::getPublisher),
-            new StringFilter<>("출판 날짜", Book::getPubDate),
+            new StringFilter<>("출판 날짜", Book::getPublishDate),
             new IntegerFilter<>("카테고리", Book::getCategory),
             new StringFilter<>("빌린 사람", Book::getBorrowerId),
             new StringFilter<>("빌린 날짜", Book::getBorrowDate)
         );
         
-        ApiFutures.addCallback(
+        reloadBooks();
+        
+        // bookTable.autosizeColumnsOnInitialization();
+	}
+	
+	/**
+	 * 모든 책의 정보를 다시 불러온다.
+	 */
+	private void reloadBooks() {
+		ApiFutures.addCallback(
             provider.getBooks(),
             new ApiFutureCallback<ArrayList<Book>>() {
                 @Override
                 public void onSuccess(ArrayList<Book> result) {
-                	LOG.info("총 " + result.size() + "개의 책을 찾았습니다.");
+                	LOG.info("총 " + result.size() + "권의 책을 찾았습니다.");
                 	
                 	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
                 	Platform.runLater(
                 		() -> {
+                			books.clear();
                 			books.addAll(result);
+                			
                 			bookTable.setItems(books);
                 		}
                 	);
@@ -187,7 +224,5 @@ public class TableBookCompoController extends Controller {
             },
             provider.getThreadPool()
         );
-        
-        // bookTable.autosizeColumnsOnInitialization();
 	}
 }

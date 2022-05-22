@@ -120,7 +120,7 @@ public class TableController extends Controller {
 				if (oldValue != newValue) {
 					Platform.runLater(
 						() -> {
-							final int menuIndex = newValue.intValue();
+							int menuIndex = newValue.intValue();
 							
 							{		
 								tableUserCompo.setManaged((menuIndex == 0));
@@ -176,6 +176,8 @@ public class TableController extends Controller {
 				
 				bookEditAddCompo.setManaged((newValue != null));
 				bookEditAddCompo.setVisible((newValue != null));
+				
+				bookEditAddCompoController.updateData(newValue);
 			}
 		);
 		
@@ -187,6 +189,17 @@ public class TableController extends Controller {
 				
 				userEditAddCompo.setManaged(!newValue);
 				userEditAddCompo.setVisible(!newValue);
+			}
+		);
+		
+		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
+		bookEditAddCompoController.getBackProperty().addListener(
+			(observable, oldValue, newValue) -> {
+				searchCompo.setManaged(newValue);
+				searchCompo.setVisible(newValue);
+				
+				bookEditAddCompo.setManaged(!newValue);
+				bookEditAddCompo.setVisible(!newValue);
 			}
 		);
 	}
@@ -210,7 +223,17 @@ public class TableController extends Controller {
 	
 	@FXML
 	public void onAddToTableBtnAction() {
-		/* TODO: ... */
+		int menuIndex = menuIndexProperty.get();
+		
+		String name = addToTableField.getText();
+		
+		if (name.isBlank()) {
+			// TODO: 오류 메시지 출력
+			return;
+		}
+		
+		if (menuIndex == 0) tableUserCompoController.addToTable(name);
+		else if (menuIndex == 1) tableBookCompoController.addToTable(name);
 	}
 	
 	@FXML

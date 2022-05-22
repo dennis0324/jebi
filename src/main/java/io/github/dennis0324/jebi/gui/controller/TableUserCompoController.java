@@ -30,9 +30,11 @@ import org.slf4j.LoggerFactory;
 
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
+import com.google.cloud.firestore.WriteResult;
 
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
+import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -85,6 +87,29 @@ public class TableUserCompoController extends Controller {
 	 */
 	public SimpleObjectProperty<User> getUserProperty() {
 		return userProperty;
+	}
+	
+	/**
+	 * 주어진 이름을 가진 사용자를 생성하고, 테이블에 추가한다.
+	 * 
+	 * @param name 테이블에 추가할 사용자의 이름.
+	 */
+	public void addToTable(String name) {
+		ApiFutures.addCallback(
+            provider.createUser(new User(name, "", "", "")),
+            new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	reloadUsers();
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
 	}
 	
 	/**
@@ -147,7 +172,16 @@ public class TableUserCompoController extends Controller {
             new StringFilter<>("관리자 여부", User::getPhoneNumber)
         );
         
-        ApiFutures.addCallback(
+        reloadUsers();
+        
+        // userTable.autosizeColumnsOnInitialization();
+	}
+	
+	/**
+	 * 모든 사용자의 정보를 다시 불러온다.
+	 */
+	private void reloadUsers() {
+		ApiFutures.addCallback(
             provider.getUsers(),
             new ApiFutureCallback<ArrayList<User>>() {
                 @Override
@@ -157,7 +191,9 @@ public class TableUserCompoController extends Controller {
                 	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
                 	Platform.runLater(
                 		() -> {
+                			users.clear();
                 			users.addAll(result);
+                			
                 			userTable.setItems(users);
                 		}
                 	);
@@ -170,7 +206,5 @@ public class TableUserCompoController extends Controller {
             },
             provider.getThreadPool()
         );
-        
-        // userTable.autosizeColumnsOnInitialization();
 	}
 }

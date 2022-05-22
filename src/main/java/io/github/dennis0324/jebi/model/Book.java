@@ -43,7 +43,7 @@ public class Book {
 	private String publisher;
 	
 	// 책의 출판 날짜.
-	private String pubDate;
+	private String publishDate;
 	
 	// 책의 분류.
 	private int category;
@@ -57,10 +57,16 @@ public class Book {
 	/**
 	 * `Book` 클래스의 생성자.
 	 * 
-	 * @param uid 책의 고유 ID.
+	 * @param name 책의 이름.
 	 */
-	public Book(String uid) {
-		this.uid = uid;
+	public Book(String name) {
+		this.name = name;
+		this.author = "";
+		this.publisher = "";
+		this.publishDate = "";
+		this.category = -1;
+		this.borrowerId = "";
+		this.borrowDate = "";
 	}
 	
 	/**
@@ -73,7 +79,7 @@ public class Book {
 		this.name = snapshot.getString("name");
 		this.author = snapshot.getString("author");
 		this.publisher = snapshot.getString("publisher");
-		this.pubDate = snapshot.getString("pubDate");
+		this.publishDate = snapshot.getString("publishDate");
 		this.category = snapshot.getLong("category").intValue();
 		this.borrowerId = snapshot.getString("borrowerId");
 		this.borrowDate = snapshot.getString("borrowDate");
@@ -120,8 +126,8 @@ public class Book {
 	 * 
 	 * @return 책의 출판 날짜.
 	 */
-	public String getPubDate() {
-		return pubDate;
+	public String getPublishDate() {
+		return publishDate;
 	}
 	
 	/**
@@ -163,7 +169,7 @@ public class Book {
 		result.put("name", name);
 		result.put("author", author);
 		result.put("publisher", publisher);
-		result.put("pubDate", pubDate);
+		result.put("publishDate", publishDate);
 		result.put("category", category);
 		result.put("borrowerId", borrowerId);
 		result.put("borrowDate", borrowDate);
