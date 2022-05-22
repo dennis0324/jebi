@@ -17,14 +17,14 @@
          <left>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXIconWrapper fx:id="backBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onBackBtnClicked" prefHeight="50.0" prefWidth="50.0" />
+                  <MFXIconWrapper fx:id="backIconBtn" onMouseClicked="#onBackIconBtnClicked" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
          </left>
          <right>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="153.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXToggleButton fx:id="editModeSelector" onAction="#onChangeEditMode" prefHeight="41.0" prefWidth="63.0" text="수정하기" />
+                  <MFXToggleButton fx:id="editToggleBtn" onAction="#onEditToggleBtnAction" prefHeight="41.0" prefWidth="63.0" text="수정하기" />
                </children>
             </HBox>
          </right>
@@ -38,18 +38,19 @@
                         <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-25.0" />
                      </children>
                   </AnchorPane>
-                  <MFXTextField fx:id="name" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="nameField" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin></MFXTextField>
-                  <MFXTextField fx:id="email" editable="false" floatMode="BORDER" floatingText="이메일" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="emailField" editable="false" floatMode="BORDER" floatingText="이메일" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin></MFXTextField>
-                  <MFXTextField fx:id="phoneNumber" editable="false" floatMode="BORDER" floatingText="전화번호" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="phoneNumberField" editable="false" floatMode="BORDER" floatingText="전화번호" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
-                     </VBox.margin></MFXTextField>
+                     </VBox.margin>
+                  </MFXTextField>
                </children>
             </VBox>
          </children>
@@ -57,9 +58,9 @@
             <Insets left="50.0" right="50.0" />
          </padding>
       </VBox>
-      <VBox fx:id="tableContainer" alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
+      <VBox alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
          <children>
-            <MFXPaginatedTableView fx:id="table" prefHeight="239.0" prefWidth="371.0" />
+            <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="239.0" prefWidth="371.0" />
          </children>
       </VBox>
       <HBox fx:id="deleteBtnContainer" alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />

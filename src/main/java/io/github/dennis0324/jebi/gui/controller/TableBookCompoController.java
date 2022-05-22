@@ -64,7 +64,7 @@ public class TableBookCompoController extends Controller {
     private ObservableList<Book> books = FXCollections.observableArrayList();
     
     // 선택한 책의 "관찰 가능한" 정보.
-    private SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<Book> bookProperty = new SimpleObjectProperty<>(null);
     
     @FXML
 	private MFXTableView<Book> bookTable;
@@ -76,7 +76,7 @@ public class TableBookCompoController extends Controller {
     
     @Override
 	public void onPageLoad() {
-    	setupUserTable();
+    	setupBookTable();
 	}
     
     /**
@@ -85,7 +85,16 @@ public class TableBookCompoController extends Controller {
 	 * @return 선택한 책의 "관찰 가능한" 정보.
 	 */
 	public SimpleObjectProperty<Book> getSelectedBook() {
-		return selectedBook;
+		return bookProperty;
+	}
+	
+	/**
+	 * 테이블의 셀 선택을 해제한다. 
+	 */
+	public void clearSelection() {
+		bookTable.getSelectionModel().clearSelection();
+		
+		bookProperty.set(null);
 	}
     
     /**
@@ -100,13 +109,13 @@ public class TableBookCompoController extends Controller {
 		Iterator<Entry<Integer, Book>> iterator = obMap.entrySet().iterator();
 		
 		if (!iterator.hasNext()) {
-			selectedBook.set(null);
+			bookProperty.set(null);
 		} else {
 			Entry<Integer, Book> entry = iterator.next();
 			
 			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 책을 선택했습니다.");
 			
-			selectedBook.set(entry.getValue());
+			bookProperty.set(entry.getValue());
 		}
 	}
     
@@ -114,7 +123,7 @@ public class TableBookCompoController extends Controller {
 	 * 책 정보 테이블을 초기화한다.
 	 */
 	@SuppressWarnings("unchecked")
-	private void setupUserTable() {
+	private void setupBookTable() {
 		LOG.info("책 정보 테이블을 초기화합니다.");
 		
         MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("이름", false, Comparator.comparing(Book::getName));
@@ -124,8 +133,6 @@ public class TableBookCompoController extends Controller {
         MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리", false, Comparator.comparing(Book::getCategory));
         // MFXTableColumn<Book> borrowerIdColumn = new MFXTableColumn<>("빌린 사람", false, Comparator.comparing(Book::getBorrowerId));
         // MFXTableColumn<Book> borrowDateColumn = new MFXTableColumn<>("빌린 날짜", false, Comparator.comparing(Book::getBorrowDate));
-        
-        /* TODO: `TableViewHelper`를 이용하여 테이블 셀 생성하기 */
         
         nameColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getName, this::onTableRowCellClicked));
         authorColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getAuthor, this::onTableRowCellClicked));

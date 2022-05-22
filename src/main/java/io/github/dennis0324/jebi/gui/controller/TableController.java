@@ -27,6 +27,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -35,11 +36,11 @@ import javafx.scene.layout.StackPane;
  * @author dennis0324, jdeokkim
  */
 public class TableController extends Controller {
+	// 접속한 사용자 계정의 정보.
+    private static User user;
+    
     // 사용자가 선택한 메뉴의 인덱스.
     private SimpleIntegerProperty menuIndexProperty = new SimpleIntegerProperty(-1);
-    
-	// 사용자 계정 정보.
-    private User user;
     
     /* ::: 메뉴 버튼... ::: */
     
@@ -56,6 +57,14 @@ public class TableController extends Controller {
 	
 	@FXML
 	private Label emailLabel;
+	
+	/* ::: 데이터 추가 영역... ::: */
+	
+	@FXML
+	private TextField addToTableField;
+	
+	@FXML
+	private MFXButton addToTableBtn;
 	
 	/* ::: 테이블 영역... ::: */
 	
@@ -74,7 +83,7 @@ public class TableController extends Controller {
 	@FXML
 	private TableBookCompoController tableBookCompoController;
 	
-	/* ::: 검색 영역... ::: */
+	/* ::: 사용자 및 책 검색 영역... ::: */
 	
 	@FXML
 	private StackPane searchPane;
@@ -85,31 +94,84 @@ public class TableController extends Controller {
 	@FXML
 	private SearchCompoController searchCompoController;
 	
+	/* ::: 사용자 추가 및 편집 영역... ::: */
+	
+	@FXML
+	private Parent userEditAddCompo;
+	
+	@FXML
+	private UserEditAddCompoController userEditAddCompoController;
+	
+    /* ::: 책 추가 및 편집 영역... ::: */
+	
+	@FXML
+	private Parent bookEditAddCompo;
+	
+	@FXML
+	private BookEditAddCompoController bookEditAddCompoController;
+	
 	@Override
 	public void initialize() {
+		// 선택한 메뉴에 따라 보여줄 내용을 변경한다.
 		menuIndexProperty.addListener(
 			(observable, oldValue, newValue) -> {
 				if (oldValue != newValue) {
 					Platform.runLater(
-						() -> searchCompoController.updateFilters(newValue.intValue())
+						() -> {
+							final int menuIndex = newValue.intValue();
+							
+							{		
+								tableUserCompo.setManaged((menuIndex == 0));
+								tableUserCompo.setVisible((menuIndex == 0));
+								
+								tableBookCompo.setManaged((menuIndex == 1));
+								tableBookCompo.setVisible((menuIndex == 1));
+								
+								tableUserCompoController.clearSelection();
+								tableBookCompoController.clearSelection();
+							}
+							
+							{							
+								searchCompo.setManaged(true);
+								searchCompo.setVisible(true);
+								
+								searchCompoController.updateFilters(menuIndex);
+							}
+							
+							{
+								userEditAddCompo.setManaged(false);
+								userEditAddCompo.setVisible(false);
+								
+								bookEditAddCompo.setManaged(false);
+								bookEditAddCompo.setVisible(false);
+							}
+						}
 					);
 				}
 			}
 		);
 		
+		menuIndexProperty.set(0);
+		
+		// 선택한 사용자에 따라 보여줄 내용을 변경한다.
 		tableUserCompoController.getSelectedUser().addListener(
 			(observable, oldValue, newValue) -> {
-				if (oldValue != newValue) {
-					/* TODO: ... */
-				}
+				searchCompo.setManaged((newValue == null));
+				searchCompo.setVisible((newValue == null));
+				
+				userEditAddCompo.setManaged((newValue != null));
+				userEditAddCompo.setVisible((newValue != null));
 			}
 		);
 		
+		// 선택한 책에 따라 보여줄 내용을 변경한다.
 		tableBookCompoController.getSelectedBook().addListener(
 			(observable, oldValue, newValue) -> {
-				if (oldValue != newValue) {
-					/* TODO: ... */
-				}
+				searchCompo.setManaged((newValue == null));
+				searchCompo.setVisible((newValue == null));
+				
+				bookEditAddCompo.setManaged((newValue != null));
+				bookEditAddCompo.setVisible((newValue != null));
 			}
 		);
 	}
@@ -129,34 +191,20 @@ public class TableController extends Controller {
     	
     	nameLabel.setText(user.getName());
     	emailLabel.setText(user.getEmail());
-    	
-    	updateTablePane(0);
+	}
+	
+	@FXML
+	public void onAddToTableBtnAction() {
+		/* TODO: ... */	
 	}
 	
 	@FXML
 	public void onUserMenuBtnAction() {
-		updateTablePane(0);
+		menuIndexProperty.set(0);
 	}
 	
 	@FXML
 	public void onBookMenuBtnAction() {
-		updateTablePane(1);
-	}
-	
-	/**
-	 * 주어진 인덱스에 따라 테이블 영역을 업데이트한다.
-	 * 
-	 * @param menuIndex 사용자가 선택한 메뉴의 인덱스.
-	 */
-	private void updateTablePane(int menuIndex) {
-		if (menuIndexProperty.get() == menuIndex) return;
-		
-		tableUserCompo.setManaged((menuIndex == 0));
-		tableUserCompo.setVisible((menuIndex == 0));
-		 
-		tableBookCompo.setManaged((menuIndex == 1));
-		tableBookCompo.setVisible((menuIndex == 1));
-		
-		menuIndexProperty.set(menuIndex);
+		menuIndexProperty.set(1);
 	}
 }

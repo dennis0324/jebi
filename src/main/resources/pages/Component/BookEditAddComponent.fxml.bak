@@ -18,63 +18,63 @@
          <left>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXIconWrapper maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+                  <MFXIconWrapper fx:id="backBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onBackBtnClicked" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
          </left>
          <right>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="153.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXToggleButton prefHeight="41.0" prefWidth="63.0" text="수정하기" />
+                  <MFXToggleButton fx:id="editModeSelector" onAction="#onChangeEditMode" prefHeight="41.0" prefWidth="63.0" text="수정하기" />
                </children>
             </HBox>
          </right>
       </BorderPane>
       <VBox alignment="CENTER" prefHeight="632.0" prefWidth="460.0" spacing="30.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="534.0" prefWidth="360.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
+            <VBox fx:id="bookInfoContainer" alignment="CENTER" prefHeight="534.0" prefWidth="360.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
                <children>
                   <AnchorPane prefHeight="22.0" prefWidth="356.0">
                      <children>
                         <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="책 정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-25.0" />
                      </children>
                   </AnchorPane>
-                  <MFXTextField editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="name" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin></MFXTextField>
-                  <MFXTextField editable="false" floatMode="BORDER" floatingText="저자" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="author" editable="false" floatMode="BORDER" floatingText="저자" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </MFXTextField>
-                  <MFXTextField editable="false" floatMode="BORDER" floatingText="출판사" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="publisher" editable="false" floatMode="BORDER" floatingText="출판사" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin></MFXTextField>
-                  <MFXTextField editable="false" floatMode="BORDER" floatingText="출판 날짜" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="publishDate" editable="false" floatMode="BORDER" floatingText="출판 날짜" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin></MFXTextField>
-                  <MFXTextField editable="false" floatMode="BORDER" floatingText="카테고리(숫자)" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
+                  <MFXTextField fx:id="categoryNumber" editable="false" floatMode="BORDER" floatingText="카테고리(숫자)" onAction="#onFieldAction" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </MFXTextField>
-                  <Label prefHeight="14.0" prefWidth="239.0" text="Label" textFill="RED">
+                  <Label fx:id="errorText" prefHeight="14.0" prefWidth="239.0" text="Label" textFill="RED">
                      <VBox.margin>
                         <Insets bottom="30.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox alignment="CENTER" prefHeight="29.0" prefWidth="356.0" spacing="20.0">
+                  <HBox fx:id="categorySelectorHbox" alignment="CENTER" prefHeight="29.0" prefWidth="356.0" spacing="20.0">
                      <children>
-                        <MFXComboBox floatMode="BORDER" floatingText="종류" prefHeight="28.0" prefWidth="100.0">
+                        <MFXComboBox fx:id="bigCategory" floatMode="BORDER" floatingText="종류" onAction="#onBigCategoryAction" prefHeight="28.0" prefWidth="100.0">
                            <stylesheets>
                               <URL value="@../../css/customMFXTextField.css" />
                               <URL value="@../../css/customComboBox.css" />
                            </stylesheets>
                         </MFXComboBox>
-                        <MFXComboBox floatMode="BORDER" floatingText="세부 장르" prefHeight="54.0" prefWidth="118.0">
+                        <MFXComboBox fx:id="smallCategory" floatMode="BORDER" floatingText="세부 장르" onAction="#onSmallCategoryAction" prefHeight="54.0" prefWidth="118.0">
                            <stylesheets>
                               <URL value="@../../css/customMFXTextField.css" />
                               <URL value="@../../css/customComboBox.css" />
@@ -87,7 +87,7 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="360.0" spacing="10.0" />
+            <HBox fx:id="buttonContainer" alignment="CENTER" prefHeight="50.0" prefWidth="360.0" spacing="10.0" />
          </children>
          <padding>
             <Insets left="50.0" right="50.0" />

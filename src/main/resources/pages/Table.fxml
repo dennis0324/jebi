@@ -70,16 +70,13 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="459.0" spacing="20.0" style="-fx-background-color: #fff;">
                <children>
-                  <TextField prefHeight="29.0" prefWidth="311.0" promptText="추가" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
-                  <MFXButton prefHeight="37.0" prefWidth="48.0" text="+">
+                  <TextField fx:id="addToTableField" prefHeight="29.0" prefWidth="311.0" promptText="추가" stylesheets="@../css/textfield.css" HBox.hgrow="ALWAYS" />
+                  <MFXButton fx:id="addToTableBtn" onAction="#onAddToTableBtnAction" prefHeight="37.0" prefWidth="48.0" text="+">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </MFXButton>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
                <padding>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
@@ -99,6 +96,8 @@
       </VBox>
       <StackPane fx:id="searchPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
          <fx:include fx:id="searchCompo" source="Component/SearchComponent.fxml" />
+         <fx:include fx:id="bookEditAddCompo" source="Component/BookEditAddComponent.fxml" />
+         <fx:include fx:id="userEditAddCompo" source="Component/UserEditAddComponent.fxml" />
       </StackPane>
    </children>
 </HBox>

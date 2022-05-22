@@ -18,6 +18,10 @@
          </children>
       </HBox>
       <VBox fx:id="searchResultContainer" prefHeight="805.0" prefWidth="440.0" spacing="40.0">
+         <children>
+            <!-- <fx:include fx:id="searchUserResultCompo" source="/SearchUserResultComponent.fxml" /> -->
+            <!-- <fx:include fx:id="searchBookResultCompo" source="/SearchBookResultComponent.fxml" /> -->
+         </children>
          <padding>
             <Insets bottom="20.0" top="20.0" />
          </padding>

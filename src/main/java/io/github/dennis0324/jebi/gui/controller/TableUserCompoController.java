@@ -61,7 +61,7 @@ public class TableUserCompoController extends Controller {
     private ObservableList<User> users = FXCollections.observableArrayList();
     
     // 선택한 사용자의 "관찰 가능한" 정보.
-    private SimpleObjectProperty<User> selectedUser = new SimpleObjectProperty<>();
+    private SimpleObjectProperty<User> userProperty = new SimpleObjectProperty<>(null);
     
 	@FXML
 	private MFXTableView<User> userTable;
@@ -82,7 +82,16 @@ public class TableUserCompoController extends Controller {
 	 * @return 선택한 사용자의 "관찰 가능한" 정보.
 	 */
 	public SimpleObjectProperty<User> getSelectedUser() {
-		return selectedUser;
+		return userProperty;
+	}
+	
+	/**
+	 * 테이블의 셀 선택을 해제한다. 
+	 */
+	public void clearSelection() {
+		userTable.getSelectionModel().clearSelection();
+		
+		userProperty.set(null);
 	}
 	
 	/**
@@ -97,13 +106,13 @@ public class TableUserCompoController extends Controller {
 		Iterator<Entry<Integer, User>> iterator = obMap.entrySet().iterator();
 		
 		if (!iterator.hasNext()) {
-			selectedUser.set(null);
+			userProperty.set(null);
 		} else {
 			Entry<Integer, User> entry = iterator.next();
 			
 			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 사용자를 선택했습니다.");
 			
-			selectedUser.set(entry.getValue());
+			userProperty.set(entry.getValue());
 		}
 	}
 	
@@ -119,8 +128,6 @@ public class TableUserCompoController extends Controller {
         MFXTableColumn<User> emailColumn = new MFXTableColumn<>("이메일", false, Comparator.comparing(User::getEmail));
         MFXTableColumn<User> phoneNumberColumn = new MFXTableColumn<>("전화번호", false, Comparator.comparing(User::getPhoneNumber));
         MFXTableColumn<User> isAdminColumn = new MFXTableColumn<>("관리자 여부", false, Comparator.comparing(User::isAdmin));
-        
-        /* TODO: `TableViewHelper`를 이용하여 테이블 셀 생성하기 */
         
         uidColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getUid, this::onTableRowCellClicked));
         nameColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getName, this::onTableRowCellClicked));
