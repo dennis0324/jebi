@@ -31,3 +31,6 @@
 # bin 폴더
 bin/
 **/.vscode
+
+# 다이어그램 관련
+libaray.uml
