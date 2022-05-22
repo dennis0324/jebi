@@ -150,9 +150,9 @@ public class User {
 	}
 	
 	/**
-	 * 사용자가 빌린 책의 고유 ID 배열을 반환한다.
+	 * 사용자가 빌린 모든 책의 고유 ID 배열을 반환한다.
 	 * 
-	 * @return 사용자가 빌린 책의 고유 ID 배열.
+	 * @return 사용자가 빌린 모든 책의 고유 ID 배열.
 	 */
 	public ArrayList<String> getBookIds() {
 		return bookIds;

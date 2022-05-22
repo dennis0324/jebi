@@ -20,12 +20,28 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.User;
+import javafx.beans.property.SimpleObjectProperty;
+
 /**
  * 사용자 추가 및 수정 영역 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
 public class BookEditAddCompoController extends Controller {
+	// `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
+    
+	// `BookEditAddCompoController`의 로거.
+    private static final Logger LOG = LoggerFactory.getLogger(BookEditAddCompoController.class);
+    
+	/* ::: 컨트롤러 기본 메소드 정의... ::: */
+	
 	@Override
 	public void initialize() {
     	/* TODO: ... */

@@ -70,6 +70,8 @@ public class SearchCompoController extends Controller {
     	BOOK_FILTERS = Arrays.asList("이름", "작가", "출판사", "출판 날짜", "카테고리");
     }
     
+    /* ::: 컨트롤러 기본 메소드 정의... ::: */
+    
     @Override
     public void initialize() {
     	setupIconBtn();

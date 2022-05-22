@@ -60,11 +60,13 @@ public class TableUserCompoController extends Controller {
     // 모든 사용자의 정보가 저장된 배열.
     private ObservableList<User> users = FXCollections.observableArrayList();
     
-    // 선택한 사용자의 "관찰 가능한" 정보.
+    // 테이블에서 선택한 사용자의 "관찰 가능한" 정보.
     private SimpleObjectProperty<User> userProperty = new SimpleObjectProperty<>(null);
     
 	@FXML
 	private MFXTableView<User> userTable;
+	
+	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
 	@Override
 	public void initialize() {
@@ -77,11 +79,11 @@ public class TableUserCompoController extends Controller {
 	}
 	
 	/**
-	 * 선택한 사용자의 "관찰 가능한" 정보를 반환한다.
+	 * 테이블에서 선택한 사용자의 "관찰 가능한" 정보를 반환한다.
 	 * 
-	 * @return 선택한 사용자의 "관찰 가능한" 정보.
+	 * @return 테이블에서 선택한 사용자의 "관찰 가능한" 정보.
 	 */
-	public SimpleObjectProperty<User> getSelectedUser() {
+	public SimpleObjectProperty<User> getUserProperty() {
 		return userProperty;
 	}
 	
@@ -105,9 +107,9 @@ public class TableUserCompoController extends Controller {
 		
 		Iterator<Entry<Integer, User>> iterator = obMap.entrySet().iterator();
 		
-		if (!iterator.hasNext()) {
-			userProperty.set(null);
-		} else {
+		clearSelection();
+		
+		if (iterator.hasNext()) {
 			Entry<Integer, User> entry = iterator.next();
 			
 			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 사용자를 선택했습니다.");

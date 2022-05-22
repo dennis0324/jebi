@@ -53,21 +53,23 @@ import javafx.scene.input.MouseEvent;
  * 
  * @author dennis0324, jdeokkim
  */
-public class TableBookCompoController extends Controller {
-	// `DataProvider` 인스턴스.
-    private DataProvider provider = DataProvider.getInstance();
-    
+public class TableBookCompoController extends Controller {  
 	// `TableBookCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(TableBookCompoController.class);
+    
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
     
     // 모든 책의 정보가 저장된 배열.
     private ObservableList<Book> books = FXCollections.observableArrayList();
     
-    // 선택한 책의 "관찰 가능한" 정보.
+    // 테이블에서 선택한 책의 "관찰 가능한" 정보.
     private SimpleObjectProperty<Book> bookProperty = new SimpleObjectProperty<>(null);
     
     @FXML
 	private MFXTableView<Book> bookTable;
+    
+    /* ::: 컨트롤러 기본 메소드 정의... ::: */
     
     @Override
     public void initialize() {
@@ -80,11 +82,11 @@ public class TableBookCompoController extends Controller {
 	}
     
     /**
-	 * 선택한 책의 "관찰 가능한" 정보를 반환한다.
+	 * 테이블에서 선택한 책의 "관찰 가능한" 정보를 반환한다.
 	 * 
-	 * @return 선택한 책의 "관찰 가능한" 정보.
+	 * @return 테이블에서 선택한 책의 "관찰 가능한" 정보.
 	 */
-	public SimpleObjectProperty<Book> getSelectedBook() {
+	public SimpleObjectProperty<Book> getBookProperty() {
 		return bookProperty;
 	}
 	

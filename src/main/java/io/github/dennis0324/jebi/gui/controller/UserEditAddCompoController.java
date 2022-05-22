@@ -20,12 +20,21 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
+import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -33,7 +42,11 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.NodeUtils;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -44,7 +57,22 @@ import javafx.scene.paint.Color;
  * 
  * @author dennis0324, jdeokkim
  */
-public class UserEditAddCompoController extends Controller {  
+public class UserEditAddCompoController extends Controller {
+	// `UserEditAddCompoController`의 로거.
+    private static final Logger LOG = LoggerFactory.getLogger(UserEditAddCompoController.class);
+    
+	// `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
+    
+    // 테이블에서 선택한 사용자가 빌린 모든 책 정보가 저장된 배열.
+    private ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
+    
+    // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
+    private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    
+    // 테이블에서 선택한 사용자.
+    private User selectedUser = null;
+    
 	@FXML
 	private MFXIconWrapper backIconBtn;
 	
@@ -66,6 +94,8 @@ public class UserEditAddCompoController extends Controller {
 	@FXML
 	private HBox deleteBtnContainer;
 	
+	/* ::: 컨트롤러 기본 메소드 정의... ::: */
+	
 	@Override
     public void initialize() {
 		setupIconBtn();
@@ -79,12 +109,69 @@ public class UserEditAddCompoController extends Controller {
     
     @FXML
     public void onBackIconBtnClicked() {
-    	/* TODO: ... */
+    	backProperty.set(true);
     }
     
     @FXML
     public void onEditToggleBtnAction() {
-    	/* TODO: ... */
+    	boolean editMode = editToggleBtn.isSelected();
+    	
+    	emailField.setEditable(editMode);
+    	nameField.setEditable(editMode);
+    	phoneNumberField.setEditable(editMode);
+    }
+    
+    /**
+	 * 이전 화면으로 돌아갈지의 "관찰 가능한" 여부를 반환한다.
+	 * 
+	 * @return 이전 화면으로 돌아갈지의 "관찰 가능한" 여부.
+	 */
+	public SimpleBooleanProperty getBackProperty() {
+		return backProperty;
+	}
+    
+    /**
+     * 사용자 추가 및 수정 영역을 업데이트한다.
+     * 
+     * @param user 테이블에서 선택한 사용자.
+     */
+    public void updateData(User selectedUser) {
+    	if (this.selectedUser == selectedUser) return;
+    	
+    	this.selectedUser = selectedUser;
+    	
+    	backProperty.set(false);
+    	borrowedBookTable.setItems(null);
+    	
+    	if (selectedUser == null) {
+    		nameField.clear();
+    		emailField.clear();
+    		phoneNumberField.clear();
+    	} else {
+    		nameField.setText(selectedUser.getName());
+    		emailField.setText(selectedUser.getEmail());
+    		phoneNumberField.setText(selectedUser.getPhoneNumber());
+    		
+    		for (String uid : selectedUser.getBookIds()) {
+    			ApiFutures.addCallback(
+		            provider.getBookByUid(uid),
+		            new ApiFutureCallback<Book>() {
+		                @Override
+		                public void onSuccess(Book result) {
+		                	Platform.runLater(() -> borrowedBooks.add(result));
+		                }
+		                
+		                @Override
+		                public void onFailure(Throwable t) {
+		                	DataProvider.getLogger().warn(t.toString());
+		                }
+		            },
+		            provider.getThreadPool()
+		        );
+    		}
+    		
+    		borrowedBookTable.setItems(borrowedBooks);
+    	}
     }
     
     /**
@@ -110,10 +197,12 @@ public class UserEditAddCompoController extends Controller {
 	}
     
     /**
-     * 빌린 책 정보 테이블을 초기화한다.
+     * 테이블에서 선택한 사용자가 빌린 모든 책 정보의 테이블을 초기화한다.
      */
     @SuppressWarnings("unchecked")
 	private void setupBorrowedBookTable() {
+    	LOG.info("빌린 책 정보 테이블을 초기화합니다.");
+    	
     	MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("이름", false, Comparator.comparing(Book::getName));
         MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가", false, Comparator.comparing(Book::getAuthor));
         MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사", false, Comparator.comparing(Book::getPublisher));
@@ -133,5 +222,7 @@ public class UserEditAddCompoController extends Controller {
             new StringFilter<>("작가", Book::getAuthor),
             new StringFilter<>("출판사", Book::getPublisher)
         );
+        
+        // borrowedBookTable.autosizeColumnsOnInitialization();
     }
 }

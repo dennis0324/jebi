@@ -44,7 +44,7 @@ import javafx.scene.image.ImageView;
  */
 public class RegisterController extends Controller {
 	// `DataProvider` 인스턴스.
-    private DataProvider provider;
+    private DataProvider provider = DataProvider.getInstance();;
     
     // 입력한 사용자 정보로 계정 생성이 가능한지 여부.
     private boolean canRegister;
@@ -84,8 +84,6 @@ public class RegisterController extends Controller {
 
 	@Override
 	public void initialize() {
-		provider = DataProvider.getInstance();
-		
 		nameMsgLabel.setManaged(false);
 		emailMsgLabel.setManaged(false);
 		passwordMsgLabel.setManaged(false);

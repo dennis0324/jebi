@@ -64,6 +64,8 @@ public class ResetPasswordController extends Controller {
     
     @FXML
     private MFXButton resetPasswordBtn;
+    
+    /* ::: 컨트롤러 기본 메소드 정의... ::: */
 
     @Override
     public void initialize() {

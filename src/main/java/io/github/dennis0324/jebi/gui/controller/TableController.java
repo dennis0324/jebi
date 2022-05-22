@@ -110,6 +110,8 @@ public class TableController extends Controller {
 	@FXML
 	private BookEditAddCompoController bookEditAddCompoController;
 	
+	/* ::: 컨트롤러 기본 메소드 정의... ::: */
+	
 	@Override
 	public void initialize() {
 		// 선택한 메뉴에 따라 보여줄 내용을 변경한다.
@@ -153,25 +155,38 @@ public class TableController extends Controller {
 		
 		menuIndexProperty.set(0);
 		
-		// 선택한 사용자에 따라 보여줄 내용을 변경한다.
-		tableUserCompoController.getSelectedUser().addListener(
+		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
+		tableUserCompoController.getUserProperty().addListener(
 			(observable, oldValue, newValue) -> {
 				searchCompo.setManaged((newValue == null));
 				searchCompo.setVisible((newValue == null));
 				
 				userEditAddCompo.setManaged((newValue != null));
 				userEditAddCompo.setVisible((newValue != null));
+				
+				userEditAddCompoController.updateData(newValue);
 			}
 		);
 		
-		// 선택한 책에 따라 보여줄 내용을 변경한다.
-		tableBookCompoController.getSelectedBook().addListener(
+		// 테이블에서 선택한 책에 따라 보여줄 내용을 변경한다.
+		tableBookCompoController.getBookProperty().addListener(
 			(observable, oldValue, newValue) -> {
 				searchCompo.setManaged((newValue == null));
 				searchCompo.setVisible((newValue == null));
 				
 				bookEditAddCompo.setManaged((newValue != null));
 				bookEditAddCompo.setVisible((newValue != null));
+			}
+		);
+		
+		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
+		userEditAddCompoController.getBackProperty().addListener(
+			(observable, oldValue, newValue) -> {
+				searchCompo.setManaged(newValue);
+				searchCompo.setVisible(newValue);
+				
+				userEditAddCompo.setManaged(!newValue);
+				userEditAddCompo.setVisible(!newValue);
 			}
 		);
 	}
@@ -195,7 +210,7 @@ public class TableController extends Controller {
 	
 	@FXML
 	public void onAddToTableBtnAction() {
-		/* TODO: ... */	
+		/* TODO: ... */
 	}
 	
 	@FXML

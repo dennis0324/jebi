@@ -42,7 +42,7 @@ import javafx.scene.control.Label;
  */
 public class LoginFirstController extends Controller {
 	// `DataProvider` 인스턴스.
-    private DataProvider provider;
+    private DataProvider provider = DataProvider.getInstance();;
     
     @FXML
     private MFXTextField emailField;
@@ -58,11 +58,11 @@ public class LoginFirstController extends Controller {
      
     @FXML
     private MFXButton nextStepBtn;
+    
+    /* ::: 컨트롤러 기본 메소드 정의... ::: */
 
     @Override
     public void initialize() {
-        provider = DataProvider.getInstance();
-        
         emailMsgLabel.setManaged(false);
     }
     

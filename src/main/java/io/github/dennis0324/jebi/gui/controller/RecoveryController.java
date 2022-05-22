@@ -42,7 +42,7 @@ import javafx.scene.control.TabPane;
  */
 public class RecoveryController extends Controller {
 	// `DataProvider` 인스턴스.
-    private DataProvider provider;
+    private DataProvider provider = DataProvider.getInstance();
     
     @FXML
     private TabPane tabPane;
@@ -94,8 +94,6 @@ public class RecoveryController extends Controller {
 
 	@Override
 	public void initialize() {
-		provider = DataProvider.getInstance();
-		
 		// 탭이 변경되어도 사용자가 작성한 이름이 지워지지 않도록 한다.
 		tabPane.getSelectionModel().selectedIndexProperty().addListener(
 			(observable, oldValue, newValue) -> {
