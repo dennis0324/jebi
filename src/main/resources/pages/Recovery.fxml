@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.RecoveryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.RecoveryController">
    <top>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -77,7 +77,7 @@
                                     </Label>
                                     <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="NEVER">
                                        <children>
-                                          <MFXButton fx:id="findEmailBtn" onAction="#onFindEmailBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="확인" textFill="WHITE" />
+                                          <MFXButton fx:id="findEmailBtn" onAction="#onFindEmailBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #252426;" text="확인" textFill="WHITE" />
                                        </children>
                                     </StackPane>
                                  </children>
@@ -142,7 +142,7 @@
                                     </Label>
                                     <StackPane prefHeight="150.0" prefWidth="200.0">
                                        <children>
-                                          <MFXButton fx:id="findPasswordBtn" onAction="#onFindPasswordBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="다음" textFill="WHITE" />
+                                          <MFXButton fx:id="findPasswordBtn" onAction="#onFindPasswordBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #252426;" text="다음" textFill="WHITE" />
                                        </children>
                                     </StackPane>
                                  </children>

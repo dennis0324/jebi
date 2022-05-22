@@ -51,6 +51,9 @@
                            <font>
                               <Font name="Malgun Gothic" size="13.0" />
                            </font>
+                           <VBox.margin>
+                              <Insets top="2.0" />
+                           </VBox.margin>
                         </MFXButton>
                      </children>
                   </VBox>
@@ -60,7 +63,7 @@
          <bottom>
             <AnchorPane prefHeight="47.0" prefWidth="622.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXButton fx:id="loginBtn" buttonType="RAISED" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #6a8bff;" text="로그인">
+                  <MFXButton fx:id="loginBtn" computeRadiusMultiplier="false" layoutX="257.0" layoutY="4.0" onAction="#onLoginBtnAction" prefHeight="39.0" prefWidth="91.0" style="-fx-background-color: #252426;" text="로그인" textFill="WHITE">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
