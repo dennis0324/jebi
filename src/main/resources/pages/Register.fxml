@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: rgba(94, 36, 195, 0.05);" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.RegisterController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1440.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.RegisterController">
    <left>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -44,8 +45,8 @@
                   </HBox>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="lastNameField" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="79.0" />
-                        <MFXTextField fx:id="firstNameField" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" />
+                        <MFXTextField fx:id="lastNameField" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="79.0" stylesheets="@../css/customMFXTextField.css" />
+                        <MFXTextField fx:id="firstNameField" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="243.0" stylesheets="@../css/customMFXTextField.css" />
                      </children>
                   </HBox>
                   <Label fx:id="nameMsgLabel" prefHeight="14.0" prefWidth="361.0" text="..." textFill="RED">
@@ -55,7 +56,7 @@
                   </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="355.0" stylesheets="@../css/customMFXTextField.css" />
                      </children>
                   </HBox>
                   <Label fx:id="emailMsgLabel" prefHeight="14.0" prefWidth="361.0" text="..." textFill="RED">
@@ -64,7 +65,7 @@
                      </font></Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXPasswordField fx:id="passwordField" floatMode="BORDER" floatingText="비밀번호" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXPasswordField fx:id="passwordField" floatMode="BORDER" floatingText="비밀번호" prefHeight="38.0" prefWidth="355.0" stylesheets="@../css/customMFXTextField.css" />
                      </children>
                   </HBox>
                   <Label fx:id="passwordMsgLabel" prefHeight="14.0" prefWidth="361.0" text="..." textFill="RED">
@@ -74,7 +75,7 @@
                   </Label>
                   <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                      <children>
-                        <MFXTextField fx:id="phoneNumberField" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="355.0" />
+                        <MFXTextField fx:id="phoneNumberField" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="355.0" stylesheets="@../css/customMFXTextField.css" />
                      </children>
                   </HBox>
                   <Label fx:id="phoneNumberMsgLabel" prefHeight="14.0" prefWidth="361.0" text="..." textFill="RED">
@@ -83,7 +84,7 @@
                      </font></Label>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
-                        <MFXButton fx:id="submitBtn" onAction="#onSubmitBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #5e24c3;" text="가입하기" textFill="WHITE" />
+                        <MFXButton fx:id="submitBtn" onAction="#onSubmitBtnAction" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: #252426;" text="가입하기" textFill="WHITE" />
                      </children>
                   </StackPane>
                </children>
@@ -91,6 +92,7 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
             </VBox>
+            <MFXIconWrapper fx:id="backBtn" layoutX="33.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
          </children>
       </AnchorPane>
    </left>

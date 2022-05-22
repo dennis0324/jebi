@@ -23,17 +23,22 @@ package io.github.dennis0324.jebi.gui.controller;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
+import de.jensd.fx.glyphs.materialicons.MaterialIcon;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
+import javafx.scene.paint.Color;
 
 /**
  * 이메일 및 비밀번호 찾기 페이지 컨트롤러를 나타내는 클래스.
@@ -89,6 +94,10 @@ public class RecoveryController extends Controller {
     
     @FXML
     private MFXButton findPasswordBtn;
+
+	@FXML
+    private MFXIconWrapper backBtn;
+	
     
     /* ::: 컨트롤러 기본 메소드 정의... ::: */
 
@@ -114,6 +123,9 @@ public class RecoveryController extends Controller {
 				}
 			}
 		);
+
+
+		setupIconBtn();
 	}
 	
 	@Override
@@ -223,4 +235,19 @@ public class RecoveryController extends Controller {
             provider.getThreadPool()
         );
 	}
+
+
+	/**
+     * 아이콘 버튼을 초기화한다.
+     */
+    private void setupIconBtn() {
+    	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
+		
+    	backBtn.setIcon(icon);
+    	backBtn.defaultRippleGeneratorBehavior();
+    	backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
+    	
+    	NodeUtils.makeRegionCircular(backBtn);
+	}
+
 }
