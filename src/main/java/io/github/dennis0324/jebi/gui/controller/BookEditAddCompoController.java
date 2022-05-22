@@ -117,7 +117,7 @@ public class BookEditAddCompoController extends Controller {
 	
 	@Override
 	public void initialize() {
-		errorMsgLabel.setManaged(false);
+		errorMsgLabel.setVisible(false); // setmanaged에서 setvisible로 바꼈음 이거 사라지게 설계한게 아니라서 없애면 형태가 바뀜(dennis ko)
 		
 		setupCapsuleBtns();
 		setupIconBtn();

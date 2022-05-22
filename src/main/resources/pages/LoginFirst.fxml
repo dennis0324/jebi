@@ -18,7 +18,7 @@
                <children>
                   <VBox layoutY="40.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
-                        <MFXTextField fx:id="emailField" floatingText="이메일" prefHeight="49.0" prefWidth="348.0">
+                        <MFXTextField fx:id="emailField" floatingText="이메일" prefHeight="49.0" prefWidth="348.0" stylesheets="@../css/customMFXTextField.css">
                            <font>
                               <Font size="13.0" />
                            </font>

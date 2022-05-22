@@ -34,7 +34,7 @@
                <children>
                   <VBox alignment="CENTER_LEFT" layoutY="36.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
-                        <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" prefHeight="49.0" prefWidth="348.0">
+                        <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" prefHeight="49.0" prefWidth="348.0" stylesheets="@../css/customMFXTextField.css">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>

@@ -36,11 +36,11 @@
                                     </StackPane>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
-                                          <MFXTextField fx:id="lastNameField0" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="80.0">
+                                          <MFXTextField fx:id="lastNameField0" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="80.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
-                                          <MFXTextField fx:id="firstNameField0" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="244.0">
+                                          <MFXTextField fx:id="firstNameField0" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="244.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
@@ -56,7 +56,7 @@
                                     </Label>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
-                                          <MFXTextField fx:id="phoneNumberField" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="356.0">
+                                          <MFXTextField fx:id="phoneNumberField" floatMode="BORDER" floatingText="전화번호" prefHeight="38.0" prefWidth="356.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
@@ -106,11 +106,11 @@
                                     </StackPane>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
-                                          <MFXTextField fx:id="lastNameField1" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="80.0">
+                                          <MFXTextField fx:id="lastNameField1" floatMode="BORDER" floatingText="성" prefHeight="38.0" prefWidth="80.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
-                                          <MFXTextField fx:id="firstNameField1" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="244.0">
+                                          <MFXTextField fx:id="firstNameField1" floatMode="BORDER" floatingText="이름" prefHeight="38.0" prefWidth="244.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
@@ -126,7 +126,7 @@
                                     </Label>
                                     <HBox prefHeight="38.0" prefWidth="283.0" spacing="20.0">
                                        <children>
-                                          <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="356.0">
+                                          <MFXTextField fx:id="emailField" floatMode="BORDER" floatingText="이메일" prefHeight="38.0" prefWidth="356.0" stylesheets="@../css/customMFXTextField.css">
                                              <font>
                                                 <Font name="Malgun Gothic" size="12.0" />
                                              </font></MFXTextField>
