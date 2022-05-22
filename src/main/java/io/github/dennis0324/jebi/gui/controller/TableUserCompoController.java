@@ -22,6 +22,8 @@ package io.github.dennis0324.jebi.gui.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,17 +32,18 @@ import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.User;
-import io.github.dennis0324.jebi.util.Animations;
-import io.github.dennis0324.jebi.util.Messages;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 
 /**
  * 사용자 관리 메뉴 영역 컨트롤러를 나타내는 클래스.
@@ -57,6 +60,9 @@ public class TableUserCompoController extends Controller {
     // 모든 사용자의 정보가 저장된 배열.
     private ObservableList<User> users = FXCollections.observableArrayList();
     
+    // 선택한 사용자의 "관찰 가능한" 정보.
+    private SimpleObjectProperty<User> selectedUser = new SimpleObjectProperty<>();
+    
 	@FXML
 	private MFXTableView<User> userTable;
 	
@@ -68,6 +74,37 @@ public class TableUserCompoController extends Controller {
 	@Override
 	public void onPageLoad() {
 		setupUserTable();
+	}
+	
+	/**
+	 * 선택한 사용자의 "관찰 가능한" 정보를 반환한다.
+	 * 
+	 * @return 선택한 사용자의 "관찰 가능한" 정보.
+	 */
+	public SimpleObjectProperty<User> getSelectedUser() {
+		return selectedUser;
+	}
+	
+	/**
+	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
+	 * 
+	 * @param event 마우스 이벤트의 종류.
+	 */
+	private void onTableRowCellClicked(MouseEvent event) {
+		ObservableMap<Integer, User> obMap = userTable.getSelectionModel()
+			.getSelection();
+		
+		Iterator<Entry<Integer, User>> iterator = obMap.entrySet().iterator();
+		
+		if (!iterator.hasNext()) {
+			selectedUser.set(null);
+		} else {
+			Entry<Integer, User> entry = iterator.next();
+			
+			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 사용자를 선택했습니다.");
+			
+			selectedUser.set(entry.getValue());
+		}
 	}
 	
 	/**
@@ -85,11 +122,11 @@ public class TableUserCompoController extends Controller {
         
         /* TODO: `TableViewHelper`를 이용하여 테이블 셀 생성하기 */
         
-        uidColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getUid));
-        nameColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getName));
-        emailColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getEmail));
-        phoneNumberColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getPhoneNumber));
-        isAdminColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::isAdmin));
+        uidColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getUid, this::onTableRowCellClicked));
+        nameColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getName, this::onTableRowCellClicked));
+        emailColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getEmail, this::onTableRowCellClicked));
+        phoneNumberColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::getPhoneNumber, this::onTableRowCellClicked));
+        isAdminColumn.setRowCellFactory(user -> TableViewHelper.getRowCellFactory(User::isAdmin, this::onTableRowCellClicked));
         
         userTable.getTableColumns().addAll(uidColumn, nameColumn, emailColumn, phoneNumberColumn, isAdminColumn);
         
@@ -108,10 +145,10 @@ public class TableUserCompoController extends Controller {
                 public void onSuccess(ArrayList<User> result) {
                 	LOG.info("총 " + result.size() + "개의 사용자 계정을 찾았습니다.");
                 	
+                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
                 	Platform.runLater(
                 		() -> {
                 			users.addAll(result);
-                			
                 			userTable.setItems(users);
                 		}
                 	);

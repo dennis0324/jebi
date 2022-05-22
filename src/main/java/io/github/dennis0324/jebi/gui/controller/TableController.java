@@ -20,9 +20,6 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
@@ -38,11 +35,8 @@ import javafx.scene.layout.StackPane;
  * @author dennis0324, jdeokkim
  */
 public class TableController extends Controller {
-	// `TableController`의 로거.
-    private static final Logger LOG = LoggerFactory.getLogger(TableController.class);
-    
     // 사용자가 선택한 메뉴의 인덱스.
-    private SimpleIntegerProperty menuIndexProperty;
+    private SimpleIntegerProperty menuIndexProperty = new SimpleIntegerProperty(-1);
     
 	// 사용자 계정 정보.
     private User user;
@@ -93,8 +87,6 @@ public class TableController extends Controller {
 	
 	@Override
 	public void initialize() {
-		menuIndexProperty = new SimpleIntegerProperty(-1);
-		
 		menuIndexProperty.addListener(
 			(observable, oldValue, newValue) -> {
 				if (oldValue != newValue) {
@@ -104,14 +96,26 @@ public class TableController extends Controller {
 				}
 			}
 		);
+		
+		tableUserCompoController.getSelectedUser().addListener(
+			(observable, oldValue, newValue) -> {
+				if (oldValue != newValue) {
+					/* TODO: ... */
+				}
+			}
+		);
+		
+		tableBookCompoController.getSelectedBook().addListener(
+			(observable, oldValue, newValue) -> {
+				if (oldValue != newValue) {
+					/* TODO: ... */
+				}
+			}
+		);
 	}
 
 	@Override
 	public void onPageLoad() {
-		tableUserCompoController.setParentController(this);
-		tableBookCompoController.setParentController(this);
-		searchCompoController.setParentController(this);
-		
 		user = (User) getPageLoader().getArgument();
 		
 		// 사용자가 관리자 권한을 가지고 있지 않다면, 

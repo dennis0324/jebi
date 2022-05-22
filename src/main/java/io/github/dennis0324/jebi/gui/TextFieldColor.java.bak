@@ -1,6 +1,5 @@
 package io.github.dennis0324.jebi.gui;
 
-
 import javafx.scene.control.TextField;
 
 /**

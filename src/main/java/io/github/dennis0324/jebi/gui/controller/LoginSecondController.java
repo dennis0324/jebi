@@ -42,9 +42,6 @@ public class LoginSecondController extends Controller {
 	// `LoginSecondController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(LoginSecondController.class);
     
-	// `DataProvider` 인스턴스.
-    private DataProvider provider;
-    
     // 사용자 계정 정보.
     private User user;
     
@@ -68,8 +65,6 @@ public class LoginSecondController extends Controller {
 
     @Override
     public void initialize() {
-        // provider = DataProvider.getInstance();
-    	
     	passwordMsgLabel.setManaged(false);
     }
     

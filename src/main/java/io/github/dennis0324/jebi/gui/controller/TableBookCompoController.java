@@ -22,6 +22,8 @@ package io.github.dennis0324.jebi.gui.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,7 @@ import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -38,9 +41,12 @@ import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 
 /**
  * 책 관리 메뉴 영역 컨트롤러를 나타내는 클래스.
@@ -57,6 +63,9 @@ public class TableBookCompoController extends Controller {
     // 모든 책의 정보가 저장된 배열.
     private ObservableList<Book> books = FXCollections.observableArrayList();
     
+    // 선택한 책의 "관찰 가능한" 정보.
+    private SimpleObjectProperty<Book> selectedBook = new SimpleObjectProperty<>();
+    
     @FXML
 	private MFXTableView<Book> bookTable;
     
@@ -71,7 +80,38 @@ public class TableBookCompoController extends Controller {
 	}
     
     /**
-	 * 사용자 정보 테이블을 초기화한다.
+	 * 선택한 책의 "관찰 가능한" 정보를 반환한다.
+	 * 
+	 * @return 선택한 책의 "관찰 가능한" 정보.
+	 */
+	public SimpleObjectProperty<Book> getSelectedBook() {
+		return selectedBook;
+	}
+    
+    /**
+	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
+	 * 
+	 * @param event 마우스 이벤트의 종류.
+	 */
+	private void onTableRowCellClicked(MouseEvent event) {
+		ObservableMap<Integer, Book> obMap = bookTable.getSelectionModel()
+			.getSelection();
+		
+		Iterator<Entry<Integer, Book>> iterator = obMap.entrySet().iterator();
+		
+		if (!iterator.hasNext()) {
+			selectedBook.set(null);
+		} else {
+			Entry<Integer, Book> entry = iterator.next();
+			
+			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 책을 선택했습니다.");
+			
+			selectedBook.set(entry.getValue());
+		}
+	}
+    
+    /**
+	 * 책 정보 테이블을 초기화한다.
 	 */
 	@SuppressWarnings("unchecked")
 	private void setupUserTable() {
@@ -87,11 +127,11 @@ public class TableBookCompoController extends Controller {
         
         /* TODO: `TableViewHelper`를 이용하여 테이블 셀 생성하기 */
         
-        nameColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getName));
-        authorColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getAuthor));
-        publisherColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getPublisher));
-        pubDateColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getPubDate));
-        categoryColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getCategory));
+        nameColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getName, this::onTableRowCellClicked));
+        authorColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getAuthor, this::onTableRowCellClicked));
+        publisherColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublisher, this::onTableRowCellClicked));
+        pubDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPubDate, this::onTableRowCellClicked));
+        categoryColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getCategory, this::onTableRowCellClicked));
         // borrowerIdColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowerId));
         // borrowDateColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowDate));
         
@@ -122,10 +162,10 @@ public class TableBookCompoController extends Controller {
                 public void onSuccess(ArrayList<Book> result) {
                 	LOG.info("총 " + result.size() + "개의 책을 찾았습니다.");
                 	
+                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
                 	Platform.runLater(
                 		() -> {
                 			books.addAll(result);
-                			
                 			bookTable.setItems(books);
                 		}
                 	);
