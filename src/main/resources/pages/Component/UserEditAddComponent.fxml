@@ -17,7 +17,7 @@
          <left>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXIconWrapper fx:id="backIconBtn" onMouseClicked="#onBackIconBtnClicked" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+                  <MFXIconWrapper fx:id="backIconBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onBackIconBtnClicked" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
          </left>
@@ -61,7 +61,11 @@
       <VBox alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
          <children>
             <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="239.0" prefWidth="371.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #252426;" />
          </children>
+         <padding>
+            <Insets left="50.0" right="50.0" />
+         </padding>
       </VBox>
       <HBox alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />
    </children>
