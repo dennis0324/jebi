@@ -20,16 +20,26 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+
+import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.User;
+import io.github.dennis0324.jebi.util.Animations;
+import io.github.dennis0324.jebi.util.Messages;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 /**
@@ -41,9 +51,16 @@ public class TableUserCompoController extends Controller {
 	// `TableUserCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(TableUserCompoController.class);
     
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
+    
+    // 모든 사용자의 정보가 저장된 배열.
+    private ObservableList<User> users = FXCollections.observableArrayList();
+    
 	@FXML
 	private MFXTableView<User> userTable;
 	
+	@Override
 	public void initialize() {
 		onPageLoad();
 	}
@@ -64,6 +81,7 @@ public class TableUserCompoController extends Controller {
         MFXTableColumn<User> nameColumn = new MFXTableColumn<>("이름", false, Comparator.comparing(User::getName));
         MFXTableColumn<User> emailColumn = new MFXTableColumn<>("이메일", false, Comparator.comparing(User::getEmail));
         MFXTableColumn<User> phoneNumberColumn = new MFXTableColumn<>("전화번호", false, Comparator.comparing(User::getPhoneNumber));
+        MFXTableColumn<User> isAdminColumn = new MFXTableColumn<>("관리자 여부", false, Comparator.comparing(User::isAdmin));
         
         /* TODO: `TableViewHelper`를 이용하여 테이블 셀 생성하기 */
         
@@ -71,18 +89,42 @@ public class TableUserCompoController extends Controller {
         nameColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getName));
         emailColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getEmail));
         phoneNumberColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::getPhoneNumber));
+        isAdminColumn.setRowCellFactory(user -> new MFXTableRowCell<>(User::isAdmin));
         
-        userTable.getTableColumns().addAll(uidColumn, nameColumn, emailColumn, phoneNumberColumn);
+        userTable.getTableColumns().addAll(uidColumn, nameColumn, emailColumn, phoneNumberColumn, isAdminColumn);
         
         userTable.getFilters().addAll(
             new StringFilter<>("고유 ID", User::getUid),
             new StringFilter<>("이름", User::getName),
             new StringFilter<>("이메일", User::getEmail),
-            new StringFilter<>("전화번호", User::getPhoneNumber)
+            new StringFilter<>("전화번호", User::getPhoneNumber),
+            new StringFilter<>("관리자 여부", User::getPhoneNumber)
         );
         
-        /* TODO: 데이터베이스에서 사용자 정보 불러오기 */
+        ApiFutures.addCallback(
+            provider.getUsers(),
+            new ApiFutureCallback<ArrayList<User>>() {
+                @Override
+                public void onSuccess(ArrayList<User> result) {
+                	LOG.info("총 " + result.size() + "개의 사용자 계정을 찾았습니다.");
+                	
+                	Platform.runLater(
+                		() -> {
+                			users.addAll(result);
+                			
+                			userTable.setItems(users);
+                		}
+                	);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
         
-        userTable.autosizeColumnsOnInitialization();
+        // userTable.autosizeColumnsOnInitialization();
 	}
 }

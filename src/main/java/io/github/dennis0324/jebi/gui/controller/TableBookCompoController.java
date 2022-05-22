@@ -20,11 +20,16 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+
+import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
@@ -32,6 +37,9 @@ import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
 /**
@@ -40,12 +48,19 @@ import javafx.fxml.FXML;
  * @author dennis0324, jdeokkim
  */
 public class TableBookCompoController extends Controller {
+	// `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
+    
 	// `TableBookCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(TableBookCompoController.class);
+    
+    // 모든 책의 정보가 저장된 배열.
+    private ObservableList<Book> books = FXCollections.observableArrayList();
     
     @FXML
 	private MFXTableView<Book> bookTable;
     
+    @Override
     public void initialize() {
     	onPageLoad();
     }
@@ -100,8 +115,30 @@ public class TableBookCompoController extends Controller {
             new StringFilter<>("빌린 날짜", Book::getBorrowDate)
         );
         
-        /* TODO: 데이터베이스에서 사용자 정보 불러오기 */
+        ApiFutures.addCallback(
+            provider.getBooks(),
+            new ApiFutureCallback<ArrayList<Book>>() {
+                @Override
+                public void onSuccess(ArrayList<Book> result) {
+                	LOG.info("총 " + result.size() + "개의 책을 찾았습니다.");
+                	
+                	Platform.runLater(
+                		() -> {
+                			books.addAll(result);
+                			
+                			bookTable.setItems(books);
+                		}
+                	);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
         
-        bookTable.autosizeColumnsOnInitialization();
+        // bookTable.autosizeColumnsOnInitialization();
 	}
 }

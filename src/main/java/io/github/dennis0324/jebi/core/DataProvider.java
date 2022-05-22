@@ -239,6 +239,8 @@ public final class DataProvider {
     public ApiFuture<ArrayList<Book>> getBooks() {
     	ApiFuture<QuerySnapshot> future = db.collection("books").get();
     	
+    	LOG.info("모든 책 정보를 불러옵니다.");
+    	
     	return ApiFutures.transform(
     		future, 
     		(query) -> {
@@ -324,6 +326,8 @@ public final class DataProvider {
      */
     public ApiFuture<ArrayList<User>> getUsers() {
     	ApiFuture<QuerySnapshot> future = db.collection("users").get();
+    	
+    	LOG.info("모든 사용자 정보를 불러옵니다.");
     	
     	return ApiFutures.transform(
     		future, 

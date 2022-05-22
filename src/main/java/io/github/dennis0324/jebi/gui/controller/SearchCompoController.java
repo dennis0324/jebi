@@ -48,7 +48,7 @@ public class SearchCompoController extends Controller {
     public static final List<String> BOOK_FILTERS;
     
     // 사용자 또는 책 검색에 사용되는 필터 배열.
-    private ObservableList<String> filters;
+    private ObservableList<String> filters = FXCollections.observableArrayList();
     
     @FXML
     private MFXTextField searchField;
@@ -78,8 +78,6 @@ public class SearchCompoController extends Controller {
 
     @Override
     public void onPageLoad() {
-    	filters = FXCollections.observableArrayList();
-    	
     	// 관찰 가능한 `ArrayList`이므로 내부 데이터만 변경하면 된다.
     	searchFilterComboBox.setItems(filters);
     	
