@@ -89,7 +89,6 @@ public class LoginSecondController extends Controller {
     	
     	nameLabel.setText(user.getName());
     	emailLabel.setText(user.getEmail());
-        passwordField.requestFocus(); //테스트 필드 focus
 	}
 
     @FXML
