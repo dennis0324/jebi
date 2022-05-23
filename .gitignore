@@ -14,6 +14,8 @@
 *.rar
 
 # Maven 관련 파일
+bin/
+target/
 **/bin/
 **/target/
 
@@ -28,9 +30,6 @@
 .vscode
 **/.vscode
 
-# bin 폴더
-bin/
-**/.vscode
-
-# 다이어그램 관련
-libaray.uml
+# UML 다이어그램 관련
+*.uml
+**/*.uml
