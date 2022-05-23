@@ -1,9 +1,5 @@
 package io.github.dennis0324.jebi.gui.event;
 
-import java.util.function.Consumer;
-
-import com.google.cloud.firestore.Transaction.Function;
-
 import io.github.dennis0324.jebi.gui.PageLoader;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

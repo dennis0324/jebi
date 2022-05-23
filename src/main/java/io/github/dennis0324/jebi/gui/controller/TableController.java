@@ -121,7 +121,6 @@ public class TableController extends Controller {
 					Platform.runLater(
 						() -> {
                             int menuIndex = newValue.intValue();
-							
 							{		
 								tableUserCompo.setManaged((menuIndex == 0));
 								tableUserCompo.setVisible((menuIndex == 0));
@@ -132,14 +131,7 @@ public class TableController extends Controller {
 								tableUserCompoController.clearSelection();
 								tableBookCompoController.clearSelection();
 							}
-							
-							{							
-								searchCompo.setManaged(true);
-								searchCompo.setVisible(true);
-								
-								searchCompoController.updateFilters(menuIndex);
-							}
-							
+							// 순서 변경 의도 됨
 							{
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
@@ -147,13 +139,24 @@ public class TableController extends Controller {
 								bookEditAddCompo.setManaged(false);
 								bookEditAddCompo.setVisible(false);
 							}
+							//테이블 유저 컴포넌트 도서관리에서는 기본 화면임					
+							{							
+								searchCompo.setManaged((menuIndex == 0));
+								searchCompo.setVisible((menuIndex == 0));
+
+								userEditAddCompo.setManaged((menuIndex == 1));
+								userEditAddCompo.setVisible((menuIndex == 1));
+								
+								searchCompoController.updateFilters(menuIndex);
+							}
+
 						}
 					);
 				}
 			}
 		);
-		
-		menuIndexProperty.set(0);
+		//책 관리가 먼저 떠야됨
+		menuIndexProperty.set(1);
 		
 		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
 		tableUserCompoController.getUserProperty().addListener(
