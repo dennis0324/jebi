@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
 <?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -34,7 +35,7 @@
                <children>
                   <VBox alignment="CENTER_LEFT" layoutY="36.0" prefHeight="200.0" prefWidth="348.0">
                      <children>
-                        <MFXPasswordField fx:id="passwordField" floatingText="비밀번호" onAction="#onEnterPressed" prefHeight="49.0" prefWidth="348.0" stylesheets="@../css/customMFXTextField.css">
+                        <MFXPasswordField fx:id="passwordField" animated="false" floatingText="비밀번호" onAction="#onEnterPressed" prefHeight="49.0" prefWidth="348.0" stylesheets="@../css/customMFXTextField.css">
                            <cursor>
                               <Cursor fx:constant="TEXT" />
                            </cursor>
@@ -72,6 +73,7 @@
             </AnchorPane>
          </bottom>
       </BorderPane>
+      <MFXIconWrapper fx:id="backBtn" layoutX="39.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
    </children>
    <cursor>
       <Cursor fx:constant="TEXT" />

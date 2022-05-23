@@ -23,16 +23,24 @@ package io.github.dennis0324.jebi.gui.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import de.jensd.fx.glyphs.materialicons.MaterialIcon;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.gui.TableViewHelper;
+import io.github.dennis0324.jebi.gui.event.CustomEventHandler;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
 import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 /**
  * 로그인 페이지 컨트롤러를 나타내는 클래스.
@@ -59,6 +67,9 @@ public class LoginSecondController extends Controller {
     private Label passwordMsgLabel;
     
     @FXML
+    private MFXIconWrapper backBtn;
+    
+    @FXML
     private MFXButton forgotPwdBtn;
     
     @FXML
@@ -69,6 +80,7 @@ public class LoginSecondController extends Controller {
     @Override
     public void initialize() {
     	passwordMsgLabel.setManaged(false);
+        setupIconBtn();
     }
     
     @Override
@@ -77,6 +89,7 @@ public class LoginSecondController extends Controller {
     	
     	nameLabel.setText(user.getName());
     	emailLabel.setText(user.getEmail());
+        passwordField.requestFocus(); //테스트 필드 focus
 	}
 
     @FXML
@@ -111,5 +124,21 @@ public class LoginSecondController extends Controller {
     	} else {
     		Animations.updateLabel(passwordMsgLabel, Messages.ERROR_PASSWORD_MISMATCH);
     	}
+    }
+
+    private void setupIconBtn() {
+    	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
+		
+    	backBtn.setIcon(icon);
+    	backBtn.defaultRippleGeneratorBehavior();
+    	backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
+    	
+    	NodeUtils.makeRegionCircular(backBtn);
+
+        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new CustomEventHandler(this::onBackBtnclicked));
+    }
+    
+    private void onBackBtnclicked(){
+        getPageLoader().to("/pages/loginFirst.fxml");
     }
 }
