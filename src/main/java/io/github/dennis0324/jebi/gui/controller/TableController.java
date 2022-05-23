@@ -120,7 +120,7 @@ public class TableController extends Controller {
 				if (oldValue != newValue) {
 					Platform.runLater(
 						() -> {
-							int menuIndex = newValue.intValue();
+                            int menuIndex = newValue.intValue();
 							
 							{		
 								tableUserCompo.setManaged((menuIndex == 0));
@@ -132,7 +132,14 @@ public class TableController extends Controller {
 								tableUserCompoController.clearSelection();
 								tableBookCompoController.clearSelection();
 							}
-
+							
+							{							
+								searchCompo.setManaged(true);
+								searchCompo.setVisible(true);
+								
+								searchCompoController.updateFilters(menuIndex);
+							}
+							
 							{
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
@@ -140,18 +147,6 @@ public class TableController extends Controller {
 								bookEditAddCompo.setManaged(false);
 								bookEditAddCompo.setVisible(false);
 							}
-							
-							{							
-								searchCompo.setManaged((menuIndex == 0));
-								searchCompo.setVisible((menuIndex == 0));
-
-								userEditAddCompo.setManaged((menuIndex == 1));
-								userEditAddCompo.setVisible((menuIndex == 1));
-								
-								searchCompoController.updateFilters(menuIndex);
-							}
-							
-
 						}
 					);
 				}
