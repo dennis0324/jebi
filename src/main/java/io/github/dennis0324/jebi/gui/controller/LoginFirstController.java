@@ -31,6 +31,7 @@ import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -71,6 +72,13 @@ public class LoginFirstController extends Controller {
 		/* TODO: ... */
 	}
     
+    @FXML
+    void onEnterPressed(ActionEvent event) {
+        if(emailField.getText() == "") return;
+
+        onNextStepBtnAction();
+    }
+
     @FXML
     public void onForgotEmailBtnAction() {
         getPageLoader().to("/pages/Recovery.fxml", 0);

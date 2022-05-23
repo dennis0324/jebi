@@ -30,6 +30,7 @@ import io.github.dennis0324.jebi.util.Messages;
 import io.github.dennis0324.jebi.util.StringUtils;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -77,6 +78,13 @@ public class LoginSecondController extends Controller {
     	nameLabel.setText(user.getName());
     	emailLabel.setText(user.getEmail());
 	}
+
+    @FXML
+    void onEnterPressed(ActionEvent event) {
+        if(passwordField.getText() == "") return;
+
+        onLoginBtnAction();
+    }
     
     @FXML
     public void onForgotPwdBtnAction() {
