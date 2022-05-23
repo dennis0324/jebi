@@ -146,6 +146,16 @@ public class UserEditAddCompoController extends Controller {
 	public SimpleIntegerProperty getDatabaseModeProperty() {
 		return databaseModeProperty;
 	}
+	
+	/**
+	 * '이전' 버튼의 가시성을 설정한다.
+	 * 
+	 * @param value '이전' 버튼의 가시성.
+	 */
+	public void setBackBtnVisible(boolean value) {
+		backIconBtn.setManaged(value);
+		backIconBtn.setVisible(value);
+	}
     
     /**
      * 사용자 추가 및 수정 영역을 업데이트한다.

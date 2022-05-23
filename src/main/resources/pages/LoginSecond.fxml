@@ -73,7 +73,7 @@
             </AnchorPane>
          </bottom>
       </BorderPane>
-      <MFXIconWrapper fx:id="backBtn" layoutX="39.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+      <MFXIconWrapper fx:id="backIconBtn" onMouseClicked="#onBackIconBtnClicked" layoutX="39.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
    </children>
    <cursor>
       <Cursor fx:constant="TEXT" />

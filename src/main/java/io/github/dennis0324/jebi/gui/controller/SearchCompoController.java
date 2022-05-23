@@ -83,7 +83,7 @@ public class SearchCompoController extends Controller {
     	// 관찰 가능한 `ArrayList`이므로 내부 데이터만 변경하면 된다.
     	searchFilterComboBox.setItems(filters);
     	
-    	updateFilters(0);
+    	filters.setAll(USER_FILTERS);
     }
     
     @FXML
@@ -96,11 +96,8 @@ public class SearchCompoController extends Controller {
      * 
      * @param filterIndex 사용자가 선택한 메뉴의 인덱스.
      */
-    public void updateFilters(int filterIndex) {
+    public void updateFilters() {
     	searchFilterComboBox.selectFirst();
-    	
-    	if (filterIndex == 0) filters.setAll(USER_FILTERS);
-    	else if (filterIndex == 1) filters.setAll(BOOK_FILTERS);
     }
     
     /**

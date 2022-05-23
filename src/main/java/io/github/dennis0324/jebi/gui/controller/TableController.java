@@ -20,6 +20,7 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
@@ -121,41 +122,46 @@ public class TableController extends Controller {
 					Platform.runLater(
 						() -> {
                             int menuIndex = newValue.intValue();
-							{		
-								tableUserCompo.setManaged((menuIndex == 0));
-								tableUserCompo.setVisible((menuIndex == 0));
+							
+							tableUserCompoController.clearSelection();
+							tableBookCompoController.clearSelection();
+							
+							if (menuIndex == 0) {
+								tableUserCompo.setManaged(true);
+								tableUserCompo.setVisible(true);
 								
-								tableBookCompo.setManaged((menuIndex == 1));
-								tableBookCompo.setVisible((menuIndex == 1));
+								tableBookCompo.setManaged(false);
+								tableBookCompo.setVisible(false);
+
+								searchCompo.setManaged(true);
+								searchCompo.setVisible(true);
 								
-								tableUserCompoController.clearSelection();
-								tableBookCompoController.clearSelection();
-							}
-							// 순서 변경 의도 됨
-							{
-								userEditAddCompo.setManaged(false);
-								userEditAddCompo.setVisible(false);
+								searchCompoController.updateFilters();
+							} else if (menuIndex == 1) {
+								tableUserCompo.setManaged(false);
+								tableUserCompo.setVisible(false);
+								
+								tableBookCompo.setManaged(true);
+								tableBookCompo.setVisible(true);
+								
+								tableUserCompoController.getUserProperty().set(user);
+								
+								searchCompo.setManaged(false);
+								searchCompo.setVisible(false);
+								
+								userEditAddCompo.setManaged(true);
+								userEditAddCompo.setVisible(true);
 								
 								bookEditAddCompo.setManaged(false);
 								bookEditAddCompo.setVisible(false);
 							}
-							//테이블 유저 컴포넌트 도서관리에서는 기본 화면임					
-							{							
-								searchCompo.setManaged((menuIndex == 0));
-								searchCompo.setVisible((menuIndex == 0));
-
-								userEditAddCompo.setManaged((menuIndex == 1));
-								userEditAddCompo.setVisible((menuIndex == 1));
-								
-								searchCompoController.updateFilters(menuIndex);
-							}
-
 						}
 					);
 				}
 			}
 		);
-		//책 관리가 먼저 떠야됨
+		 
+		// 책 관리가 먼저 떠야 됨
 		menuIndexProperty.set(1);
 		
 		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
@@ -168,14 +174,16 @@ public class TableController extends Controller {
 				userEditAddCompo.setVisible((newValue != null));
 				
 				userEditAddCompoController.updateData(newValue);
+				
+				userEditAddCompoController.setBackBtnVisible((newValue != user));
 			}
 		);
 		
 		// 테이블에서 선택한 책에 따라 보여줄 내용을 변경한다.
 		tableBookCompoController.getBookProperty().addListener(
 			(observable, oldValue, newValue) -> {
-				searchCompo.setManaged((newValue == null));
-				searchCompo.setVisible((newValue == null));
+				userEditAddCompo.setManaged((newValue == null));
+				userEditAddCompo.setVisible((newValue == null));
 				
 				bookEditAddCompo.setManaged((newValue != null));
 				bookEditAddCompo.setVisible((newValue != null));
@@ -187,22 +195,15 @@ public class TableController extends Controller {
 		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
 		userEditAddCompoController.getBackProperty().addListener(
 			(observable, oldValue, newValue) -> {
-				searchCompo.setManaged(newValue);
-				searchCompo.setVisible(newValue);
-				
-				userEditAddCompo.setManaged(!newValue);
-				userEditAddCompo.setVisible(!newValue);
+				tableUserCompoController.getUserProperty().set(null);
 			}
 		);
 		
 		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
 		bookEditAddCompoController.getBackProperty().addListener(
 			(observable, oldValue, newValue) -> {
-				searchCompo.setManaged(newValue);
-				searchCompo.setVisible(newValue);
-				
-				bookEditAddCompo.setManaged(!newValue);
-				bookEditAddCompo.setVisible(!newValue);
+				tableBookCompoController.getBookProperty().set(null);
+				userEditAddCompoController.setBackBtnVisible(false);
 			}
 		);
 	}

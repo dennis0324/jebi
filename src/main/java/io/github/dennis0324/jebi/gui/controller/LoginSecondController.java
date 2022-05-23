@@ -25,9 +25,6 @@ import org.slf4j.LoggerFactory;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
-import io.github.dennis0324.jebi.core.DataProvider;
-import io.github.dennis0324.jebi.gui.TableViewHelper;
-import io.github.dennis0324.jebi.gui.event.CustomEventHandler;
 import io.github.dennis0324.jebi.model.User;
 import io.github.dennis0324.jebi.util.Animations;
 import io.github.dennis0324.jebi.util.Messages;
@@ -39,7 +36,6 @@ import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 /**
@@ -67,7 +63,7 @@ public class LoginSecondController extends Controller {
     private Label passwordMsgLabel;
     
     @FXML
-    private MFXIconWrapper backBtn;
+    private MFXIconWrapper backIconBtn;
     
     @FXML
     private MFXButton forgotPwdBtn;
@@ -99,6 +95,11 @@ public class LoginSecondController extends Controller {
     }
     
     @FXML
+    private void onBackIconBtnClicked() {
+        getPageLoader().to("/pages/LoginFirst.fxml");
+    }
+    
+    @FXML
     public void onForgotPwdBtnAction() {
     	getPageLoader().to("/pages/Recovery.fxml", 1);
     }
@@ -125,19 +126,16 @@ public class LoginSecondController extends Controller {
     	}
     }
 
+    /**
+     * 아이콘 버튼을 초기화한다.
+     */
     private void setupIconBtn() {
     	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
 		
-    	backBtn.setIcon(icon);
-    	backBtn.defaultRippleGeneratorBehavior();
-    	backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
+    	backIconBtn.setIcon(icon);
+    	backIconBtn.defaultRippleGeneratorBehavior();
+    	backIconBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
     	
-    	NodeUtils.makeRegionCircular(backBtn);
-
-        backBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new CustomEventHandler(this::onBackBtnclicked));
-    }
-    
-    private void onBackBtnclicked(){
-        getPageLoader().to("/pages/loginFirst.fxml");
+    	NodeUtils.makeRegionCircular(backIconBtn);
     }
 }
