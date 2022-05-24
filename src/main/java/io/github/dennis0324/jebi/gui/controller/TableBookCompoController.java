@@ -162,7 +162,7 @@ public class TableBookCompoController extends Controller {
         MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가", false, Comparator.comparing(Book::getAuthor));
         MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사", false, Comparator.comparing(Book::getPublisher));
         MFXTableColumn<Book> pubDateColumn = new MFXTableColumn<>("출판 날짜", false, Comparator.comparing(Book::getPublishDate));
-        MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리", false, Comparator.comparing(Book::getCategory));
+        MFXTableColumn<Book> categoryColumn = new MFXTableColumn<>("카테고리", false, Comparator.comparing(Book::getCategoryNumber));
         // MFXTableColumn<Book> borrowerIdColumn = new MFXTableColumn<>("빌린 사람", false, Comparator.comparing(Book::getBorrowerId));
         // MFXTableColumn<Book> borrowDateColumn = new MFXTableColumn<>("빌린 날짜", false, Comparator.comparing(Book::getBorrowDate));
         
@@ -170,7 +170,7 @@ public class TableBookCompoController extends Controller {
         authorColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getAuthor, this::onTableRowCellClicked));
         publisherColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublisher, this::onTableRowCellClicked));
         pubDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublishDate, this::onTableRowCellClicked));
-        categoryColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getCategory, this::onTableRowCellClicked));
+        categoryColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getCategoryNumber, this::onTableRowCellClicked));
         // borrowerIdColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowerId));
         // borrowDateColumn.setRowCellFactory(book -> new MFXTableRowCell<>(Book::getBorrowDate));
         
@@ -189,7 +189,7 @@ public class TableBookCompoController extends Controller {
             new StringFilter<>("작가", Book::getAuthor),
             new StringFilter<>("출판사", Book::getPublisher),
             new StringFilter<>("출판 날짜", Book::getPublishDate),
-            new IntegerFilter<>("카테고리", Book::getCategory),
+            new IntegerFilter<>("카테고리", Book::getCategoryNumber),
             new StringFilter<>("빌린 사람", Book::getBorrowerId),
             new StringFilter<>("빌린 날짜", Book::getBorrowDate)
         );

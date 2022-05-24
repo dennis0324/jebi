@@ -24,7 +24,7 @@
          <right>
             <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="153.0" BorderPane.alignment="CENTER_RIGHT">
                <children>
-                  <MFXToggleButton fx:id="editToggleBtn" onAction="#onEditToggleBtnAction" prefHeight="41.0" prefWidth="63.0" text="수정" />
+                  <MFXToggleButton fx:id="editToggleBtn" onAction="#onEditToggleBtnAction" prefHeight="41.0" prefWidth="63.0" stylesheets="@../../css/customMFXToggleButton.css" text="수정" />
                </children>
             </HBox>
          </right>

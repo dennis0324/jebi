@@ -216,7 +216,7 @@ public class BookEditAddCompoController extends Controller {
     		authorField.setText(selectedBook.getAuthor());
     		publisherField.setText(selectedBook.getPublisher());
     		publishDateField.setText(selectedBook.getPublishDate());
-    		categoryField.setText(Integer.toString(selectedBook.getCategory()));
+    		categoryField.setText(Integer.toString(selectedBook.getCategoryNumber()));
     		
     		/* TODO: ... */
     	}
