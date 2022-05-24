@@ -100,7 +100,7 @@ public abstract class Controller {
 	public abstract void initialize();
 	
 	/**
-	 * 이벤트 컨트롤러의 초기화 직후에 호출되는 메소드이다.
+	 * 이벤트 컨트롤러와 연결된 페이지를 불러올 때마다 호출되는 메소드이다.
 	 */
 	public abstract void onPageLoad();
 }

@@ -35,6 +35,7 @@ import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
@@ -96,8 +97,7 @@ public class RecoveryController extends Controller {
     private MFXButton findPasswordBtn;
 
 	@FXML
-    private MFXIconWrapper backBtn;
-	
+    private MFXIconWrapper backIconBtn;
     
     /* ::: 컨트롤러 기본 메소드 정의... ::: */
 
@@ -235,7 +235,11 @@ public class RecoveryController extends Controller {
             provider.getThreadPool()
         );
 	}
-
+	
+	@FXML
+    public void onBackIconBtnClicked() {
+		getPageLoader().to("/pages/LoginFirst.fxml");
+    }
 
 	/**
      * 아이콘 버튼을 초기화한다.
@@ -243,11 +247,10 @@ public class RecoveryController extends Controller {
     private void setupIconBtn() {
     	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
 		
-    	backBtn.setIcon(icon);
-    	backBtn.defaultRippleGeneratorBehavior();
-    	backBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
+    	backIconBtn.setIcon(icon);
+    	backIconBtn.defaultRippleGeneratorBehavior();
+    	backIconBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
     	
-    	NodeUtils.makeRegionCircular(backBtn);
+    	NodeUtils.makeRegionCircular(backIconBtn);
 	}
-
 }

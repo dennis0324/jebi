@@ -42,20 +42,13 @@ public final class PageLoader {
     private static final Logger LOG = LoggerFactory.getLogger(PageLoader.class);
     
     // 각 페이지의 경로와 페이지에 대응하는 장면이 저장된 해시맵.
-    private static final HashMap<String, Scene> scenes;
+    private static final HashMap<String, Scene> scenes = new HashMap<>();
     
     // 프로그램의 창을 나타내는 변수.
     private final Stage stage;
     
     // 다음 페이지에 넘겨줄 객체.
     private Object arg;
-    
-    /**
-     * 클래스 생성자가 호출되기 전에 호출된다.
-     */
-    static {
-        scenes = new HashMap<>();
-    }
     
     /**
      * `PageLoader` 클래스의 생성자.
@@ -76,8 +69,12 @@ public final class PageLoader {
         
         LOG.info("다음 페이지로 이동합니다. (페이지 경로: " + path + ")");
         
+        Controller controller = (Controller) scene.getUserData();
+        
         if (scene != null || scene != stage.getScene()) 
             stage.setScene(scene);
+        
+        controller.onPageLoad();
     }
     
     /**
@@ -154,7 +151,12 @@ public final class PageLoader {
                 controller.onPageLoad();
             }
             
-            return new Scene(parent);
+            Scene result = new Scene(parent);
+            
+            // FXML 문서로 생성된 장면에도 이벤트 컨트롤러의 레퍼런스를 저장한다.
+            result.setUserData(controller);
+            
+            return result;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

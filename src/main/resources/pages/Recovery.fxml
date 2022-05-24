@@ -157,7 +157,7 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <MFXIconWrapper fx:id="backBtn" layoutX="29.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+            <MFXIconWrapper fx:id="backIconBtn" onMouseClicked="#onBackIconBtnClicked" layoutX="29.0" layoutY="29.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
          </children>
       </AnchorPane>
    </top>
