@@ -23,6 +23,7 @@ package io.github.dennis0324.jebi;
 import io.github.dennis0324.jebi.gui.PageLoader;
 import io.github.dennis0324.jebi.util.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 /**
@@ -50,6 +51,8 @@ public class Main extends Application {
 		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
 		
 		primaryStage.setResizable(false);
+		
+		primaryStage.setOnCloseRequest(event -> Platform.exit());
 
 		pageLoader.to("/pages/LoginFirst.fxml");
 		

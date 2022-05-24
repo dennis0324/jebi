@@ -137,6 +137,9 @@ public class TableController extends Controller {
 								searchCompo.setVisible(true);
 								
 								searchCompoController.updateFilters();
+								
+								userEditAddCompo.setManaged(false);
+								userEditAddCompo.setVisible(false);
 							} else if (menuIndex == 1) {
 								tableUserCompo.setManaged(false);
 								tableUserCompo.setVisible(false);
@@ -151,10 +154,10 @@ public class TableController extends Controller {
 								
 								userEditAddCompo.setManaged(true);
 								userEditAddCompo.setVisible(true);
-								
-								bookEditAddCompo.setManaged(false);
-								bookEditAddCompo.setVisible(false);
 							}
+							
+							bookEditAddCompo.setManaged(false);
+							bookEditAddCompo.setVisible(false);
 						}
 					);
 				}
