@@ -18,7 +18,7 @@
          <left>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="148.0" BorderPane.alignment="CENTER">
                <children>
-                  <MFXIconWrapper fx:id="backIconBtn" onMouseClicked="#onBackIconBtnClicked" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+                  <MFXIconWrapper fx:id="backIconBtn" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onBackIconBtnClicked" prefHeight="50.0" prefWidth="50.0" />
                </children>
             </HBox>
          </left>
@@ -73,12 +73,14 @@
                            <stylesheets>
                               <URL value="@../../css/customMFXTextField.css" />
                               <URL value="@../../css/customComboBox.css" />
+                              <URL value="@../../css/customComboBoxCell.css" />
                            </stylesheets>
                         </MFXComboBox>
                         <MFXComboBox fx:id="bigCategoryComboBox" floatMode="BORDER" floatingText="세부 장르" prefHeight="54.0" prefWidth="118.0">
                            <stylesheets>
                               <URL value="@../../css/customMFXTextField.css" />
                               <URL value="@../../css/customComboBox.css" />
+                              <URL value="@../../css/customComboBoxCell.css" />
                            </stylesheets>
                         </MFXComboBox>
                      </children>

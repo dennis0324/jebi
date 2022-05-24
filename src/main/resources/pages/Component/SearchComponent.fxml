@@ -3,17 +3,21 @@
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXIconWrapper?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="500.0"
-   xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.SearchCompoController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.dennis0324.jebi.gui.controller.SearchCompoController">
    <children>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="600.0" spacing="20.0">
          <children>
             <MFXTextField fx:id="searchField" floatingText="검색" prefHeight="49.0" prefWidth="378.0" stylesheets="@../../css/customMFXTextField.css" />
-            <MFXComboBox fx:id="searchFilterComboBox" floatingText="카테고리" floatMode="BORDER" prefHeight="49.0" prefWidth="118.0" />
+            <MFXComboBox fx:id="searchFilterComboBox" floatMode="BORDER" floatingText="카테고리" prefHeight="49.0" prefWidth="118.0">
+               <stylesheets>
+                  <URL value="@../../css/customComboBox.css" />
+                  <URL value="@../../css/customComboBoxCell.css" />
+               </stylesheets></MFXComboBox>
             <MFXIconWrapper fx:id="submitIconBtn" onMouseClicked="#onSubmitIconBtnClicked" prefHeight="47.0" prefWidth="47.0" style="-fx-background-radius: 10px;" />
          </children>
       </HBox>
