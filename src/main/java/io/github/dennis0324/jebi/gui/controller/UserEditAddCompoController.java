@@ -251,11 +251,7 @@ public class UserEditAddCompoController extends Controller {
 		        );
     		}
     		
-    		Platform.runLater(
-    			() -> {
-    				borrowedBookTable.setItems(borrowedBooks);
-    			}
-    		);
+    		Platform.runLater(() -> borrowedBookTable.setItems(borrowedBooks));
     	}
     }
     

@@ -39,7 +39,6 @@ import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -48,7 +47,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
- * 사용자 추가 및 수정 영역 컨트롤러를 나타내는 클래스.
+ * 책 추가 및 수정 영역 컨트롤러를 나타내는 클래스.
  * 
  * @author dennis0324, jdeokkim
  */
@@ -288,6 +287,8 @@ public class BookEditAddCompoController extends Controller {
 			new ApiFutureCallback<WriteResult>() {
                 @Override
                 public void onSuccess(WriteResult result) {
+                	backProperty.set(true);
+                	
                 	databaseModeProperty.set(DatabaseMode.RELOAD);
                 }
                 
