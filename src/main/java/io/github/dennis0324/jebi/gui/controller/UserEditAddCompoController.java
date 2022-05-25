@@ -33,6 +33,7 @@ import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
+import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.dennis0324.jebi.model.User;
@@ -50,6 +51,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -75,6 +77,9 @@ public class UserEditAddCompoController extends Controller {
     
     // 테이블에서 선택한 사용자.
     private User selectedUser = null;
+
+	// 사용자 정보 '책' 반납 버튼
+	private CapsuleButton returnBookBtn;
     
 	@FXML
 	private MFXIconWrapper backIconBtn;
@@ -90,6 +95,9 @@ public class UserEditAddCompoController extends Controller {
 	
 	@FXML
 	private MFXTextField phoneNumberField;
+	
+	@FXML
+    private HBox bookCtonrolContainer;
 	
 	@FXML
 	private MFXPaginatedTableView<Book> borrowedBookTable;
@@ -247,6 +255,13 @@ public class UserEditAddCompoController extends Controller {
      * 아이콘 버튼을 초기화한다.
      */
     private void setupIconBtn() {
+
+		returnBookBtn = new CapsuleButton();
+		returnBookBtn.setText("반납");
+		returnBookBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+
+		bookCtonrolContainer.getChildren().add(returnBookBtn);
+
     	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
 		
     	backIconBtn.setIcon(icon);
