@@ -20,16 +20,48 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
+
+/**
+ * 메뉴의 종류를 나타내는 열거형.
+ * 
+ * @author dennis0324
+ */
+enum MenuType {
+	UNKNOWN(-1),
+	USER(0),
+	BOOK(1);
+	
+	// 메뉴의 종류를 나타내는 값.
+	private int value;
+	
+	/**
+	 * `MenuType`의 생성자.
+	 * 
+	 * @param value 메뉴의 종류를 나타내는 인덱스.
+	 */
+	MenuType(int value) {
+		this.value = value;
+	}
+	
+	/**
+	 * 메뉴의 종류에 해당하는 정수를 반환한다.
+	 * 
+	 * @return 메뉴의 종류에 해당하는 정수.
+	 */
+	int get() {
+		return value;
+	}
+}
 
 /**
  * 메인 테이블 페이지 컨트롤러를 나타내는 클래스.
@@ -41,7 +73,7 @@ public class TableController extends Controller {
     private static User user;
     
     // 사용자가 선택한 메뉴의 "관찰 가능한" 인덱스.
-    private SimpleIntegerProperty menuIndexProperty = new SimpleIntegerProperty(-1);
+    private SimpleObjectProperty<MenuType> menuTypeProperty = new SimpleObjectProperty<>(MenuType.UNKNOWN);
     
     /* ::: 메뉴 버튼... ::: */
     
@@ -116,17 +148,15 @@ public class TableController extends Controller {
 	@Override
 	public void initialize() {
 		// 선택한 메뉴에 따라 보여줄 내용을 변경한다.
-		menuIndexProperty.addListener(
+		menuTypeProperty.addListener(
 			(observable, oldValue, newValue) -> {
 				if (oldValue != newValue) {
 					Platform.runLater(
 						() -> {
-                            int menuIndex = newValue.intValue();
-							
 							tableUserCompoController.clearSelection();
 							tableBookCompoController.clearSelection();
 							
-							if (menuIndex == 0) {
+							if (newValue == MenuType.USER) {
 								tableUserCompo.setManaged(true);
 								tableUserCompo.setVisible(true);
 								
@@ -140,7 +170,7 @@ public class TableController extends Controller {
 								
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
-							} else if (menuIndex == 1) {
+							} else if (newValue == MenuType.BOOK) {
 								tableUserCompo.setManaged(false);
 								tableUserCompo.setVisible(false);
 								
@@ -165,7 +195,7 @@ public class TableController extends Controller {
 		);
 		 
 		// 책 관리가 먼저 떠야 됨
-		menuIndexProperty.set(1);
+		menuTypeProperty.set(MenuType.BOOK);
 		
 		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
 		tableUserCompoController.getUserProperty().addListener(
@@ -202,6 +232,19 @@ public class TableController extends Controller {
 			}
 		);
 		
+		// 사용자가 다음으로 수행할 데이터베이스 작업을 변경했을 때의 동작을 지정한다.
+		userEditAddCompoController.getDatabaseModeProperty().addListener(
+			(observable, oldValue, newValue) -> {
+				if (newValue == DatabaseMode.RELOAD) {
+					// TODO: 테이블 업데이트가 늦는 이유 파악하기
+					tableUserCompoController.reloadUsers();
+					
+					userEditAddCompoController.getDatabaseModeProperty()
+						.set(DatabaseMode.EDIT);
+				}
+			}
+		);
+		
 		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
 		bookEditAddCompoController.getBackProperty().addListener(
 			(observable, oldValue, newValue) -> {
@@ -218,7 +261,7 @@ public class TableController extends Controller {
 		// 사용자가 관리자 권한을 가지고 있지 않다면, 
 		// 사용자가 볼 수 있는 메뉴를 제한한다.
 		if (!user.isAdmin()) {
-			// userMenuBtn.setVisible(false);
+			userMenuBtn.setVisible(false);
 			// bookMenuBtn.setVisible(false);
 			
 			/* TODO: ... */
@@ -230,8 +273,6 @@ public class TableController extends Controller {
 	
 	@FXML
 	public void onAddToTableBtnAction() {
-		int menuIndex = menuIndexProperty.get();
-		
 		String name = addToTableField.getText();
 		
 		if (name.isBlank()) {
@@ -239,17 +280,17 @@ public class TableController extends Controller {
 			return;
 		}
 		
-		if (menuIndex == 0) tableUserCompoController.addToTable(name);
-		else if (menuIndex == 1) tableBookCompoController.addToTable(name);
+		if (menuTypeProperty.get() == MenuType.USER) tableUserCompoController.addToTable(name);
+		else if (menuTypeProperty.get() == MenuType.BOOK) tableBookCompoController.addToTable(name);
 	}
 	
 	@FXML
 	public void onUserMenuBtnAction() {
-		menuIndexProperty.set(0);
+		menuTypeProperty.set(MenuType.USER);
 	}
 	
 	@FXML
 	public void onBookMenuBtnAction() {
-		menuIndexProperty.set(1);
+		menuTypeProperty.set(MenuType.BOOK);
 	}
 }

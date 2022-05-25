@@ -27,12 +27,14 @@ import org.slf4j.LoggerFactory;
 
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
+import com.google.cloud.firestore.WriteResult;
 
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXPaginatedTableView;
@@ -43,12 +45,11 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -60,17 +61,17 @@ public class UserEditAddCompoController extends Controller {
 	// `UserEditAddCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(UserEditAddCompoController.class);
     
-	// `DataProvider` 인스턴스.
+    // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
+    private static SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    
+    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
+    private static SimpleObjectProperty<DatabaseMode> databaseModeProperty;
+    
+    // `DataProvider` 인스턴스.
     private DataProvider provider = DataProvider.getInstance();
     
     // 테이블에서 선택한 사용자가 빌린 모든 책 정보가 저장된 배열.
     private ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
-    
-    // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
-    private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
-    
-    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류. (0은 편집, 1은 추가)
-    private SimpleIntegerProperty databaseModeProperty = new SimpleIntegerProperty(-1);
     
     // 테이블에서 선택한 사용자.
     private User selectedUser = null;
@@ -93,6 +94,13 @@ public class UserEditAddCompoController extends Controller {
 	@FXML
 	private MFXPaginatedTableView<Book> borrowedBookTable;
 	
+	/**
+     * 클래스 생성자가 호출되기 전에 호출된다.
+     */
+	static {
+		databaseModeProperty = new SimpleObjectProperty<>(DatabaseMode.RELOAD);
+	}
+	
 	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
 	@Override
@@ -106,13 +114,7 @@ public class UserEditAddCompoController extends Controller {
     public void onPageLoad() {
     	setupBorrowedBookTable();
     	
-    	databaseModeProperty.addListener(
-    		(observable, oldValue, newValue) -> { 
-    			/* TODO: ... */
-    		}
-    	);
-    	
-    	databaseModeProperty.set(0);
+    	databaseModeProperty.set(DatabaseMode.EDIT);
     }
     
     @FXML
@@ -127,6 +129,32 @@ public class UserEditAddCompoController extends Controller {
     	nameField.setEditable(editMode);
     	emailField.setEditable(editMode);
     	phoneNumberField.setEditable(editMode);
+    	
+    	// 수정 모드를 비활성화할 경우, 서버에 저장된 사용자 정보를
+    	// 현재 사용자 정보로 덮어쓴다.
+    	if (!editMode) {
+    		selectedUser.setName(nameField.getText());
+    		selectedUser.setEmail(emailField.getText());
+    		selectedUser.setPhoneNumber(phoneNumberField.getText());
+    		
+    		ApiFutures.addCallback(
+    			provider.updateUser(selectedUser),
+    			new ApiFutureCallback<WriteResult>() {
+	                @Override
+	                public void onSuccess(WriteResult result) {
+	                	/* no-op */
+	                }
+	                
+	                @Override
+	                public void onFailure(Throwable t) {
+	                	DataProvider.getLogger().warn(t.toString());
+	                }
+	            },
+	            provider.getThreadPool()
+    		);
+    		
+    		databaseModeProperty.set(DatabaseMode.RELOAD);
+    	}
     }
     
     /**
@@ -143,7 +171,7 @@ public class UserEditAddCompoController extends Controller {
 	 * 
 	 * @return 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
 	 */
-	public SimpleIntegerProperty getDatabaseModeProperty() {
+	public SimpleObjectProperty<DatabaseMode> getDatabaseModeProperty() {
 		return databaseModeProperty;
 	}
 	
@@ -177,8 +205,8 @@ public class UserEditAddCompoController extends Controller {
     		emailField.clear();
     		phoneNumberField.clear();
     	} else {
-    		if (selectedUser.getEmail().isBlank()) databaseModeProperty.set(1);
-        	else databaseModeProperty.set(0);
+    		if (selectedUser.getEmail().isBlank()) databaseModeProperty.set(DatabaseMode.ADD);
+        	else databaseModeProperty.set(DatabaseMode.EDIT);
     		
     		nameField.setText(selectedUser.getName());
     		emailField.setText(selectedUser.getEmail());

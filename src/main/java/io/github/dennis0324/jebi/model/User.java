@@ -106,6 +106,15 @@ public class User {
 	}
 	
 	/**
+	 * 사용자의 이름을 반환한다.
+	 * 
+	 * @return 사용자의 이름.
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
 	 * 사용자의 이메일 주소를 반환한다.
 	 * 
 	 * @return 사용자의 이메일 주소.
@@ -121,15 +130,6 @@ public class User {
 	 */
 	public String getPwdHash() {
 		return pwdHash;
-	}
-	
-	/**
-	 * 사용자의 이름을 반환한다.
-	 * 
-	 * @return 사용자의 이름.
-	 */
-	public String getName() {
-		return name;
 	}
 	
 	/**
@@ -188,11 +188,38 @@ public class User {
 	}
 	
 	/**
+	 * 사용자의 이름을 설정한다.
+	 * 
+	 * @param name 사용자의 이름.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * 사용자의 이메일 주소를 설정한다.
+	 * 
+	 * @param email 사용자의 이메일 주소.
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	/**
 	 * 사용자의 비밀번호 해시 값을 설정한다.
 	 * 
 	 * @param pwdHash 사용자의 비밀번호 해시 값.
 	 */
 	public void setPwdHash(String pwdHash) {
 		this.pwdHash = pwdHash;
+	}
+	
+	/**
+	 * 사용자의 전화번호를 설정한다.
+	 * 
+	 * @param phoneNumber 사용자의 전화번호.
+	 */
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 }

@@ -126,6 +126,37 @@ public class TableBookCompoController extends Controller {
 		
 		bookProperty.set(null);
 	}
+	
+	/**
+	 * 모든 책의 정보를 다시 불러온다.
+	 */
+	public void reloadBooks() {
+		ApiFutures.addCallback(
+            provider.getBooks(),
+            new ApiFutureCallback<ArrayList<Book>>() {
+                @Override
+                public void onSuccess(ArrayList<Book> result) {
+                	LOG.info("총 " + result.size() + "권의 책을 찾았습니다.");
+                	
+                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
+                	Platform.runLater(
+                		() -> {
+                			books.clear();
+                			books.addAll(result);
+                			
+                			bookTable.setItems(books);
+                		}
+                	);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
+	}
     
     /**
 	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
@@ -197,36 +228,5 @@ public class TableBookCompoController extends Controller {
         reloadBooks();
         
         // bookTable.autosizeColumnsOnInitialization();
-	}
-	
-	/**
-	 * 모든 책의 정보를 다시 불러온다.
-	 */
-	private void reloadBooks() {
-		ApiFutures.addCallback(
-            provider.getBooks(),
-            new ApiFutureCallback<ArrayList<Book>>() {
-                @Override
-                public void onSuccess(ArrayList<Book> result) {
-                	LOG.info("총 " + result.size() + "권의 책을 찾았습니다.");
-                	
-                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
-                	Platform.runLater(
-                		() -> {
-                			books.clear();
-                			books.addAll(result);
-                			
-                			bookTable.setItems(books);
-                		}
-                	);
-                }
-                
-                @Override
-                public void onFailure(Throwable t) {
-                	DataProvider.getLogger().warn(t.toString());
-                }
-            },
-            provider.getThreadPool()
-        );
 	}
 }

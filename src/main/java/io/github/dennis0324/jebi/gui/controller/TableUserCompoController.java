@@ -43,6 +43,7 @@ import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -73,6 +74,13 @@ public class TableUserCompoController extends Controller {
 	
 	@Override
 	public void initialize() {
+		users.addListener(new ListChangeListener<User>() {
+			@Override
+			public void onChanged(Change<? extends User> c) {
+				userTable.setItems(users);
+			}
+		});
+		
 		onPageLoad();
 	}
 	
@@ -124,6 +132,30 @@ public class TableUserCompoController extends Controller {
 		userTable.getSelectionModel().clearSelection();
 		
 		userProperty.set(null);
+	}
+	
+	/**
+	 * 모든 사용자의 정보를 다시 불러온다.
+	 */
+	public void reloadUsers() {
+		ApiFutures.addCallback(
+            provider.getUsers(),
+            new ApiFutureCallback<ArrayList<User>>() {
+                @Override
+                public void onSuccess(ArrayList<User> result) {
+                	LOG.info("총 " + result.size() + "개의 사용자 계정을 찾았습니다.");
+                	
+                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
+                	Platform.runLater(() -> users.setAll(result));
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+        );
 	}
 	
 	/**
@@ -180,36 +212,5 @@ public class TableUserCompoController extends Controller {
         reloadUsers();
         
         // userTable.autosizeColumnsOnInitialization();
-	}
-	
-	/**
-	 * 모든 사용자의 정보를 다시 불러온다.
-	 */
-	private void reloadUsers() {
-		ApiFutures.addCallback(
-            provider.getUsers(),
-            new ApiFutureCallback<ArrayList<User>>() {
-                @Override
-                public void onSuccess(ArrayList<User> result) {
-                	LOG.info("총 " + result.size() + "개의 사용자 계정을 찾았습니다.");
-                	
-                	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
-                	Platform.runLater(
-                		() -> {
-                			users.clear();
-                			users.addAll(result);
-                			
-                			userTable.setItems(users);
-                		}
-                	);
-                }
-                
-                @Override
-                public void onFailure(Throwable t) {
-                	DataProvider.getLogger().warn(t.toString());
-                }
-            },
-            provider.getThreadPool()
-        );
 	}
 }
