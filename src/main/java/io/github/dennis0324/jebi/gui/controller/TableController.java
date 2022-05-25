@@ -232,11 +232,19 @@ public class TableController extends Controller {
 			}
 		);
 		
+		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
+		bookEditAddCompoController.getBackProperty().addListener(
+			(observable, oldValue, newValue) -> {
+				tableBookCompoController.getBookProperty().set(null);
+				
+				userEditAddCompoController.setBackBtnVisible(false);
+			}
+		);
+		
 		// 사용자가 다음으로 수행할 데이터베이스 작업을 변경했을 때의 동작을 지정한다.
 		userEditAddCompoController.getDatabaseModeProperty().addListener(
 			(observable, oldValue, newValue) -> {
 				if (newValue == DatabaseMode.RELOAD) {
-					// TODO: 테이블 업데이트가 늦는 이유 파악하기
 					tableUserCompoController.reloadUsers();
 					
 					userEditAddCompoController.getDatabaseModeProperty()
@@ -245,11 +253,15 @@ public class TableController extends Controller {
 			}
 		);
 		
-		// 사용자가 '이전' 버튼을 클릭했을 때의 동작을 지정한다.
-		bookEditAddCompoController.getBackProperty().addListener(
+		// 사용자가 다음으로 수행할 데이터베이스 작업을 변경했을 때의 동작을 지정한다.
+		bookEditAddCompoController.getDatabaseModeProperty().addListener(
 			(observable, oldValue, newValue) -> {
-				tableBookCompoController.getBookProperty().set(null);
-				userEditAddCompoController.setBackBtnVisible(false);
+				if (newValue == DatabaseMode.RELOAD) {
+					tableBookCompoController.reloadBooks();
+					
+					bookEditAddCompoController.getDatabaseModeProperty()
+						.set(DatabaseMode.EDIT);
+				}
 			}
 		);
 	}

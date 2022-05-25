@@ -142,7 +142,7 @@ public class UserEditAddCompoController extends Controller {
     			new ApiFutureCallback<WriteResult>() {
 	                @Override
 	                public void onSuccess(WriteResult result) {
-	                	/* no-op */
+	                	databaseModeProperty.set(DatabaseMode.RELOAD);
 	                }
 	                
 	                @Override
@@ -152,8 +152,6 @@ public class UserEditAddCompoController extends Controller {
 	            },
 	            provider.getThreadPool()
     		);
-    		
-    		databaseModeProperty.set(DatabaseMode.RELOAD);
     	}
     }
     
@@ -188,7 +186,7 @@ public class UserEditAddCompoController extends Controller {
     /**
      * 사용자 추가 및 수정 영역을 업데이트한다.
      * 
-     * @param user 테이블에서 선택한 사용자.
+     * @param selectedUser 테이블에서 선택한 사용자.
      */
     public void updateData(User selectedUser) {
     	if (this.selectedUser == selectedUser) return;

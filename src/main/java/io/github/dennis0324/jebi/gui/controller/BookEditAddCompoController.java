@@ -23,19 +23,27 @@ package io.github.dennis0324.jebi.gui.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+import com.google.cloud.firestore.WriteResult;
+
 import de.jensd.fx.glyphs.materialicons.MaterialIcon;
 import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.utils.NodeUtils;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
@@ -54,8 +62,8 @@ public class BookEditAddCompoController extends Controller {
     // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
     private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
     
-    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류. (0은 추가, 1은 편집)
-    private SimpleIntegerProperty databaseModeProperty = new SimpleIntegerProperty(-1);
+    // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
+    private static SimpleObjectProperty<DatabaseMode> databaseModeProperty;
     
     // 테이블에서 선택한 책.
     private Book selectedBook = null;
@@ -112,6 +120,13 @@ public class BookEditAddCompoController extends Controller {
 	
 	// '삭제' 버튼.
 	private CapsuleButton deleteCapsuleBtn;
+	
+	/**
+     * 클래스 생성자가 호출되기 전에 호출된다.
+     */
+	static {
+		databaseModeProperty = new SimpleObjectProperty<>(DatabaseMode.RELOAD);
+	}
     
 	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
@@ -129,7 +144,7 @@ public class BookEditAddCompoController extends Controller {
     public void onPageLoad() {
     	databaseModeProperty.addListener(
     		(observable, oldValue, newValue) -> { 
-    			if (newValue.intValue() == 0) {
+    			if (newValue == DatabaseMode.EDIT) {
     				editToggleBtn.setVisible(true);
     				
     				nameField.setEditable(false);
@@ -139,7 +154,7 @@ public class BookEditAddCompoController extends Controller {
     		    	categoryField.setEditable(false);
     		    	
     		    	borrowCapsuleBtn.setText("대출");
-    			} else if (newValue.intValue() == 1) {
+    			} else if (newValue == DatabaseMode.ADD) {
     				editToggleBtn.setVisible(false);
     				
     				nameField.setEditable(true);
@@ -153,7 +168,7 @@ public class BookEditAddCompoController extends Controller {
     		}
     	);
     	
-    	databaseModeProperty.set(0);
+    	databaseModeProperty.set(DatabaseMode.EDIT);
     }
     
     @FXML
@@ -186,14 +201,14 @@ public class BookEditAddCompoController extends Controller {
 	 * 
 	 * @return 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
 	 */
-	public SimpleIntegerProperty getDatabaseModeProperty() {
+	public SimpleObjectProperty<DatabaseMode> getDatabaseModeProperty() {
 		return databaseModeProperty;
 	}
 	
 	/**
      * 책 추가 및 수정 영역을 업데이트한다.
      * 
-     * @param user 테이블에서 선택한 책.
+     * @param selectedBook 테이블에서 선택한 책.
      */
     public void updateData(Book selectedBook) {
     	if (this.selectedBook == selectedBook) return;
@@ -209,16 +224,14 @@ public class BookEditAddCompoController extends Controller {
     		publishDateField.clear();
     		categoryField.clear();
     	} else {
-    		if (selectedBook.getAuthor().isBlank()) databaseModeProperty.set(1);
-        	else databaseModeProperty.set(0);
+    		if (selectedBook.getAuthor().isBlank()) databaseModeProperty.set(DatabaseMode.ADD);
+        	else databaseModeProperty.set(DatabaseMode.EDIT);
     		
     		nameField.setText(selectedBook.getName());
     		authorField.setText(selectedBook.getAuthor());
     		publisherField.setText(selectedBook.getPublisher());
     		publishDateField.setText(selectedBook.getPublishDate());
     		categoryField.setText(Integer.toString(selectedBook.getCategoryNumber()));
-    		
-    		/* TODO: ... */
     	}
     }
     
@@ -230,13 +243,15 @@ public class BookEditAddCompoController extends Controller {
         
         saveCapsuleBtn.setText("저장");
         saveCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        saveCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSaveCapsuleBtnPressed);
         
         btnContainer.getChildren().add(saveCapsuleBtn);
         
         borrowCapsuleBtn = new CapsuleButton();
         
-        borrowCapsuleBtn.setText("대출");
+        // borrowCapsuleBtn.setText("대출");
         borrowCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        borrowCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBorrowCapsuleBtnPressed);
         
         btnContainer.getChildren().add(borrowCapsuleBtn);
 
@@ -244,6 +259,7 @@ public class BookEditAddCompoController extends Controller {
         
         deleteCapsuleBtn.setText("삭제");
         deleteCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
+        deleteCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onDeleteCapsuleBtnPressed);
         
         btnContainer.getChildren().add(deleteCapsuleBtn);
     }
@@ -260,4 +276,69 @@ public class BookEditAddCompoController extends Controller {
     	
     	NodeUtils.makeRegionCircular(backIconBtn);
 	}
+    
+    /**
+     * '저장' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    private void onSaveCapsuleBtnPressed(MouseEvent event) {
+    	ApiFutures.addCallback(
+			provider.updateBook(selectedBook),
+			new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	databaseModeProperty.set(DatabaseMode.RELOAD);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+		);
+    }
+    
+    /**
+     * '대출' 또는 '추가' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    private void onBorrowCapsuleBtnPressed(MouseEvent event) {
+    	if (databaseModeProperty.get() == DatabaseMode.EDIT) {
+    		/* TODO: '대출' 기능 구현 */
+    	} else if (databaseModeProperty.get() == DatabaseMode.ADD) {
+    		/* TODO: '추가' 기능 구현 */
+    	}
+    }
+    
+    /**
+     * '삭제' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    private void onDeleteCapsuleBtnPressed(MouseEvent event) {
+    	ApiFutures.addCallback(
+			provider.deleteBook(selectedBook.getUid()),
+			new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	Platform.runLater(
+                		() -> {
+                			backProperty.set(true);
+                			
+                			databaseModeProperty.set(DatabaseMode.RELOAD);
+                		}
+                	);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+		);
+    }
 }
