@@ -75,6 +75,9 @@ public class UserEditAddCompoController extends Controller {
     // 테이블에서 선택한 사용자가 빌린 모든 책 정보가 저장된 배열.
     private ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
     
+    // 현재 접속한 사용자.
+    private User currentUser = null;
+    
     // 테이블에서 선택한 사용자.
     private User selectedUser = null;
 
@@ -97,7 +100,7 @@ public class UserEditAddCompoController extends Controller {
 	private MFXTextField phoneNumberField;
 	
 	@FXML
-    private HBox bookCtonrolContainer;
+    private HBox bookControlContainer;
 	
 	@FXML
 	private MFXPaginatedTableView<Book> borrowedBookTable;
@@ -190,6 +193,18 @@ public class UserEditAddCompoController extends Controller {
 		backIconBtn.setManaged(value);
 		backIconBtn.setVisible(value);
 	}
+	
+	/**
+	 * 현재 접속한 사용자 정보를 설정한다.
+	 * 
+	 * @param currentUser 현재 접속한 사용자 정보.
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+		
+		returnBookBtn.setManaged((this.currentUser != null));
+		returnBookBtn.setVisible((this.currentUser != null));
+	}
     
     /**
      * 사용자 추가 및 수정 영역을 업데이트한다.
@@ -236,7 +251,11 @@ public class UserEditAddCompoController extends Controller {
 		        );
     		}
     		
-    		borrowedBookTable.setItems(borrowedBooks);
+    		Platform.runLater(
+    			() -> {
+    				borrowedBookTable.setItems(borrowedBooks);
+    			}
+    		);
     	}
     }
     
@@ -253,12 +272,11 @@ public class UserEditAddCompoController extends Controller {
      * 아이콘 버튼을 초기화한다.
      */
     private void setupIconBtn() {
-
 		returnBookBtn = new CapsuleButton();
 		returnBookBtn.setText("반납");
 		returnBookBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
 
-		bookCtonrolContainer.getChildren().add(returnBookBtn);
+		bookControlContainer.getChildren().add(returnBookBtn);
 
     	MaterialIconView icon = new MaterialIconView(MaterialIcon.CHEVRON_LEFT, "35");
 		

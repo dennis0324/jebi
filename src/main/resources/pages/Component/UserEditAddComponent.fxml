@@ -61,7 +61,7 @@
       <VBox alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
          <children>
             <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="239.0" prefWidth="371.0" />
-            <HBox fx:id="bookCtonrolContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #2b2a32;" />
+            <HBox fx:id="bookControlContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #2b2a32;" />
          </children>
          <padding>
             <Insets left="50.0" right="50.0" />

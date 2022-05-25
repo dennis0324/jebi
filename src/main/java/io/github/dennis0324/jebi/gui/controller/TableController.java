@@ -170,6 +170,8 @@ public class TableController extends Controller {
 								
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
+								
+								userEditAddCompoController.setCurrentUser(null);
 							} else if (newValue == MenuType.BOOK) {
 								tableUserCompo.setManaged(false);
 								tableUserCompo.setVisible(false);
@@ -184,6 +186,8 @@ public class TableController extends Controller {
 								
 								userEditAddCompo.setManaged(true);
 								userEditAddCompo.setVisible(true);
+								
+								userEditAddCompoController.setCurrentUser(user);
 							}
 							
 							bookEditAddCompo.setManaged(false);
@@ -194,7 +198,7 @@ public class TableController extends Controller {
 			}
 		);
 		 
-		// 책 관리가 먼저 떠야 됨
+		// 책 관리 메뉴를 먼저 보여준다.
 		menuTypeProperty.set(MenuType.BOOK);
 		
 		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
