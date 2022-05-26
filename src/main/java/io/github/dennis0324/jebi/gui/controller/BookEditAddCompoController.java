@@ -34,6 +34,7 @@ import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.BookCategories;
 import io.github.dennis0324.jebi.model.DatabaseMode;
+import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
@@ -73,6 +74,9 @@ public class BookEditAddCompoController extends Controller {
     
     // `DataProvider` 인스턴스.
     private DataProvider provider = DataProvider.getInstance();
+    
+    // 현재 접속한 사용자.
+    private User currentUser = null;
     
     // 테이블에서 선택한 책.
     private Book selectedBook = null;
@@ -250,7 +254,27 @@ public class BookEditAddCompoController extends Controller {
      */
     public void onBorrowCapsuleBtnPressed(MouseEvent event) {
     	if (databaseModeProperty.get() == DatabaseMode.EDIT) {
-    		/* TODO: '대출' 기능 구현 */
+    		ApiFutures.addCallback(
+    			provider.borrowBook(currentUser, selectedBook),
+    			new ApiFutureCallback<WriteResult>() {
+                    @Override
+                    public void onSuccess(WriteResult result) {
+                    	Platform.runLater(
+                    		() -> {
+                    			backProperty.set(true);
+                    			
+                    			databaseModeProperty.set(DatabaseMode.RELOAD);
+                    		}
+                    	);
+                    }
+                    
+                    @Override
+                    public void onFailure(Throwable t) {
+                    	DataProvider.getLogger().warn(t.toString());
+                    }
+                },
+                provider.getThreadPool()
+    		);
     	} else if (databaseModeProperty.get() == DatabaseMode.ADD) {
     		/* TODO: '추가' 기능 구현 */
     	}
@@ -309,7 +333,7 @@ public class BookEditAddCompoController extends Controller {
      * @param selectedBook 테이블에서 선택한 책.
      */
     public void updateData(Book selectedBook) {
-    	if (this.selectedBook == selectedBook) return;
+    	// if (this.selectedBook == selectedBook) return;
     	
     	this.selectedBook = selectedBook;
     	
@@ -342,6 +366,15 @@ public class BookEditAddCompoController extends Controller {
 	    	smallCategoryComboBox.selectIndex(indexes[1]);
     	}
     }
+    
+    /**
+	 * 현재 접속한 사용자 정보를 설정한다.
+	 * 
+	 * @param currentUser 현재 접속한 사용자 정보.
+	 */
+	public void setCurrentUser(User currentUser) {
+		this.currentUser = currentUser;
+	}
     
     /**
      * 콤보 박스를 초기화한다.

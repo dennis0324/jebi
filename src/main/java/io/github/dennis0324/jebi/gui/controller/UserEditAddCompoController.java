@@ -20,6 +20,7 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import org.slf4j.Logger;
@@ -228,7 +229,6 @@ public class UserEditAddCompoController extends Controller {
     	backProperty.set(false);
     	
     	borrowedBooks.clear();
-    	borrowedBookTable.setItems(null);
     	
     	if (selectedUser == null) {
     		nameField.clear();
@@ -259,8 +259,6 @@ public class UserEditAddCompoController extends Controller {
 		            provider.getThreadPool()
 		        );
     		}
-    		
-    		Platform.runLater(() -> borrowedBookTable.setItems(borrowedBooks));
     	}
     }
     
@@ -309,6 +307,8 @@ public class UserEditAddCompoController extends Controller {
             new StringFilter<>("작가", Book::getAuthor),
             new StringFilter<>("출판사", Book::getPublisher)
         );
+        
+        borrowedBookTable.setItems(borrowedBooks);
         
         // borrowedBookTable.autosizeColumnsOnInitialization();
     }

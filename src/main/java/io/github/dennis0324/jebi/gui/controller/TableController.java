@@ -69,11 +69,11 @@ enum MenuType {
  * @author dennis0324, jdeokkim
  */
 public class TableController extends Controller {
-	// 접속한 사용자 계정의 정보.
-    private static User user;
-    
     // 사용자가 선택한 메뉴의 "관찰 가능한" 인덱스.
-    private SimpleObjectProperty<MenuType> menuTypeProperty = new SimpleObjectProperty<>(MenuType.UNKNOWN);
+    private static SimpleObjectProperty<MenuType> menuTypeProperty;
+    
+    // 접속한 사용자 계정의 정보.
+    private static User user;
     
     /* ::: 메뉴 버튼... ::: */
     
@@ -143,6 +143,13 @@ public class TableController extends Controller {
 	@FXML
 	private BookEditAddCompoController bookEditAddCompoController;
 	
+	/*
+	 * 클래스 생성 직전에 호출된다.
+	 */
+	static {
+		menuTypeProperty = new SimpleObjectProperty<>(MenuType.UNKNOWN);
+	}
+	
 	/* ::: 컨트롤러 기본 메소드 정의... ::: */
 	
 	@Override
@@ -172,6 +179,7 @@ public class TableController extends Controller {
 								userEditAddCompo.setVisible(false);
 								
 								userEditAddCompoController.setCurrentUser(null);
+								bookEditAddCompoController.setCurrentUser(null);
 							} else if (newValue == MenuType.BOOK) {
 								tableUserCompo.setManaged(false);
 								tableUserCompo.setVisible(false);
@@ -188,6 +196,7 @@ public class TableController extends Controller {
 								userEditAddCompo.setVisible(true);
 								
 								userEditAddCompoController.setCurrentUser(user);
+								bookEditAddCompoController.setCurrentUser(user);
 							}
 							
 							bookEditAddCompo.setManaged(false);
@@ -210,9 +219,9 @@ public class TableController extends Controller {
 				userEditAddCompo.setManaged((newValue != null));
 				userEditAddCompo.setVisible((newValue != null));
 				
-				userEditAddCompoController.updateData(newValue);
-				
 				userEditAddCompoController.setBackBtnVisible((newValue != user));
+				
+				userEditAddCompoController.updateData(newValue);
 			}
 		);
 		
@@ -263,6 +272,7 @@ public class TableController extends Controller {
 				if (newValue == DatabaseMode.RELOAD) {
 					tableBookCompoController.reloadBooks();
 					
+					userEditAddCompoController.updateData(user);
 					bookEditAddCompoController.getDatabaseModeProperty()
 						.set(DatabaseMode.EDIT);
 				}
@@ -299,8 +309,10 @@ public class TableController extends Controller {
 			return;
 		}
 		
-		if (menuTypeProperty.get() == MenuType.USER) tableUserCompoController.addToTable(name);
-		else if (menuTypeProperty.get() == MenuType.BOOK) tableBookCompoController.addToTable(name);
+		if (menuTypeProperty.get() == MenuType.USER) 
+			tableUserCompoController.addToTable(name);
+		else if (menuTypeProperty.get() == MenuType.BOOK) 
+			tableBookCompoController.addToTable(name);
 	}
 	
 	@FXML

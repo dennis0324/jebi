@@ -230,4 +230,22 @@ public class Book {
 	public void setCategoryNumber(int categoryNumber) {
 		this.categoryNumber = categoryNumber;
 	}
+	
+	/**
+	 * 책을 빌린 사용자의 고유 ID를 설정한다. 
+	 * 
+	 * @param borrowerId 책을 빌린 사용자의 고유 ID.
+	 */
+	public void setBorrowerId(String borrowerId) {
+		this.borrowerId = borrowerId;
+	}
+	
+	/**
+	 * 책을 빌려간 날짜를 설정한다.
+	 * 
+	 * @param borrowDate 책을 빌려간 날짜.
+	 */
+	public void setBorrowDate(String borrowDate) {
+		this.borrowDate = borrowDate;
+	}
 }

@@ -22,7 +22,9 @@ package io.github.dennis0324.jebi.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -55,6 +57,9 @@ import io.github.dennis0324.jebi.util.Constants;
 public final class DataProvider {
     // `DataProvider`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(DataProvider.class);
+    
+    // `DateProvider`의 날짜 형식화 클래스.
+    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
     
     // `DataProvider`의 인스턴스.
     private static DataProvider instance = null;
@@ -213,6 +218,68 @@ public final class DataProvider {
         LOG.info("사용자 계정을 삭제합니다. (고유 ID: " + uid + ")");
         
         return ref.delete();
+    }
+    
+    /**
+     * 주어진 사용자 정보로 책을 대출한다.
+     * 
+     * @param user 사용자 계정 정보.
+     * @param book 사용자가 대출할 책의 정보.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> borrowBook(final User user, final Book book) {
+    	DocumentReference userRef = db.collection("users")
+    		.document(user.getUid());
+    	
+    	DocumentReference bookRef = db.collection("books")
+        	.document(book.getUid());
+    	
+    	if (user.getBookIds().contains(book.getUid())) {
+    		LOG.info("이미 대출한 책이므로 작업을 무시합니다. (고유 ID: " + book.getUid() + ")");
+    		
+    		return ApiFutures.immediateFuture(null);
+    	}
+    	
+    	user.getBookIds().add(book.getUid());
+    	
+    	book.setBorrowerId(user.getUid());
+    	book.setBorrowDate(dateFormatter.format(new Date()));
+    	
+    	LOG.info("주어진 책을 대출합니다. (고유 ID: " + book.getUid() + ")");
+    	
+    	return ApiFutures.transformAsync(
+    		userRef.update(user.getData()), 
+    		(result) -> bookRef.update(book.getData()), 
+    		pool
+    	);
+    }
+    
+    /**
+     * 주어진 사용자 정보로 책을 반납한다.
+     * 
+     * @param user 사용자 계정 정보.
+     * @param book 사용자가 반납할 책의 정보.
+     * @return 데이터베이스 처리 작업 (비동기 연산)의 결과값.
+     */
+    public ApiFuture<WriteResult> returnBook(final User user, final Book book) {
+    	DocumentReference userRef = db.collection("users")
+        		.document(user.getUid());
+        	
+    	DocumentReference bookRef = db.collection("books")
+        	.document(book.getUid());
+    	
+    	user.getBookIds().remove(book.getUid());
+    	
+    	book.setBorrowerId(null);
+    	book.setBorrowDate(null);
+    	
+    	LOG.info("주어진 책을 반납합니다. (고유 ID: " + book.getUid() + ")");
+    	
+    	return ApiFutures.transformAsync(
+    		userRef.update(user.getData()), 
+    		(result) -> bookRef.update(book.getData()),
+    		pool
+    	);
     }
     
     /**
