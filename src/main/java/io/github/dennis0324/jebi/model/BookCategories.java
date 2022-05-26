@@ -25,9 +25,9 @@ package io.github.dennis0324.jebi.model;
  * 
  * @author dennis0324, jdeokkim
  */
-public class BookCategory {
+public class BookCategories {
 	// 책의 대분류.
-	private static final String[] BIG_CATEGORIES = {
+	public static final String[] BIG_CATEGORIES = {
         "총류",
         "철학",
         "종교",
@@ -41,7 +41,8 @@ public class BookCategory {
     };
 	
 	// "총류" 아래의 소분류.
-	public static final String[] SMALL_CATEGORIES_0 = {
+	private static final String[] SMALL_CATEGORIES_0 = {
+		"(미사용)",
         "도서학, 서지학",
         "문헌정보학",
         "백과사전",
@@ -55,6 +56,7 @@ public class BookCategory {
 	
 	// "철학" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_1 = {
+    	"(미사용)",
         "형이상학",
         "인식론, 인과론, 인간학",
         "철학의 체계",
@@ -68,6 +70,7 @@ public class BookCategory {
     
     // "종교" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_2 = {
+    	"(미사용)",
         "비교종교",
         "불교",
         "기독교",
@@ -81,6 +84,7 @@ public class BookCategory {
     
     // "사회과학" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_3 = {
+    	"(미사용)",
         "통계학",
         "경제학",
         "사회학, 사회문제",
@@ -94,6 +98,7 @@ public class BookCategory {
     
     // "자연과학" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_4 = {
+        "(미사용)",
         "수학",
         "물리학",
         "화학",
@@ -107,6 +112,7 @@ public class BookCategory {
     
     // "기술과학" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_5 = {
+        "(미사용)",
         "의학",
         "농업, 농학",
         "공학, 공업일반, 토목공학, 환경공학",
@@ -120,6 +126,7 @@ public class BookCategory {
     
     // "예술" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_6 = {
+        "(미사용)",
         "건축물",
         "조각, 조형미술",
         "공예, 장식미술",
@@ -133,6 +140,7 @@ public class BookCategory {
     
     // "언어" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_7 = {
+        "(미사용)",
         "한국어",
         "중국어",
         "일본어, 기타아시아제어",
@@ -146,6 +154,7 @@ public class BookCategory {
     
     // "문학" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_8 = {
+        "(미사용)",
         "한국문학",
         "중국문학",
         "일본문학, 기타아시아문학",
@@ -159,6 +168,7 @@ public class BookCategory {
     
     // "역사" 아래의 소분류.
     private static final String[] SMALL_CATEGORIES_9 = {
+        "(미사용)",
         "아시아",
         "유럽",
         "아프리카",
@@ -171,7 +181,7 @@ public class BookCategory {
     };
     
     // 책의 소분류.
-    private static final String[][] SMALL_CATEGORIES = {
+    public static final String[][] SMALL_CATEGORIES = {
     	SMALL_CATEGORIES_0,
     	SMALL_CATEGORIES_1,
     	SMALL_CATEGORIES_2,
@@ -185,30 +195,27 @@ public class BookCategory {
     };
     
     /**
-     * 주어진 책의 대분류와 소분류를 반환한다.
+     * 주어진 분류 번호에 해당하는 책의 대분류와 소분류의 인덱스를 반환한다.
      * 
-     * @param book 대분류와 소분류를 찾을 책.
-     * @return 책의 대분류와 소분류.
+     * @param book 대분류와 소분류의 인덱스를 찾을 책.
+     * @return 책의 대분류와 소분류의 인덱스.
      */
-    public static String[] getCategories(Book book) {
-    	return getCategories(book.getCategoryNumber());
+    public static int[] getIndexes(Book book) {
+    	return getIndexes(book.getCategoryNumber());
     }
     
     /**
-     * 주어진 분류 번호에 해당하는 책의 대분류와 소분류를 반환한다.
+     * 주어진 분류 번호에 해당하는 책의 대분류와 소분류의 인덱스를 반환한다.
      * 
      * @param categoryNumber 책의 분류 번호.
-     * @return 책의 대분류와 소분류.
+     * @return 책의 대분류와 소분류의 인덱스.
      */
-    public static String[] getCategories(int categoryNumber) {
+    public static int[] getIndexes(int categoryNumber) {
     	if (categoryNumber < 100 || categoryNumber > 999) return null;
     	
     	int firstDigit = categoryNumber / 100;
     	int secondDigit = (categoryNumber % 100) / 10;
     	
-    	return new String[] { 
-    		BIG_CATEGORIES[firstDigit], 
-    		SMALL_CATEGORIES[firstDigit][secondDigit]
-    	};
+    	return new int[] { firstDigit, secondDigit };
     }
 }

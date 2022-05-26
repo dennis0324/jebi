@@ -32,7 +32,9 @@ import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.component.CapsuleButton;
 import io.github.dennis0324.jebi.model.Book;
+import io.github.dennis0324.jebi.model.BookCategories;
 import io.github.dennis0324.jebi.model.DatabaseMode;
+import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
@@ -40,6 +42,8 @@ import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -55,14 +59,20 @@ public class BookEditAddCompoController extends Controller {
 	// `BookEditAddCompoController`의 로거.
     private static final Logger LOG = LoggerFactory.getLogger(BookEditAddCompoController.class);
     
-    // `DataProvider` 인스턴스.
-    private DataProvider provider = DataProvider.getInstance();
+    // 책의 대분류가 저장된 "관찰 가능한" 배열.
+    private static ObservableList<String> bigCategories = FXCollections.observableArrayList();
+    
+    // 책의 소분류가 저장된 "관찰 가능한" 배열.
+    private static ObservableList<String> smallCategories = FXCollections.observableArrayList();
     
     // 이전 화면으로 돌아갈지의 "관찰 가능한" 여부. 
-    private SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
+    private static SimpleBooleanProperty backProperty = new SimpleBooleanProperty(false);
     
     // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
     private static SimpleObjectProperty<DatabaseMode> databaseModeProperty;
+    
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
     
     // 테이블에서 선택한 책.
     private Book selectedBook = null;
@@ -100,11 +110,11 @@ public class BookEditAddCompoController extends Controller {
 	@FXML
 	private HBox categorySelContainer;
 	
-	// @FXML
-	// private MFXComboBox<?> smallCategoryComboBox;
+	@FXML
+	private MFXComboBox<String> smallCategoryComboBox;
 	
-	// @FXML
-	// private MFXComboBox<?> bigCategoryComboBox;
+	@FXML
+	private MFXComboBox<String> bigCategoryComboBox;
 	
 	@FXML
 	private HBox btnContainer;
@@ -131,8 +141,11 @@ public class BookEditAddCompoController extends Controller {
 	
 	@Override
 	public void initialize() {
-		errorMsgLabel.setVisible(false); // setmanaged에서 setvisible로 바꼈음 이거 사라지게 설계한게 아니라서 없애면 형태가 바뀜(dennis ko)
+		// dennis0324: 편집 영역 형태 유지를 위해 
+		// `setManaged()`에서 `setVisible()`로 변경
+		errorMsgLabel.setVisible(false);
 		
+		setupComboBoxes();
 		setupCapsuleBtns();
 		setupIconBtn();
 		
@@ -142,7 +155,7 @@ public class BookEditAddCompoController extends Controller {
     @Override
     public void onPageLoad() {
     	databaseModeProperty.addListener(
-    		(observable, oldValue, newValue) -> { 
+    		(observable, oldValue, newValue) -> {
     			if (newValue == DatabaseMode.EDIT) {
     				editToggleBtn.setVisible(true);
     				
@@ -151,6 +164,9 @@ public class BookEditAddCompoController extends Controller {
     		    	publisherField.setEditable(false);
     		    	publishDateField.setEditable(false);
     		    	categoryField.setEditable(false);
+    		    	
+    		    	bigCategoryComboBox.setEditable(false);
+    		    	smallCategoryComboBox.setEditable(false);
     		    	
     		    	borrowCapsuleBtn.setText("대출");
     			} else if (newValue == DatabaseMode.ADD) {
@@ -161,6 +177,9 @@ public class BookEditAddCompoController extends Controller {
     		    	publisherField.setEditable(true);
     		    	publishDateField.setEditable(true);
     		    	categoryField.setEditable(true);
+    		    	
+    		    	bigCategoryComboBox.setEditable(true);
+    		    	smallCategoryComboBox.setEditable(true);
     		    	
     		    	borrowCapsuleBtn.setText("추가");
     			}
@@ -184,6 +203,86 @@ public class BookEditAddCompoController extends Controller {
     	publisherField.setEditable(editMode);
     	publishDateField.setEditable(editMode);
     	categoryField.setEditable(editMode);
+    	
+    	bigCategoryComboBox.setEditable(editMode);
+    	smallCategoryComboBox.setEditable(editMode);
+    }
+    
+    /**
+     * '저장' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    public void onSaveCapsuleBtnPressed(MouseEvent event) {
+    	selectedBook.setName(nameField.getText());
+    	selectedBook.setAuthor(authorField.getText());
+    	selectedBook.setPublisher(publisherField.getText());
+    	selectedBook.setPublishDate(publishDateField.getText());
+    	
+    	final int categoryNumber = (bigCategoryComboBox.getSelectedIndex()) * 100
+    		+ (smallCategoryComboBox.getSelectedIndex()) * 10;
+    	
+    	selectedBook.setCategoryNumber(categoryNumber);
+    	
+    	ApiFutures.addCallback(
+			provider.updateBook(selectedBook),
+			new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	backProperty.set(true);
+                	
+                	databaseModeProperty.set(DatabaseMode.RELOAD);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+		);
+    }
+    
+    /**
+     * '대출' 또는 '추가' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    public void onBorrowCapsuleBtnPressed(MouseEvent event) {
+    	if (databaseModeProperty.get() == DatabaseMode.EDIT) {
+    		/* TODO: '대출' 기능 구현 */
+    	} else if (databaseModeProperty.get() == DatabaseMode.ADD) {
+    		/* TODO: '추가' 기능 구현 */
+    	}
+    }
+    
+    /**
+     * '삭제' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+    public void onDeleteCapsuleBtnPressed(MouseEvent event) {
+    	ApiFutures.addCallback(
+			provider.deleteBook(selectedBook.getUid()),
+			new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	Platform.runLater(
+                		() -> {
+                			backProperty.set(true);
+                			
+                			databaseModeProperty.set(DatabaseMode.RELOAD);
+                		}
+                	);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            },
+            provider.getThreadPool()
+		);
     }
     
     /**
@@ -222,6 +321,9 @@ public class BookEditAddCompoController extends Controller {
     		publisherField.clear();
     		publishDateField.clear();
     		categoryField.clear();
+    		
+    		bigCategoryComboBox.setText("알 수 없음");
+        	smallCategoryComboBox.setText("알 수 없음");
     	} else {
     		if (selectedBook.getAuthor().isBlank()) databaseModeProperty.set(DatabaseMode.ADD);
         	else databaseModeProperty.set(DatabaseMode.EDIT);
@@ -231,7 +333,25 @@ public class BookEditAddCompoController extends Controller {
     		publisherField.setText(selectedBook.getPublisher());
     		publishDateField.setText(selectedBook.getPublishDate());
     		categoryField.setText(Integer.toString(selectedBook.getCategoryNumber()));
+    		
+			final int[] indexes = BookCategories.getIndexes(selectedBook);
+			
+			smallCategories.setAll(BookCategories.SMALL_CATEGORIES[indexes[0]]);
+    		
+    		bigCategoryComboBox.selectIndex(indexes[0]);
+	    	smallCategoryComboBox.selectIndex(indexes[1]);
     	}
+    }
+    
+    /**
+     * 콤보 박스를 초기화한다.
+     */
+    private void setupComboBoxes() {
+    	bigCategories.setAll(BookCategories.BIG_CATEGORIES);
+    	smallCategories.setAll(BookCategories.SMALL_CATEGORIES[0]);
+    	
+    	bigCategoryComboBox.setItems(bigCategories);
+    	smallCategoryComboBox.setItems(smallCategories);
     }
     
     /**
@@ -275,71 +395,4 @@ public class BookEditAddCompoController extends Controller {
     	
     	NodeUtils.makeRegionCircular(backIconBtn);
 	}
-    
-    /**
-     * '저장' 버튼을 클릭했을 때 호출되는 메소드이다.
-     * 
-     * @param event 마우스 이벤트.
-     */
-    private void onSaveCapsuleBtnPressed(MouseEvent event) {
-    	ApiFutures.addCallback(
-			provider.updateBook(selectedBook),
-			new ApiFutureCallback<WriteResult>() {
-                @Override
-                public void onSuccess(WriteResult result) {
-                	backProperty.set(true);
-                	
-                	databaseModeProperty.set(DatabaseMode.RELOAD);
-                }
-                
-                @Override
-                public void onFailure(Throwable t) {
-                	DataProvider.getLogger().warn(t.toString());
-                }
-            },
-            provider.getThreadPool()
-		);
-    }
-    
-    /**
-     * '대출' 또는 '추가' 버튼을 클릭했을 때 호출되는 메소드이다.
-     * 
-     * @param event 마우스 이벤트.
-     */
-    private void onBorrowCapsuleBtnPressed(MouseEvent event) {
-    	if (databaseModeProperty.get() == DatabaseMode.EDIT) {
-    		/* TODO: '대출' 기능 구현 */
-    	} else if (databaseModeProperty.get() == DatabaseMode.ADD) {
-    		/* TODO: '추가' 기능 구현 */
-    	}
-    }
-    
-    /**
-     * '삭제' 버튼을 클릭했을 때 호출되는 메소드이다.
-     * 
-     * @param event 마우스 이벤트.
-     */
-    private void onDeleteCapsuleBtnPressed(MouseEvent event) {
-    	ApiFutures.addCallback(
-			provider.deleteBook(selectedBook.getUid()),
-			new ApiFutureCallback<WriteResult>() {
-                @Override
-                public void onSuccess(WriteResult result) {
-                	Platform.runLater(
-                		() -> {
-                			backProperty.set(true);
-                			
-                			databaseModeProperty.set(DatabaseMode.RELOAD);
-                		}
-                	);
-                }
-                
-                @Override
-                public void onFailure(Throwable t) {
-                	DataProvider.getLogger().warn(t.toString());
-                }
-            },
-            provider.getThreadPool()
-		);
-    }
 }

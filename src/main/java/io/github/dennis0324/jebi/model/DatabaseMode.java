@@ -26,7 +26,7 @@ package io.github.dennis0324.jebi.model;
  * @author dennis0324, jdeokkim
  */
 public enum DatabaseMode {
-	EDIT,
-	ADD,
-	RELOAD
+	EDIT,   // 기존 내용을 수정한다.
+	ADD,    // 새로운 내용을 추가한다.
+	RELOAD  // 모든 정보를 다시 로드한다.
 }

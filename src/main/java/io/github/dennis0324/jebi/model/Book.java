@@ -185,4 +185,49 @@ public class Book {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
+	
+	/**
+	 * 책의 이름을 설정한다.
+	 * 
+	 * @param name 책의 이름.
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * 책의 저자를 설정한다.
+	 * 
+	 * @param author 책의 저자.
+	 */
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	
+	/**
+	 * 책의 출판사를 설정한다.
+	 * 
+	 * @param publisher 책의 출판사.
+	 */
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+	
+	/**
+	 * 책의 출판 날짜를 설정한다.
+	 * 
+	 * @param publishDate 책의 출판 날짜.
+	 */
+	public void setPublishDate(String publishDate) {
+		this.publishDate = publishDate;
+	}
+	
+	/**
+	 * 책의 분류를 설정한다.
+	 * 
+	 * @param categoryNumber 책의 분류.
+	 */
+	public void setCategoryNumber(int categoryNumber) {
+		this.categoryNumber = categoryNumber;
+	}
 }

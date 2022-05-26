@@ -69,11 +69,11 @@ public class UserEditAddCompoController extends Controller {
     // 다음으로 수행할 데이터베이스 작업의 "관찰 가능한" 종류.
     private static SimpleObjectProperty<DatabaseMode> databaseModeProperty;
     
-    // `DataProvider` 인스턴스.
-    private DataProvider provider = DataProvider.getInstance();
-    
     // 테이블에서 선택한 사용자가 빌린 모든 책 정보가 저장된 배열.
     private ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
+    
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
     
     // 현재 접속한 사용자.
     private User currentUser = null;
@@ -167,6 +167,15 @@ public class UserEditAddCompoController extends Controller {
     }
     
     /**
+   	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
+   	 * 
+   	 * @param event 마우스 이벤트의 종류.
+   	 */
+   	public void onTableRowCellClicked(MouseEvent event) {
+   		/* TODO: ... */
+   	}
+    
+    /**
 	 * 이전 화면으로 돌아갈지의 "관찰 가능한" 여부를 반환한다.
 	 * 
 	 * @return 이전 화면으로 돌아갈지의 "관찰 가능한" 여부.
@@ -254,15 +263,6 @@ public class UserEditAddCompoController extends Controller {
     		Platform.runLater(() -> borrowedBookTable.setItems(borrowedBooks));
     	}
     }
-    
-    /**
-   	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
-   	 * 
-   	 * @param event 마우스 이벤트의 종류.
-   	 */
-   	private void onTableRowCellClicked(MouseEvent event) {
-   		/* TODO: ... */
-   	}
     
     /**
      * 아이콘 버튼을 초기화한다.
