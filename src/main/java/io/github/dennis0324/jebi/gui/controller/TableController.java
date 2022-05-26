@@ -278,12 +278,14 @@ public class TableController extends Controller {
 		// 사용자가 볼 수 있는 메뉴를 제한한다.
 		if (!user.isAdmin()) {
 			userMenuBtn.setVisible(false);
-			// bookMenuBtn.setVisible(false);
-			
-			/* TODO: ... */
+			bookMenuBtn.setVisible(false);
 		}
     	
-    	nameLabel.setText(user.getName());
+    	nameLabel.setText(
+    		user.getName()
+    		+ (user.isAdmin() ? " (관리자)" : " (일반)")
+    	);
+    	
     	emailLabel.setText(user.getEmail());
 	}
 	
@@ -293,6 +295,7 @@ public class TableController extends Controller {
 		
 		if (name.isBlank()) {
 			// TODO: 오류 메시지 출력
+			
 			return;
 		}
 		
