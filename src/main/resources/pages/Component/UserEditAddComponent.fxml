@@ -35,7 +35,7 @@
                <children>
                   <AnchorPane prefHeight="22.0" prefWidth="356.0">
                      <children>
-                        <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-25.0" />
+                        <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-20.0" />
                      </children>
                   </AnchorPane>
                   <MFXTextField fx:id="nameField" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
@@ -58,10 +58,10 @@
             <Insets left="50.0" right="50.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="237.0" prefWidth="500.0">
+      <VBox alignment="CENTER" prefHeight="298.0" prefWidth="460.0">
          <children>
-            <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="239.0" prefWidth="371.0" />
-            <HBox fx:id="bookControlContainer" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #2b2a32;" />
+            <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="226.0" prefWidth="360.0" />
+            <HBox fx:id="bookControlContainer" alignment="CENTER" prefHeight="70.0" prefWidth="360.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #2b2a32;" />
          </children>
          <padding>
             <Insets left="50.0" right="50.0" />
