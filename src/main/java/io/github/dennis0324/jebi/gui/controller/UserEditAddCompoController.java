@@ -22,10 +22,14 @@ package io.github.dennis0324.jebi.gui.controller;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.WriteResult;
@@ -50,6 +54,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -76,13 +81,16 @@ public class UserEditAddCompoController extends Controller {
     // `DataProvider` 인스턴스.
     private DataProvider provider = DataProvider.getInstance();
     
+    // 사용자가 빌린 책 테이블에서 선택한 책.
+    private Book selectedBook = null;
+    
     // 현재 접속한 사용자.
     private User currentUser = null;
     
     // 테이블에서 선택한 사용자.
     private User selectedUser = null;
 
-	// 사용자 정보 '책' 반납 버튼
+	// 사용자가 빌린 책의 '반납' 버튼
 	private CapsuleButton returnBookBtn;
     
 	@FXML
@@ -173,7 +181,45 @@ public class UserEditAddCompoController extends Controller {
    	 * @param event 마우스 이벤트의 종류.
    	 */
    	public void onTableRowCellClicked(MouseEvent event) {
-   		/* TODO: ... */
+   		ObservableMap<Integer, Book> obMap = borrowedBookTable.getSelectionModel()
+			.getSelection();
+		
+		Iterator<Entry<Integer, Book>> iterator = obMap.entrySet().iterator();
+		
+		if (iterator.hasNext()) {
+			Entry<Integer, Book> entry = iterator.next();
+			
+			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 책을 선택했습니다.");
+			
+			this.selectedBook = entry.getValue();
+		}
+   	}
+   	
+    /**
+     * '반납' 버튼을 클릭했을 때 호출되는 메소드이다.
+     * 
+     * @param event 마우스 이벤트.
+     */
+   	public void onReturnBookBtnPressed(MouseEvent event) {
+   		if (selectedBook == null) return;
+   		
+   		ApiFutures.addCallback(
+   			provider.returnBook(currentUser, selectedBook), 
+   			new ApiFutureCallback<WriteResult>() {
+                @Override
+                public void onSuccess(WriteResult result) {
+                	borrowedBookTable.getSelectionModel().clearSelection();
+                	
+                	updateData(currentUser);
+                }
+                
+                @Override
+                public void onFailure(Throwable t) {
+                	DataProvider.getLogger().warn(t.toString());
+                }
+            }, 
+   			provider.getThreadPool()
+   		);
    	}
     
     /**
@@ -222,18 +268,16 @@ public class UserEditAddCompoController extends Controller {
      * @param selectedUser 테이블에서 선택한 사용자.
      */
     public void updateData(User selectedUser) {
-    	if (this.selectedUser == selectedUser) return;
-    	
     	this.selectedUser = selectedUser;
     	
     	backProperty.set(false);
-    	
-    	borrowedBooks.clear();
     	
     	if (selectedUser == null) {
     		nameField.clear();
     		emailField.clear();
     		phoneNumberField.clear();
+    		
+    		borrowedBooks.clear();
     	} else {
     		if (selectedUser.getEmail().isBlank()) databaseModeProperty.set(DatabaseMode.ADD);
         	else databaseModeProperty.set(DatabaseMode.EDIT);
@@ -242,23 +286,32 @@ public class UserEditAddCompoController extends Controller {
     		emailField.setText(selectedUser.getEmail());
     		phoneNumberField.setText(selectedUser.getPhoneNumber());
     		
-    		for (String uid : selectedUser.getBookIds()) {
-    			ApiFutures.addCallback(
-		            provider.getBookByUid(uid),
-		            new ApiFutureCallback<Book>() {
-		                @Override
-		                public void onSuccess(Book result) {
-		                	Platform.runLater(() -> borrowedBooks.add(result));
-		                }
-		                
-		                @Override
-		                public void onFailure(Throwable t) {
-		                	DataProvider.getLogger().warn(t.toString());
-		                }
-		            },
-		            provider.getThreadPool()
-		        );
-    		}
+    		ArrayList<ApiFuture<Book>> books = new ArrayList<>();
+    		
+    		for (String uid : selectedUser.getBookIds())
+    			books.add(provider.getBookByUid(uid));
+    		
+    		// 모든 책 정보를 다 받을 때까지 기다렸다가 작업을 수행한다.
+    		ApiFutures.addCallback(
+    			ApiFutures.allAsList(books), 
+    			new ApiFutureCallback<List<Book>>() {
+	                @Override
+	                public void onSuccess(List<Book> result) {
+	                	Platform.runLater(
+	                		() -> {
+	                			borrowedBooks.setAll(result);
+	                			borrowedBookTable.setItems(borrowedBooks);
+	                		}
+	                	);
+	                }
+	                
+	                @Override
+	                public void onFailure(Throwable t) {
+	                	DataProvider.getLogger().warn(t.toString());
+	                }
+	            },
+	            provider.getThreadPool()
+    		);
     	}
     }
     
@@ -267,8 +320,10 @@ public class UserEditAddCompoController extends Controller {
      */
     private void setupIconBtn() {
 		returnBookBtn = new CapsuleButton();
+		
 		returnBookBtn.setText("반납");
 		returnBookBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+		returnBookBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onReturnBookBtnPressed);
 
 		bookControlContainer.getChildren().add(returnBookBtn);
 
@@ -307,8 +362,6 @@ public class UserEditAddCompoController extends Controller {
             new StringFilter<>("작가", Book::getAuthor),
             new StringFilter<>("출판사", Book::getPublisher)
         );
-        
-        borrowedBookTable.setItems(borrowedBooks);
         
         // borrowedBookTable.autosizeColumnsOnInitialization();
     }

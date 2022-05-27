@@ -126,13 +126,13 @@ public class BookEditAddCompoController extends Controller {
 	/* ::: 나머지 버튼 영역... ::: */
 	
 	// '저장' 버튼.
-	private CapsuleButton saveCapsuleBtn;
+	private CapsuleButton saveBtn;
 	
 	// '대출' 버튼.
-	private CapsuleButton borrowCapsuleBtn;
+	private CapsuleButton borrowBtn;
 	
 	// '삭제' 버튼.
-	private CapsuleButton deleteCapsuleBtn;
+	private CapsuleButton deleteBtn;
 	
 	/**
      * 클래스 생성자가 호출되기 전에 호출된다.
@@ -172,7 +172,7 @@ public class BookEditAddCompoController extends Controller {
     		    	bigCategoryComboBox.setEditable(false);
     		    	smallCategoryComboBox.setEditable(false);
     		    	
-    		    	borrowCapsuleBtn.setText("대출");
+    		    	borrowBtn.setText("대출");
     			} else if (newValue == DatabaseMode.ADD) {
     				editToggleBtn.setVisible(false);
     				
@@ -185,7 +185,7 @@ public class BookEditAddCompoController extends Controller {
     		    	bigCategoryComboBox.setEditable(true);
     		    	smallCategoryComboBox.setEditable(true);
     		    	
-    		    	borrowCapsuleBtn.setText("추가");
+    		    	borrowBtn.setText("추가");
     			}
     		}
     	);
@@ -217,7 +217,7 @@ public class BookEditAddCompoController extends Controller {
      * 
      * @param event 마우스 이벤트.
      */
-    public void onSaveCapsuleBtnPressed(MouseEvent event) {
+    public void onSaveBtnPressed(MouseEvent event) {
     	selectedBook.setName(nameField.getText());
     	selectedBook.setAuthor(authorField.getText());
     	selectedBook.setPublisher(publisherField.getText());
@@ -252,7 +252,7 @@ public class BookEditAddCompoController extends Controller {
      * 
      * @param event 마우스 이벤트.
      */
-    public void onBorrowCapsuleBtnPressed(MouseEvent event) {
+    public void onBorrowBtnPressed(MouseEvent event) {
     	if (databaseModeProperty.get() == DatabaseMode.EDIT) {
     		ApiFutures.addCallback(
     			provider.borrowBook(currentUser, selectedBook),
@@ -285,7 +285,7 @@ public class BookEditAddCompoController extends Controller {
      * 
      * @param event 마우스 이벤트.
      */
-    public void onDeleteCapsuleBtnPressed(MouseEvent event) {
+    public void onDeleteBtnPressed(MouseEvent event) {
     	ApiFutures.addCallback(
 			provider.deleteBook(selectedBook.getUid()),
 			new ApiFutureCallback<WriteResult>() {
@@ -333,8 +333,6 @@ public class BookEditAddCompoController extends Controller {
      * @param selectedBook 테이블에서 선택한 책.
      */
     public void updateData(Book selectedBook) {
-    	// if (this.selectedBook == selectedBook) return;
-    	
     	this.selectedBook = selectedBook;
     	
     	backProperty.set(false);
@@ -391,29 +389,29 @@ public class BookEditAddCompoController extends Controller {
      * 아이콘 버튼을 초기화한다.
      */
     private void setupCapsuleBtns() {
-        saveCapsuleBtn = new CapsuleButton();
+        saveBtn = new CapsuleButton();
         
-        saveCapsuleBtn.setText("저장");
-        saveCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
-        saveCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSaveCapsuleBtnPressed);
+        saveBtn.setText("저장");
+        saveBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        saveBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSaveBtnPressed);
         
-        btnContainer.getChildren().add(saveCapsuleBtn);
+        btnContainer.getChildren().add(saveBtn);
         
-        borrowCapsuleBtn = new CapsuleButton();
+        borrowBtn = new CapsuleButton();
         
-        // borrowCapsuleBtn.setText("대출");
-        borrowCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
-        borrowCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBorrowCapsuleBtnPressed);
+        // borrowBtn.setText("대출");
+        borrowBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        borrowBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBorrowBtnPressed);
         
-        btnContainer.getChildren().add(borrowCapsuleBtn);
+        btnContainer.getChildren().add(borrowBtn);
 
-        deleteCapsuleBtn = new CapsuleButton();
+        deleteBtn = new CapsuleButton();
         
-        deleteCapsuleBtn.setText("삭제");
-        deleteCapsuleBtn.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
-        deleteCapsuleBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onDeleteCapsuleBtnPressed);
+        deleteBtn.setText("삭제");
+        deleteBtn.getStylesheets().add(getClass().getResource("/css/customMFXButtonWarning.css").toString());
+        deleteBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onDeleteBtnPressed);
         
-        btnContainer.getChildren().add(deleteCapsuleBtn);
+        btnContainer.getChildren().add(deleteBtn);
     }
     
     /**

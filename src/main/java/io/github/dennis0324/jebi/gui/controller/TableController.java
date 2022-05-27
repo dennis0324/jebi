@@ -20,6 +20,14 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
+import java.util.List;
+
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
+import com.google.firebase.auth.internal.GetAccountInfoResponse.Provider;
+
+import io.github.dennis0324.jebi.core.DataProvider;
+import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -71,6 +79,9 @@ enum MenuType {
 public class TableController extends Controller {
     // 사용자가 선택한 메뉴의 "관찰 가능한" 인덱스.
     private static SimpleObjectProperty<MenuType> menuTypeProperty;
+    
+    // `DataProvider` 인스턴스.
+    private DataProvider provider = DataProvider.getInstance();
     
     // 접속한 사용자 계정의 정보.
     private static User user;
@@ -258,10 +269,30 @@ public class TableController extends Controller {
 		userEditAddCompoController.getDatabaseModeProperty().addListener(
 			(observable, oldValue, newValue) -> {
 				if (newValue == DatabaseMode.RELOAD) {
-					tableUserCompoController.reloadUsers();
-					
-					userEditAddCompoController.getDatabaseModeProperty()
-						.set(DatabaseMode.EDIT);
+					ApiFutures.addCallback(
+						provider.getUserByUid(user.getUid()),
+						new ApiFutureCallback<User>() {
+			                @Override
+			                public void onSuccess(User result) {
+			                	Platform.runLater(
+			                		() -> {
+			                			user = result;
+			                			
+			                			tableUserCompoController.reloadUsers();
+			        					
+			        					userEditAddCompoController.getDatabaseModeProperty()
+			        						.set(DatabaseMode.EDIT);
+			                		}
+			                	);
+			                }
+			                
+			                @Override
+			                public void onFailure(Throwable t) {
+			                	DataProvider.getLogger().warn(t.toString());
+			                }
+			            },
+						provider.getThreadPool()
+					);
 				}
 			}
 		);
@@ -270,11 +301,31 @@ public class TableController extends Controller {
 		bookEditAddCompoController.getDatabaseModeProperty().addListener(
 			(observable, oldValue, newValue) -> {
 				if (newValue == DatabaseMode.RELOAD) {
-					tableBookCompoController.reloadBooks();
-					
-					userEditAddCompoController.updateData(user);
-					bookEditAddCompoController.getDatabaseModeProperty()
-						.set(DatabaseMode.EDIT);
+					ApiFutures.addCallback(
+						provider.getUserByUid(user.getUid()),
+						new ApiFutureCallback<User>() {
+			                @Override
+			                public void onSuccess(User result) {
+			                	Platform.runLater(
+			                		() -> {
+			                			user = result;
+			                			
+			                			tableBookCompoController.reloadBooks();
+			        					
+			        					userEditAddCompoController.updateData(user);
+			        					bookEditAddCompoController.getDatabaseModeProperty()
+			        						.set(DatabaseMode.EDIT);
+			                		}
+			                	);
+			                }
+			                
+			                @Override
+			                public void onFailure(Throwable t) {
+			                	DataProvider.getLogger().warn(t.toString());
+			                }
+			            },
+						provider.getThreadPool()
+					);
 				}
 			}
 		);

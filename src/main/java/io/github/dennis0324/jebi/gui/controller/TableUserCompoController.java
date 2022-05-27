@@ -90,6 +90,28 @@ public class TableUserCompoController extends Controller {
 	}
 	
 	/**
+	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
+	 * 
+	 * @param event 마우스 이벤트의 종류.
+	 */
+	private void onTableRowCellClicked(MouseEvent event) {
+		ObservableMap<Integer, User> obMap = userTable.getSelectionModel()
+			.getSelection();
+		
+		Iterator<Entry<Integer, User>> iterator = obMap.entrySet().iterator();
+		
+		clearSelection();
+		
+		if (iterator.hasNext()) {
+			Entry<Integer, User> entry = iterator.next();
+			
+			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 사용자를 선택했습니다.");
+			
+			userProperty.set(entry.getValue());
+		}
+	}
+	
+	/**
 	 * 테이블에서 선택한 사용자의 "관찰 가능한" 정보를 반환한다.
 	 * 
 	 * @return 테이블에서 선택한 사용자의 "관찰 가능한" 정보.
@@ -156,28 +178,6 @@ public class TableUserCompoController extends Controller {
             },
             provider.getThreadPool()
         );
-	}
-	
-	/**
-	 * 테이블의 셀을 클릭했을 때 호출되는 메소드이다.
-	 * 
-	 * @param event 마우스 이벤트의 종류.
-	 */
-	private void onTableRowCellClicked(MouseEvent event) {
-		ObservableMap<Integer, User> obMap = userTable.getSelectionModel()
-			.getSelection();
-		
-		Iterator<Entry<Integer, User>> iterator = obMap.entrySet().iterator();
-		
-		clearSelection();
-		
-		if (iterator.hasNext()) {
-			Entry<Integer, User> entry = iterator.next();
-			
-			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 사용자를 선택했습니다.");
-			
-			userProperty.set(entry.getValue());
-		}
 	}
 	
 	/**
