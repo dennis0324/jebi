@@ -268,6 +268,12 @@ public final class DataProvider {
     	DocumentReference bookRef = db.collection("books")
         	.document(book.getUid());
     	
+    	if (!user.getBookIds().contains(book.getUid())) {
+    		LOG.info("이미 반납한 책이므로 작업을 무시합니다. (고유 ID: " + book.getUid() + ")");
+    		
+    		return ApiFutures.immediateFuture(null);
+    	}
+    	
     	user.getBookIds().remove(book.getUid());
     	
     	book.setBorrowerId(null);
