@@ -279,7 +279,8 @@ public class TableController extends Controller {
 			                			user = result;
 			                			
 			                			tableUserCompoController.reloadUsers();
-			        					
+			                			
+			                			userEditAddCompoController.updateData(user);
 			        					userEditAddCompoController.getDatabaseModeProperty()
 			        						.set(DatabaseMode.EDIT);
 			                		}

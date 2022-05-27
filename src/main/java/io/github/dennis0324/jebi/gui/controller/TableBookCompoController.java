@@ -141,9 +141,7 @@ public class TableBookCompoController extends Controller {
                 	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
                 	Platform.runLater(
                 		() -> {
-                			books.clear();
-                			books.addAll(result);
-                			
+                			books.setAll(result);
                 			bookTable.setItems(books);
                 		}
                 	);
