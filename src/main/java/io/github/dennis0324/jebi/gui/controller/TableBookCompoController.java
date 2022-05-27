@@ -35,15 +35,14 @@ import com.google.cloud.firestore.WriteResult;
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
 import io.github.dennis0324.jebi.model.Book;
-import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -73,7 +72,13 @@ public class TableBookCompoController extends Controller {
     /* ::: 컨트롤러 기본 메소드 정의... ::: */
     
     @Override
-    public void initialize() {
+    public void initialize() { 	
+    	books.addListener(
+    		(ListChangeListener.Change<? extends Book> c) -> {
+    			bookTable.setItems(books);
+    		}
+    	);
+    	
     	onPageLoad();
     }
     
@@ -139,12 +144,7 @@ public class TableBookCompoController extends Controller {
                 	LOG.info("총 " + result.size() + "권의 책을 찾았습니다.");
                 	
                 	// 비동기 연산이 끝난 다음에 테이블을 업데이트한다.
-                	Platform.runLater(
-                		() -> {
-                			books.setAll(result);
-                			bookTable.setItems(books);
-                		}
-                	);
+                	Platform.runLater(() -> books.setAll(result));
                 }
                 
                 @Override

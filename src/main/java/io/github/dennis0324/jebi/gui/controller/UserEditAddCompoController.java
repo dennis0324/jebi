@@ -53,6 +53,7 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
@@ -125,6 +126,15 @@ public class UserEditAddCompoController extends Controller {
 	
 	@Override
     public void initialize() {
+		borrowedBooks.addListener(
+    		(ListChangeListener.Change<? extends Book> c) -> {
+    			borrowedBookTable.setItems(borrowedBooks);
+    			
+    			// 테이블을 강제로 다시 그리도록 한다.
+    			borrowedBookTable.requestLayout();
+    		}
+    	);
+		
 		setupIconBtn();
 		
 		onPageLoad();
@@ -304,7 +314,6 @@ public class UserEditAddCompoController extends Controller {
 	                			LOG.info("총 " + result.size() + "권의 책을 빌렸습니다.");
 	                			
 	                			borrowedBooks.setAll(result);
-	                			borrowedBookTable.setItems(borrowedBooks);
 	                		}
 	                	);
 	                }

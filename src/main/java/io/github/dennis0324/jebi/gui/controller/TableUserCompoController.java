@@ -28,14 +28,12 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.google.cloud.firestore.WriteResult;
 
 import io.github.dennis0324.jebi.core.DataProvider;
 import io.github.dennis0324.jebi.gui.TableViewHelper;
-import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -74,12 +72,11 @@ public class TableUserCompoController extends Controller {
 	
 	@Override
 	public void initialize() {
-		users.addListener(new ListChangeListener<User>() {
-			@Override
-			public void onChanged(Change<? extends User> c) {
-				userTable.setItems(users);
-			}
-		});
+		users.addListener(
+    		(ListChangeListener.Change<? extends User> c) -> {
+    			userTable.setItems(users);
+    		}
+    	);
 		
 		onPageLoad();
 	}
