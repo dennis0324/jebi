@@ -201,7 +201,10 @@ public class UserEditAddCompoController extends Controller {
 			
 			LOG.info("테이블에서 키 값이 " + entry.getKey() + "인 책을 선택했습니다.");
 			
-			this.selectedBook = entry.getValue();
+			selectedBook = entry.getValue();
+			
+			if (selectedBook.getUid().isEmpty())
+				selectedBook = null;
 		}
    	}
    	
@@ -313,6 +316,7 @@ public class UserEditAddCompoController extends Controller {
 	                		() -> {
 	                			LOG.info("총 " + result.size() + "권의 책을 빌렸습니다.");
 	                			
+	                			returnBookBtn.setDisable(result.isEmpty());
 	                			borrowedBooks.setAll(result);
 	                		}
 	                	);
@@ -359,26 +363,28 @@ public class UserEditAddCompoController extends Controller {
     	MFXTableColumn<Book> nameColumn = new MFXTableColumn<>("이름", false, Comparator.comparing(Book::getName));
         MFXTableColumn<Book> authorColumn = new MFXTableColumn<>("작가", false, Comparator.comparing(Book::getAuthor));
         MFXTableColumn<Book> publisherColumn = new MFXTableColumn<>("출판사", false, Comparator.comparing(Book::getPublisher));
-        // MFXTableColumn<Book> borrowDateColumn = new MFXTableColumn<>("빌린 날짜", false, Comparator.comparing(Book::getBorrowDate));
+        MFXTableColumn<Book> borrowDateColumn = new MFXTableColumn<>("빌린 날짜", false, Comparator.comparing(Book::getBorrowDate));
 
         nameColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getName, this::onTableRowCellClicked));
         authorColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getAuthor, this::onTableRowCellClicked));
         publisherColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getPublisher, this::onTableRowCellClicked));
-        // borrowDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getBorrowDate, this::onTableRowCellClicked));
+        borrowDateColumn.setRowCellFactory(book -> TableViewHelper.getRowCellFactory(Book::getBorrowDate, this::onTableRowCellClicked));
         
         borrowedBookTable.getTableColumns().addAll(
         	nameColumn,
         	authorColumn,
-        	publisherColumn
-        	// borrowDateColumn
+        	publisherColumn,
+        	borrowDateColumn
         );
 
         borrowedBookTable.getFilters().addAll(
             new StringFilter<>("이름", Book::getName),
             new StringFilter<>("작가", Book::getAuthor),
-            new StringFilter<>("출판사", Book::getPublisher)
-            // new StringFilter<>("빌린 날짜", Book::getBorrowDate)
+            new StringFilter<>("출판사", Book::getPublisher),
+            new StringFilter<>("빌린 날짜", Book::getBorrowDate)
         );
+        
+        borrowedBookTable.setItems(FXCollections.observableArrayList(new Book("")));
         
         // borrowedBookTable.autosizeColumnsOnInitialization();
     }

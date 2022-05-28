@@ -60,6 +60,7 @@ public class Book {
 	 * @param name 책의 이름.
 	 */
 	public Book(String name) {
+		this.uid = "";
 		this.name = name;
 		this.author = "";
 		this.publisher = "";
@@ -67,6 +68,27 @@ public class Book {
 		this.categoryNumber = -1;
 		this.borrowerId = "";
 		this.borrowDate = "";
+	}
+	
+	/**
+	 * `Book` 클래스의 생성자. 
+	 * 
+	 * (주의: 테스트 목적으로만 사용할 것!)
+	 * 
+	 * @param name 책의 이름.
+	 * @param author 책의 저자.
+	 * @param publisher 책의 출판사.
+	 * @param borrowDate 책을 빌려간 날짜.
+	 */
+	public Book(String name, String author, String publisher, String borrowDate) {
+		this.uid = "";
+		this.name = name;
+		this.author = author;
+		this.publisher = publisher;
+		this.publishDate = "";
+		this.categoryNumber = -1;
+		this.borrowerId = "";
+		this.borrowDate = borrowDate;
 	}
 	
 	/**
