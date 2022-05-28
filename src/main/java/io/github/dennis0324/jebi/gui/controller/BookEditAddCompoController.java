@@ -41,6 +41,7 @@ import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.materialfx.controls.MFXToggleButton;
 import io.github.palexdev.materialfx.utils.NodeUtils;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -120,10 +121,10 @@ public class BookEditAddCompoController extends Controller {
 	@FXML
 	private MFXComboBox<String> bigCategoryComboBox;
 	
+	/* ::: 나머지 버튼 영역... ::: */
+	
 	@FXML
 	private HBox btnContainer;
-	
-	/* ::: 나머지 버튼 영역... ::: */
 	
 	// '저장' 버튼.
 	private CapsuleButton saveBtn;
@@ -158,8 +159,18 @@ public class BookEditAddCompoController extends Controller {
 
     @Override
     public void onPageLoad() {
+    	backProperty.addListener(
+    		(observable, oldValue, newValue) -> {
+    			if (!newValue.booleanValue())
+    				editToggleBtn.setSelected(false);
+    		}
+    	);
+    	
     	databaseModeProperty.addListener(
     		(observable, oldValue, newValue) -> {
+    			categoryField.setEditable(false);
+    	    	categoryField.setDisable(false);
+    	    	
     			if (newValue == DatabaseMode.EDIT) {
     				editToggleBtn.setVisible(true);
     				
@@ -167,12 +178,13 @@ public class BookEditAddCompoController extends Controller {
     		    	authorField.setEditable(false);
     		    	publisherField.setEditable(false);
     		    	publishDateField.setEditable(false);
-    		    	categoryField.setEditable(false);
     		    	
     		    	bigCategoryComboBox.setEditable(false);
     		    	smallCategoryComboBox.setEditable(false);
     		    	
     		    	borrowBtn.setText("대출");
+    		    	
+    		    	updateData(selectedBook);
     			} else if (newValue == DatabaseMode.ADD) {
     				editToggleBtn.setVisible(false);
     				
@@ -180,7 +192,6 @@ public class BookEditAddCompoController extends Controller {
     		    	authorField.setEditable(true);
     		    	publisherField.setEditable(true);
     		    	publishDateField.setEditable(true);
-    		    	categoryField.setEditable(true);
     		    	
     		    	bigCategoryComboBox.setEditable(true);
     		    	smallCategoryComboBox.setEditable(true);
@@ -206,7 +217,6 @@ public class BookEditAddCompoController extends Controller {
     	authorField.setEditable(editMode);
     	publisherField.setEditable(editMode);
     	publishDateField.setEditable(editMode);
-    	categoryField.setEditable(editMode);
     	
     	bigCategoryComboBox.setEditable(editMode);
     	smallCategoryComboBox.setEditable(editMode);
@@ -354,11 +364,14 @@ public class BookEditAddCompoController extends Controller {
     		authorField.setText(selectedBook.getAuthor());
     		publisherField.setText(selectedBook.getPublisher());
     		publishDateField.setText(selectedBook.getPublishDate());
-    		categoryField.setText(Integer.toString(selectedBook.getCategoryNumber()));
+    		categoryField.setText(String.format("%03d", selectedBook.getCategoryNumber()));
     		
 			final int[] indexes = BookCategories.getIndexes(selectedBook);
 			
+			bigCategories.setAll(BookCategories.BIG_CATEGORIES);
 			smallCategories.setAll(BookCategories.SMALL_CATEGORIES[indexes[0]]);
+			
+			LOG.info("대분류 (" + indexes[0] +  ")와 소분류 (" + indexes[1] + ")를 선택합니다.");
     		
     		bigCategoryComboBox.selectIndex(indexes[0]);
 	    	smallCategoryComboBox.selectIndex(indexes[1]);
@@ -383,6 +396,33 @@ public class BookEditAddCompoController extends Controller {
     	
     	bigCategoryComboBox.setItems(bigCategories);
     	smallCategoryComboBox.setItems(smallCategories);
+    	
+    	ReadOnlyIntegerProperty bigCategoryIndexProperty = bigCategoryComboBox
+    		.getSelectionModel().selectedIndexProperty();
+    	
+    	ReadOnlyIntegerProperty smallCategoryIndexProperty = smallCategoryComboBox
+        	.getSelectionModel().selectedIndexProperty();
+    	
+    	bigCategoryIndexProperty.addListener(
+    		(observable, oldValue, newValue) -> {
+    			final int bigCategoryNumber = newValue.intValue() * 100;
+    			
+    			selectedBook.setCategoryNumber(bigCategoryNumber);
+    			categoryField.setText(String.format("%03d", bigCategoryNumber));
+    			
+    			smallCategoryComboBox.selectFirst();
+    		}
+    	);
+    	
+    	smallCategoryIndexProperty.addListener(
+    		(observable, oldValue, newValue) -> {
+    			final int bigCategoryNumber = bigCategoryIndexProperty.intValue() * 100;
+    			final int smallCategoryNumber = newValue.intValue() * 10;
+    			
+    			selectedBook.setCategoryNumber(bigCategoryNumber + smallCategoryNumber);
+    			categoryField.setText(String.format("%03d", bigCategoryNumber + smallCategoryNumber));
+    		}
+    	);
     }
     
     /**
