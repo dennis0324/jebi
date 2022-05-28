@@ -31,11 +31,11 @@
       </BorderPane>
       <VBox alignment="CENTER" prefHeight="298.0" prefWidth="460.0" spacing="30.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="318.0" prefWidth="360.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
+            <VBox alignment="CENTER" prefHeight="253.0" prefWidth="410.0" style="-fx-border-color: #252426; -fx-border-width: 2px 2px 2px 2px; -fx-border-radius: 20px;">
                <children>
                   <AnchorPane prefHeight="22.0" prefWidth="356.0">
                      <children>
-                        <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-20.0" />
+                        <Label alignment="CENTER" layoutX="129.0" layoutY="4.0" prefHeight="14.0" prefWidth="76.0" style="-fx-background-color: #f0eff0;" text="개인정보" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="-10.0" />
                      </children>
                   </AnchorPane>
                   <MFXTextField fx:id="nameField" editable="false" floatMode="BORDER" floatingText="이름" prefHeight="49.0" prefWidth="247.0" selectable="false" stylesheets="@../../css/customMFXTextField.css">
@@ -55,16 +55,16 @@
             </VBox>
          </children>
          <padding>
-            <Insets left="50.0" right="50.0" />
+            <Insets left="20.0" right="20.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="296.0" prefWidth="460.0">
+      <VBox alignment="CENTER" prefHeight="390.0" prefWidth="460.0">
          <children>
-            <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="226.0" prefWidth="360.0" />
+            <MFXPaginatedTableView fx:id="borrowedBookTable" prefHeight="226.0" prefWidth="453.0" />
             <HBox fx:id="bookControlContainer" alignment="CENTER" prefHeight="70.0" prefWidth="360.0" style="-fx-border-width: 0 0 2px 0; -fx-border-color: #2b2a32;" />
          </children>
          <padding>
-            <Insets left="50.0" right="50.0" />
+            <Insets left="20.0" right="20.0" />
          </padding>
       </VBox>
       <HBox alignment="CENTER" prefHeight="74.0" prefWidth="460.0" />
