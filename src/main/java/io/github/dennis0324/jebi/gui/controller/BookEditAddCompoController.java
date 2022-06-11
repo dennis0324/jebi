@@ -81,7 +81,10 @@ public class BookEditAddCompoController extends Controller {
     
     // 테이블에서 선택한 책.
     private Book selectedBook = null;
-    
+
+	// 접속한 사용자 계정의 정보.
+	private static User user;
+
     /* ::: '이전' 버튼과 '수정' 버튼 영역... ::: */
     
     @FXML
@@ -159,6 +162,8 @@ public class BookEditAddCompoController extends Controller {
 
     @Override
     public void onPageLoad() {
+
+
     	backProperty.addListener(
     		(observable, oldValue, newValue) -> {
     			if (!newValue.booleanValue())
@@ -465,5 +470,32 @@ public class BookEditAddCompoController extends Controller {
     	backIconBtn.getRippleGenerator().setRippleColor(Color.rgb(190, 190, 190));
     	
     	NodeUtils.makeRegionCircular(backIconBtn);
+	}
+
+	
+	/**
+	 * editToggleBtn의 정보를 가지고 온다.
+	 * @return `MFXToggleButton`의 형식인 SaveBtn 반환한다.
+	 */
+	public CapsuleButton getSaveBtn(){
+		return saveBtn;
+	}
+
+
+	/**
+	 * editToggleBtn의 정보를 가지고 온다.
+	 * @return `MFXToggleButton`의 형식인 DeleteBtn 반환한다.
+	 */
+	public CapsuleButton getDeleteBtn(){
+		return deleteBtn;
+	}
+
+
+	/**
+	 * editToggleBtn의 정보를 가지고 온다.
+	 * @return `MFXToggleButton`의 형식인 editToggleBtn를 반환한다.
+	 */
+	public MFXToggleButton getEditToggleButton(){
+		return editToggleBtn;
 	}
 }

@@ -101,7 +101,11 @@ public class RegisterController extends Controller {
 	
 	@Override
 	public void onPageLoad() {
-		/* TODO: ... */
+		emailField.setText("");
+		lastNameField.setText("");
+		firstNameField.setText("");
+		passwordField.setText("");
+		phoneNumberField.setText("");
 	}
 	
 	@FXML
@@ -187,6 +191,10 @@ public class RegisterController extends Controller {
 		}
 	}
 
+	@FXML
+    public void onBackIconBtnClicked() {
+		getPageLoader().to("/pages/LoginFirst.fxml");
+    }
 
     /**
      * 아이콘 버튼을 초기화한다.

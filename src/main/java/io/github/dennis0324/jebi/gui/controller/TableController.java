@@ -341,6 +341,9 @@ public class TableController extends Controller {
 		if (!user.isAdmin()) {
 			userMenuBtn.setVisible(false);
 			bookMenuBtn.setVisible(false);
+			bookEditAddCompoController.getEditToggleButton().setVisible(false);
+			bookEditAddCompoController.getSaveBtn().setVisible(false);
+			bookEditAddCompoController.getDeleteBtn().setVisible(false);
 		}
     	
     	nameLabel.setText(

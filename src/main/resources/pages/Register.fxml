@@ -92,7 +92,7 @@
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
             </VBox>
-            <MFXIconWrapper fx:id="backBtn" layoutX="33.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
+            <MFXIconWrapper fx:id="backBtn" onMouseClicked="#onBackIconBtnClicked" layoutX="33.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" />
          </children>
       </AnchorPane>
    </left>
