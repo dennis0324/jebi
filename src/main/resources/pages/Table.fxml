@@ -94,8 +94,7 @@
             </StackPane>
          </children>
       </VBox>
-      <StackPane fx:id="searchPane" prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
-         <fx:include fx:id="searchCompo" source="Component/SearchComponent.fxml" />
+      <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
          <fx:include fx:id="bookEditAddCompo" source="Component/BookEditAddComponent.fxml" />
          <fx:include fx:id="userEditAddCompo" source="Component/UserEditAddComponent.fxml" />
       </StackPane>

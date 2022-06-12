@@ -20,14 +20,10 @@
 
 package io.github.dennis0324.jebi.gui.controller;
 
-import java.util.List;
-
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
-import com.google.firebase.auth.internal.GetAccountInfoResponse.Provider;
 
 import io.github.dennis0324.jebi.core.DataProvider;
-import io.github.dennis0324.jebi.model.Book;
 import io.github.dennis0324.jebi.model.DatabaseMode;
 import io.github.dennis0324.jebi.model.User;
 import io.github.palexdev.materialfx.controls.MFXButton;
@@ -127,17 +123,6 @@ public class TableController extends Controller {
 	@FXML
 	private TableBookCompoController tableBookCompoController;
 	
-	/* ::: 사용자 및 책 검색 영역... ::: */
-	
-	@FXML
-	private StackPane searchPane;
-	
-	@FXML
-	private Parent searchCompo;
-	
-	@FXML
-	private SearchCompoController searchCompoController;
-	
 	/* ::: 사용자 추가 및 편집 영역... ::: */
 	
 	@FXML
@@ -180,11 +165,6 @@ public class TableController extends Controller {
 								
 								tableBookCompo.setManaged(false);
 								tableBookCompo.setVisible(false);
-
-								searchCompo.setManaged(true);
-								searchCompo.setVisible(true);
-								
-								searchCompoController.updateFilters();
 								
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
@@ -199,9 +179,6 @@ public class TableController extends Controller {
 								tableBookCompo.setVisible(true);
 								
 								tableUserCompoController.getUserProperty().set(user);
-								
-								searchCompo.setManaged(false);
-								searchCompo.setVisible(false);
 								
 								userEditAddCompo.setManaged(true);
 								userEditAddCompo.setVisible(true);
@@ -223,10 +200,7 @@ public class TableController extends Controller {
 		
 		// 테이블에서 선택한 사용자에 따라 보여줄 내용을 변경한다.
 		tableUserCompoController.getUserProperty().addListener(
-			(observable, oldValue, newValue) -> {
-				searchCompo.setManaged((newValue == null));
-				searchCompo.setVisible((newValue == null));
-				
+			(observable, oldValue, newValue) -> {				
 				userEditAddCompo.setManaged((newValue != null));
 				userEditAddCompo.setVisible((newValue != null));
 				
@@ -341,6 +315,7 @@ public class TableController extends Controller {
 		if (!user.isAdmin()) {
 			userMenuBtn.setVisible(false);
 			bookMenuBtn.setVisible(false);
+			
 			bookEditAddCompoController.getEditToggleButton().setVisible(false);
 			bookEditAddCompoController.getSaveBtn().setVisible(false);
 			bookEditAddCompoController.getDeleteBtn().setVisible(false);
