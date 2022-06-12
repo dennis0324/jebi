@@ -122,6 +122,13 @@ public class TableController extends Controller {
 	
 	@FXML
 	private TableBookCompoController tableBookCompoController;
+
+
+	@FXML
+	private Parent IdleCompo;
+	
+	@FXML
+	private TableBookCompoController idleStateCompoController;
 	
 	/* ::: 사용자 추가 및 편집 영역... ::: */
 	
@@ -163,9 +170,12 @@ public class TableController extends Controller {
 								tableUserCompo.setManaged(true);
 								tableUserCompo.setVisible(true);
 								
+								IdleCompo.setManaged(true);
+								IdleCompo.setVisible(true);
+								
 								tableBookCompo.setManaged(false);
 								tableBookCompo.setVisible(false);
-								
+
 								userEditAddCompo.setManaged(false);
 								userEditAddCompo.setVisible(false);
 								

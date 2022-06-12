@@ -88,13 +88,13 @@
                <!-- 예를 들면, 다음 줄에서 `fx:id`의 값이 "tableUserCompo"이므로, `TableController`에는 -->
                <!-- `tableUserCompoController`라는 컨트롤러 변수가 생성될 것이다. 자세한 내용은 -->
                <!-- `javafx.fxml.FXMLLoader.CONTROLLER_SUFFIX`를 참고하자. -->
-               
                <fx:include fx:id="tableUserCompo" source="Component/TableUserComponent.fxml" />
                <fx:include fx:id="tableBookCompo" source="Component/TableBookComponent.fxml" />
             </StackPane>
          </children>
       </VBox>
       <StackPane prefHeight="150.0" prefWidth="200.0" style="-fx-background-color: #f0eff0;" HBox.hgrow="ALWAYS">
+         <fx:include fx:id="IdleCompo" source="Component/IdleStateComponent.fxml" />
          <fx:include fx:id="bookEditAddCompo" source="Component/BookEditAddComponent.fxml" />
          <fx:include fx:id="userEditAddCompo" source="Component/UserEditAddComponent.fxml" />
       </StackPane>
