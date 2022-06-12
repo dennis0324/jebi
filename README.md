@@ -27,6 +27,7 @@
 #### `회원 가입` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194676-53a3a273-2aa7-42a2-a874-506718f98853.png)
 </details>
 일반 회원가입 창과 비슷하게 회원가입 페이지를 만들어서 회원가입이 실제로 가능하다.<br /><br />
@@ -34,62 +35,75 @@
 #### `계정 검색` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194682-09ba8b8b-ad15-4b43-8014-8f7de0b27ff5.png)
 </details>
 이메일 찾기
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194687-8639fecc-6941-464b-bf77-64e431485c92.png)
 </details>
 비밀번호 찾기
-<br /><br />
+<br />
 
 #### `책 관리` 기능
 
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194692-178d7993-dfbc-40e3-b5ad-ba96e92013f4.png)
 </details>
+<br />
 
-<br /><br />
 #### `책 대출` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194694-25735577-1d59-4176-b6d1-19ed4ed333d4.png)
 </details>
+<br />
 
-<br /><br />
 ### 일반 사용자 기능
+
 #### `사용자(일반 사용자)` 화면
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194700-c703f915-0c5c-4064-977f-c34d99e83e8f.png)
 </details>
-<br /><br />
+<br />
 
 ### 관리자 기능
 
 #### `사용자 관리` 화면
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194703-3d94e2f5-168f-4943-acee-c7e04f581368.png)
 </details>
-<br /><br />
+<br />
+
 #### `사용자 아이디 클릭` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194707-41d8ff78-83fd-475c-8cbb-48df506cfd6c.png)
 </details>
-<br /><br />
+<br />
+
 #### `사용자 수정` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194718-c9ffa4d4-3bd7-4110-a491-9e1a3cb17f6d.png)
 </details>
-<br /><br />
+<br />
+
 #### `책 삭제 및 정보 수정` 기능
 <details>
   <summary>스크린샷 보기</summary>
+  
   ![image](https://user-images.githubusercontent.com/50710829/173194713-07f1b281-4cf7-4cc6-9e0d-9d9e3b09d78c.png)
 </details>
 
