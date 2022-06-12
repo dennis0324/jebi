@@ -339,7 +339,7 @@ public class UserEditAddCompoController extends Controller {
 		returnBookBtn = new CapsuleButton();
 		
 		returnBookBtn.setText("반납");
-		returnBookBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+		returnBookBtn.getStylesheets().add(getClass().getResource("/css/customMFXButton.css").toString());
 		returnBookBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onReturnBookBtnPressed);
 
 		bookControlContainer.getChildren().add(returnBookBtn);

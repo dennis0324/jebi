@@ -1,4 +1,4 @@
-﻿/*
+/*
  * jebi: A book management software made with JavaFX.
  * 
  * Copyright (c) 2022 Dennis Ko (https://github.com/dennis0324)

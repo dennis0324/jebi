@@ -20,18 +20,42 @@
 
 package io.github.dennis0324.jebi;
 
+import io.github.dennis0324.jebi.gui.PageLoader;
+import io.github.dennis0324.jebi.util.*;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+
 /**
- * 프로그램의 메인 클래스.
+ * 애플리케이션을 나타내는 클래스.
  * 
  * @author jdeokkim
  */
-public class Main {
+public class Jebi extends Application {
 	/**
-	 * 프로그램이 실행될 때 가장 먼저 호출되는 메소드이다.
+	 * 애플리케이션을 실행한다.
 	 * 
-	 * @param args 프로그램의 명령 인수가 저장된 배열.
+	 * @param args 애플리케이션의 명령 인수가 저장된 배열.
 	 */
-	public static void main(String[] args) {
-		Jebi.init(args);
+	public static void init(String[] args) {
+		launch(args);
+	}
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		PageLoader pageLoader = new PageLoader(primaryStage);
+		
+		primaryStage.setTitle(Messages.PRIMARY_STAGE_TITLE);
+		
+		primaryStage.setWidth(Constants.SCREEN_WIDTH);
+		primaryStage.setHeight(Constants.SCREEN_HEIGHT);
+		
+		primaryStage.setResizable(false);
+		
+		primaryStage.setOnCloseRequest(event -> Platform.exit());
+
+		pageLoader.to("/pages/LoginFirst.fxml");
+		
+		primaryStage.show();
 	}
 }

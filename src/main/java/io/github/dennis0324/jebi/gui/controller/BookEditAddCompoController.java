@@ -162,8 +162,6 @@ public class BookEditAddCompoController extends Controller {
 
     @Override
     public void onPageLoad() {
-
-
     	backProperty.addListener(
     		(observable, oldValue, newValue) -> {
     			if (!newValue.booleanValue())
@@ -437,7 +435,7 @@ public class BookEditAddCompoController extends Controller {
         saveBtn = new CapsuleButton();
         
         saveBtn.setText("저장");
-        saveBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        saveBtn.getStylesheets().add(getClass().getResource("/css/customMFXButton.css").toString());
         saveBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onSaveBtnPressed);
         
         btnContainer.getChildren().add(saveBtn);
@@ -445,7 +443,7 @@ public class BookEditAddCompoController extends Controller {
         borrowBtn = new CapsuleButton();
         
         // borrowBtn.setText("대출");
-        borrowBtn.getStylesheets().add(getClass().getResource("/css/customMFXbutton.css").toString());
+        borrowBtn.getStylesheets().add(getClass().getResource("/css/customMFXButton.css").toString());
         borrowBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, this::onBorrowBtnPressed);
         
         btnContainer.getChildren().add(borrowBtn);
