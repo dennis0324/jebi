@@ -172,7 +172,7 @@ public class TableController extends Controller {
 								
 								IdleCompo.setManaged(true);
 								IdleCompo.setVisible(true);
-								
+
 								tableBookCompo.setManaged(false);
 								tableBookCompo.setVisible(false);
 
